@@ -1,0 +1,2079 @@
+---
+title: "Intro to R for Data Science"
+author: "Dr. Laurie Baker"
+date: "03/02/2020"
+output:
+  html_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: '2'
+    toc_float: yes
+  html_notebook:
+    highlight: haddock
+    number_sections: yes
+    theme: simplex
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+---
+
+# Welcome to R!
+
+R is a versatile coding language for data science, with a wonderful community supporting it. Here's a short list of some of the things that make R great.
+
+1. **Free and open source** It's a free and open source programming language and environment for statistical computing, machine learning, and graphics.
+
+2. **Reproducibility and Reporting** writing reproducible reports is now easier than ever thanks to packages like knitr and R Markdown. 
+3. **RStudio** RStudio is a powerful Interactive Development Environment that has made learning R and using R much easier. With options for workflow and project management.  
+4. **Graphics.** R can be used to make great data graphics, with packages like ggplot2 helping users make graphics in an intuitive way. 
+
+5. **R Packages and Community** With over 15,000 packages on [CRAN](https://cran.r-project.org/) alone, there’s pretty much a package to do anything. The greater R community has also expanded tremendously over time, bringing in new users and pushing R to be useful in more applications. Each year there are thousands of meetups, conferences, seminars, and workshops on R all around the world.
+
+
+# Objectives:
+
+![](pictures/Life_Expectancy_by_Year2.png){width=650px}
+
+
+- Familiarise yourself with RStudio and R Notebooks, which is what we’ll use to interact with R.
+
+- Learn about the simple data structures in R: object, vector, and data frame.
+
+- Explore R's basic data types = integer, character, numeric, etc. 
+
+- Learn to read data into R. 
+
+- Introduction to data wrangling using the `tidyverse` set of metapackages. 
+
+- Use the tidyverse verbs to explore the [gapminder](https://www.gapminder.org/data/) data set which includes statistics for countries around the world including life expectancy, population, and GDP per capita.
+
+- Learn to merge datasets using `left_join`.
+
+- Create meaningful visualisations of the data using `ggplot2`.
+
+- Learn where to go for help. 
+
+
+# RStudio and RNotebooks
+
+First let's set it so that our notebook shows up in our viewer. 
+
+* Click on the gear icon next to Knit on the menu. Select Preview in Viewer Pane. 
+
+![](pictures/R_notebook_viewing.png){width=650px}
+
+* Now click on the little arrow next to Knit and select "Knit to HTML".
+
+## RStudio
+
+In this training we will be using RStudio. RStudio is an interactive development environment (IDE) for R and is broken down into various panels for our convenience. 
+
+![Source: [R-Ladies Sydney Basic Basics.](https://rladiessydney.org/courses/ryouwithme/01-basicbasics-1/) ](pictures/RStudio_quadrants.jpg){width=650px}
+
+- **Q1**: script, data, command to run script
+  - This is the panel you’re reading this tutorial in. It contains the script editor where we can create and edit R Notebook files, among other files.
+- **Q2**: console
+  - This is the Console Panel where R code is passed to and executed.
+- **Q3**: environment
+  - The environment tab keeps track of variables we’ve created in this workspace.
+- **Q4**: files, plots, packages, help
+  - This is a multi-purpose panel which contains:
+      - **Files:** A basic file explorer,
+      - **Plots:** Where plots can be rendered,
+      - **Packages:** install and import libraries into R,
+      - **Help:** Explorer for Documentation of functions and libraries,
+      - **Viewer:** View local web content e.g. Shiny app.
+
+
+### Settings
+
+Some people like RStudio to remember stuff from session to session. However, this can be dangerous as previous work and packages can interfere with current code and make your code more breakable. To avoid this, it is recommended that you change two settings in RStudio.
+
+![Source: [R-Ladies Sydney Basic Basics.](https://rladiessydney.org/courses/ryouwithme/01-basicbasics-1/) ](pictures/RStudio_settings.jpg){width=650px}
+
+Locate Preferences (On Windows, this is in the Tools->Global Options menu; on a Mac, this is in the RStudio menu). In the General tab, uncheck “Restore .RData…” and select “never” for “Save workspace…”
+
+## R Notebooks
+
+R Notebooks give the opportunity to combine code and description in a single human-readable notebook. You can conduct analysis and give interpretation side-by-side! This means that your entire analytical approach can be documented together, from the raw data to the analysis and finally results and conclusions.
+
+### Where the code goes...
+
+We will be entering the R code into these blocks:
+
+```{r Print a statement}
+
+print('code goes here!')
+
+```
+
+We can run the block of code using the play button on the right. We can also run this block of code with all previous blocks of code with the downwards facing play button in the middle. 
+
+In some places I have added additional arguments to the code chunk (e.g. `eval = FALSE`) so that something is not evaluated in order for the html file to compile. See the example below:
+
+```{r Options for R chunks, eval = FALSE}
+
+print('code goes here!')
+
+```
+
+Feel free to change this by simply removing the `, eval = FALSE` especially as you update the document. However, note that if there are any code errors left, the html file will not compile.  
+
+### Adding comments and other helpful shortcuts
+
+* You can add comments within your R code chunk using `#`. 
+
+    * Your comments can be notes for yourself, or explanation of what the code is doing for someone to follow. 
+    * You can also comment out code you don't want to be immediately run. 
+
+* You can comment or uncomment code using `Ctrl + Shift + C`. 
+
+* You can run a line of code by placing your cursor anywhere on the line and using `Ctrl + Enter`. This will execute the line of code and move the cursor to the next line.
+
+
+# Basics
+
+## Objects
+
+Let's start by making an assignment and inspecting the object we created.
+
+```{r First R Object}
+
+x <- 10*5
+
+x
+
+```
+
+All R statements where you create objects by making an 'assignment', take the form:
+
+ -  `object_name <- value`
+
+You can think of objects as storage containers for values. An object is created using the operator `<-`. It can be a pain to type `<-`, but don't be tempted to use `=` as this has another specific use in the R language. 
+
+### **Naming objects**
+
+You can name your objects anything. You can use letters, numbers, periods and underscores. You just can't start names with a dot or a number `1,2,3...` and your name cannot contain other characters such as a comma or a space. 
+
+
+```{r Names that work for objects}
+
+this_works <- 10*5
+
+this_works
+
+```
+
+Try running the following lines of code. Try uncommenting the code `# this_doesn't_work <- 10*5` by clicking on the line and using `Ctrl + Shift + C`.
+
+```{r Names that do not work for objects, eval = FALSE}
+
+# this_doesn't_work <- 10*5
+
+```
+
+### Make your object names easy to read
+
+It is useful for **future you** and your collaborators to name your objects something that is reasonable and describes what the object contains. To make your object names easy to read it is useful to adopt a convention for demarcating words in names.
+
+```{r Naming Conventions, eval = F}
+
+jenny_bryan_and_hadley_wickham_use_snake_case 
+
+some.people.use.periods
+
+othersUseCamelCase
+
+```
+
+### Using Tab Completion to Complete Object Names
+
+Make a new object 
+
+```{r Make a new object with a long name}
+
+a_very_long_name <- 7^2 
+
+```
+
+Sometimes to make our object names readable we use long names that can be labourious to type. Luckily, RStudio has a handy completion facility. 
+
+Start by typing the first few letters of `a_very...` in the code chunk below and type `TAB` to complete the name. 
+
+```{r Using Tab to Test out the Completion Facility in RStudio}
+
+a_very_long_name
+
+```
+
+
+### R is case-sensitive and doesn't like typos
+
+Let's try inspecting the object again.
+
+```{r R is case-sensitive and does not like typos, eval = FALSE}
+# What happens if you run:
+
+a_vry_long_name
+
+A_very_long_name
+
+```
+
+R is very sensitive to both case and spelling mistakes and won't run unless things are spelled correctly and are in the right case. If you get an error, check your spelling! More than 80% of the time, this is likely the cause of your error! 
+
+## Vectors
+
+A `vector` is a 1-dimensional ordered collection of elements, **all of the same type.** It is the fundamental data structure in R with a lot of useful properties. 
+
+We can extract an element from a vector by referencing its position. Let's make a new vector called `character_vector` using the function `c()` which can be used to **c()**ombine elements.  
+
+### Creating a vector with `c()`
+
+```{r Define a character vector}
+
+## Defining the character vector:
+
+character_vector <- c("ET", "Phone", "Home", "ET", "Phone", "Home")
+
+```
+
+Notice that when we specify words or characters, we use `""`.
+
+### Check the structure of the vector using `str()`
+
+```{r Checking the structure of the character vector}
+
+str(character_vector)
+
+```
+
+R is able to recognise, thanks to the "" around our text that the vector contains a character string `chr`.
+
+### Check the length of a vector using `length()`
+
+```{r Checking the length of the character vector}
+
+length(character_vector)
+
+```
+
+### Extract multiple consecutive elements using `:`. 
+
+```{r Take the 3rd and 4th and 5th elements}
+
+character_vector[3:5]
+
+```
+
+### Replace elements using `<-`
+
+Try replacing the 4th element with your name:
+
+```{r Replace an element}
+
+character_vector[4] <- "Laurie"
+
+character_vector
+```
+
+### Define a numeric vector
+
+The same method used to extract information works for any type of vector. Here we can define a new vector `numeric_vector` containing the numbers 1, 2, 3, 4, and 5. 
+
+```{r Define a numeric vector}
+
+numeric_vector <- c(1:5) # c() is a function to
+
+```
+
+### Check the structure using `str()`
+
+```{r Check the structure of a numeric vector}
+
+str(numeric_vector)
+
+```
+
+Because we have specified whole numbers, R can either classify the vector as and integer `int` or as numeric `num`.
+
+### Extract the first two elements
+
+```{r Take the first two elements from a numeric vector}
+
+numeric_vector[1:2]
+
+```
+
+### Extract non-consecutive elements using `c()`
+
+Trying uncommenting and running the line below:
+
+```{r We always need to use c() to specify multiple non-consecutive positions}
+
+# numeric_vector[1,3]
+
+```
+
+Note that we can only select the 1 and 3 or 1, 3, and 4 elements using `c()`. 
+
+```{r Use c() to specify non-consecutive positions}
+
+numeric_vector[c(1,3:4)]
+
+```
+
+### Changing the structure of a vector
+
+Let's make a second numeric vector. 
+
+```{r Make a second numeric vector}
+
+numeric_vector2 <- c(1.1,3:4)
+
+## Check the structure
+
+str(numeric_vector2)
+
+```
+
+* You'll notice that now when we check the structure, the vector is numeric (num). This is because we now have a number with a decimal place. 
+
+* R is what is known in computer science as a dynamically typed language. R doesn't require you to set the data type when you create a vector, instead it figures out what the best data type is for the object you are creating - numeric, character, factor, logical, etc. 
+
+* However, sometimes the data type you want to work with, and the one R infers are not the same. You can change the data type using a range of in-built functions that enable you to convert data from one type to another. 
+
+#### The `as.` functions
+
+A useful set of functions are the `as.` functions, which take the form `as.<structure>`. We can use this to specify the structure of our numeric vector to be `numeric`. 
+
+```{r Change the structure of a numeric vector using as. functions}
+
+numeric_vector <- as.numeric(numeric_vector)
+
+str(numeric_vector)
+
+```
+
+The structure of vectors becomes important when we use it to analyse different things. 
+
+```{r Change the structure of a character vector using as. functions}
+
+character_vector <- as.factor(character_vector)
+
+str(character_vector)
+
+
+```
+
+* Note that now `character_vector` is now classed as a factor `Factor` with 4 levels: "ET", "Home", "Laurie", and "Phone".
+
+* When you create a factor it uses an integer code to represent each level. So that "ET" is both "ET" and 1, "Home" is both "Home" and 2. You'll notice that it automatically takes the alphabetic order when determining the factor levels. This means that even though "Phone" occurs 2nd in our character vector, it gets the integer code: 4. This is just a detail now, but becomes important in plotting, especially if you want to change the order in which your factors are plotted.
+
+* Factors are especially useful if we want to group data by a factor (e.g. country) for counting or summarising. For instance, "Home" and "Phone" each occur twice, whereas "Laurie" and "ET" each only occur once. 
+
+### Vectorised Language
+
+Vectors aren't just containers for homogeneous data. As R is a vectorised language, this means operations are applied to each element of the vector automatically, without the need to loop through the vector. 
+
+This is powerful as at a low-level as computer chips are generally optimised for these types of calculations [SIMD](https://en.wikipedia.org/wiki/SIMD).
+
+Let's look at some examples
+
+#### Multiply and Exponentiate Numeric Vectors
+
+```{r You can multiply and exponentiate vectors}
+
+numeric_vector
+
+numeric_vector*3
+
+numeric_vector^2
+
+```
+
+You can also multiply, divide, add, and subtract vectors of the same length.
+
+#### Divide vectors of the same length
+
+```{r Divide vectors of the same length}
+
+x <- seq(from = 1, to = 20, by = 4)
+
+x
+
+numeric_vector/x
+
+```
+
+
+#### Subtract or Add vectors of the same length
+
+What happens when you run the following line of code?
+
+```{r You can subtract vectors of the same length}
+
+x - numeric_vector
+
+```
+
+
+### Exercises
+
+Fill in the code chunks to answer the following questions
+
+1. Take the last two elements of the numeric vector
+
+```{r Take the last two elements of the numeric vector, eval = FALSE}
+
+numeric_vector[]
+
+```
+
+2. Take the first and last elements of the character_vector. 
+
+Hint: you can use `length()` to find out how many elements there are in the character vector. 
+
+```{r Take the first and last elements of the character_vector, eval = FALSE}
+
+character_vector[]
+
+```
+
+3. Divide the numeric_vector by 3
+
+```{r Divide the numeric vector by 3, eval = FALSE}
+
+numeric_vector
+
+```
+
+4. Multiple the numeric_vector by the new vector 'y'
+
+```{r Multiple the numeric_vector by the new vector y}
+
+y <- c(5:1)
+
+
+```
+
+
+5. Why do the following lines of code not work?
+
+
+```{r Why does dividing numeric_vector by the object w not work, eval = FALSE}
+
+w <- c(1:4)
+
+numeric_vector/w
+
+```
+
+
+# CRAN, library, packages, and functions
+
+So far, we've seen R's capabilities as a large calculator and also as a place for storing objects and vectors. However, it is much much more than that! One of the things that makes R amazing is the open source community surrounding it.
+
+The R community which is made up of academics, statisticians, social and political scientists, economists, and data scientists to name a few, are responsible for authoring a wide variety of packages (>15,000) that can do a wide range of data manipulation, visualisation, and analysis tasks. 
+
+
+To get your head around what CRAN, library, packages, and functions are I find it helpful to think of books. 
+
+
+## CRAN
+
+CRAN stands for the **C**omprehensive **R** **A**rchive **N**etwork. It's like the R equivalent of the British Library or Library of Congress. It holds a copy of every package (book) and all the versions of R. 
+
+![](pictures/CRAN_packages_example.png){width=650px}
+
+## Library
+
+On your computer you'll have a local library with copies of the packages you've installed from CRAN (your home office book shelf).
+
+### What's on your bookshelf?
+
+* Click on the 'Packages' tab in the lower right hand panel (Q4 from before). You can see what packages are in your library, a short description of what they do, and the package version. 
+* The packages that are loaded have a check mark in the box on the left. As before, there are several packages that are automatically loaded each time you start an R session, e.g. `base` package.  
+
+* Although it is possible to load and install your packages from here, I recommend using the functions shown below instead. This way, someoneelse or **future you** knows exactly what packages they need to run the analyses. 
+
+* You should load the packages you will use at the top of your script, so that future you or your colleague knows what needs to be installed/loaded.
+
+### Installing Packages on a Personal Computer
+
+* A package needs to be installed only once and requires an internet connection which allows your computer to communicate with the CRAN server. 
+
+* You may wish to install a package with the additional argument: `dependencies = TRUE`, this will also install any packages that the package depends on.
+
+* On your personal computer, you can install a package to your local library from CRAN by uncommenting and running the following:
+
+```{r Installing packages directly, eval = FALSE}
+
+# install.packages("tidyverse")
+
+# install.packages("ggplot2", dependencies = TRUE)
+
+```
+
+However, if you are on a government laptop without elevated access rights, read further...
+
+### Installing Packages on a Government Computer
+
+* On your government laptop, you will need to put in a Service Desk Software Request for any packages you want installed. 
+* As a standard user, you are unable to run R packages that you download as it installs them to your Documents folder. Because of restrictions on the government laptops, it is then unable to run the package from this location because the DLL files it contains are blocked.
+
+* As a result, the R installation often comes with many of the packages you'll need pre-installed. For any other packages you wish to install, you can put in a Service Desk request. 
+
+### Errors Installing Packages to a Government Computer
+
+If you do install packages yourself, it is highly likely that you will get this error if you install packages and load them from the internet. 
+
+> "Error: package or namespace load failed for ‘ggplot2’ in inDL(x, as.logical(local), as.logical(now), ...):
+ unable to load shared object 'C:/Users/l-baker/Documents/R/win-library/3.6/rlang/libs/x64/rlang.dll':
+  LoadLibrary failure:  This program is blocked by group policy. For more information, contact your system administrator."
+
+
+If you do try to install packages and if you get the above error you can fix it by **deleting your R folder from Documents**. R will then return to looking for packages that come supplied with your department's R distribution. 
+
+### Loading packages
+
+In order to use the package you need to load it to your workspace. This needs to be done each time you start a new RStudio session or project. Think of it as taking the book you will use off your book shelf to place next to you on the desk.
+
+In this case, `tidyverse` is a meta-package, which actually contains several individual packages including `dplyr`, `forcats`, etc., but more on those later. The `tidyverse` metapackage is in your library already so we can simply make a call to load them. 
+
+```{r Importing Packages}
+
+library(tidyverse)
+
+```
+
+Alas, there are not enough names to make each function in every package unique. The "Conflicts" line that is printed tells us that the `dplyr` function `filter` will mask the `stats` package function `filter`. 
+
+If we want to be completely accurate, we can specify the package and function using the following form `<package_name>::<function_name>`, e.g. `dplyr::filter()`. 
+
+If we follow the recipe book analogy, this is like saying we want the lasagna recipe from `jamie_oliver::lasagna` so that it isn't confused with the `nigella_lawson::lasagna` recipe.  
+
+## Packages
+
+![](pictures/package_book.jpg){width=250px}
+
+You can think of a package like a book on a particular subject. Each **package** is designed to do a specific set of tasks (e.g. data manipulation, implement linear models, draw geographical maps, etc.). Each task is implemented using a **function**, which is a set of statements organised to complete the task. 
+
+## Functions
+
+A function is like a recipe from a book. It is designed to make one specific thing, e.g. cupcakes or steak and kidney pie. The function takes arguments (e.g. ingredients) and then carries out a series of steps where the ingredients are modified, cooked, combined, etc. to create the final recipe. 
+
+Some of these arguments will be optional (e.g. add or don't add cinnamon), whereas other arguments will be required for the function to run (e.g. you can't make the cake without flour!).
+
+![](pictures/recipe_function.png){width=500px}
+
+Functions follow the form:
+
+* `functionName(argument1 = value1, argument2 = value2, and so on)`
+
+Let's take a look at some of the built-in functions R has for carrying out basic statistics/analysis, starting with `seq()`. 
+
+### How functions work: the `seq()` function
+
+Let’s try using `seq()` which makes regular sequences of numbers and, while we’re at it, demo more helpful features of RStudio.
+
+* Type `se` and hit TAB. A pop up shows you possible completions. 
+
+```{r Autocompleting using TAB, eval = FALSE}
+
+se
+
+```
+
+
+* Specify seq() by typing more to specify the function or using the up/down arrows to select. Notice the floating help box that pops up to remind you of the function’s arguments. 
+
+* If you want even more help, press F1 as directed to get the full documentation in the help tab of the lower right pane. 
+You can also access the help file for a function by typing `?seq`. 
+
+* Now open the parentheses and notice the automatic addition of the closing parenthesis and the placement of cursor in the middle. Type the arguments 1, 10 and hit return. RStudio also exits the parenthetical expression for you.
+
+```{r Using the function seq}
+
+seq(1,10)
+
+```
+
+Let's take a closer look at the help file for `seq()`.
+
+```{r Helpfile for seq(), eval = FALSE}
+
+?seq
+
+```
+
+![](pictures/Seq_helpfile.png){width=650px}
+
+#### Function help files
+
+Every help file will have a series of sections describing what the function does. I generally focus first on: **Description**, **Usage**, **Arguments**, and **Examples**. 
+
+* **Description**
+
+For example, in the helpfile for `seq()` under **Description**, it tells us it is a function to "Generate regular sequences". 
+
+* **Usage**
+
+We can see that `seq()` takes the arguments `from`, `to`, and `by`, and the optional arguments `length.out` and `along.with`. 
+
+* **Arguments**
+
+Here, we can find out what these arguments are:
+
+  - `from, to`: the starting and maximal end values of the sequence.
+  - `by` number: increment of the sequence.
+  
+In the code we used above in sequence, we generated a sequence of numbers `from` 1 `to` 10. In this case we did not supply a value for `by`, so it took the default value, which in this case is 1.
+
+#### How are function arguments resolved?
+
+What happens if we try:
+
+```{r How are function arguments resolved part 1, eval = F}
+
+seq(10,1)
+
+```
+
+And what about:
+
+```{r How are function arguments resolved part 2, eval = F}
+
+seq(to = 10, from = 1)
+
+```
+
+The above demonstrates something about how R resolves function arguments. You can always specify in `name = value` form. But if you do not, R attempts to resolve by position. 
+
+So above, first it is assumed that we want a sequence from = 1 that goes to = 10. Then if we swap the numbers it is assumed we want to sequence from = 10 that goes to = 1. If we name the arguments explicitly using `name = value`, the order of the arguments doesn't matter. 
+
+#### Printing objects and viewing your workspace
+
+If we want to store our output in an object and see it in the same line, we can use:
+
+```{r Storing and printing objects using parentheses, eval = FALSE}
+
+(y <- seq(from = 1, to = 10))
+
+```
+
+Let's take a look at our workspace and showcase a function that doesn't require any arguments. 
+
+```{r Use ls() to see what is in your workspace, eval = FALSE}
+
+ls()
+
+```
+
+If you want to remove the vector name `y` you can use
+
+```{r Removing vectors using rm(), eval = FALSE}
+
+rm(y)
+
+```
+
+If you want to remove everything in your workspace you can use:
+
+```{r Remove everything using rm() and ls()}
+
+rm(list = ls())
+
+```
+
+You may want to do this at the end of an analysis before you start on another project. 
+
+# Data frames and tibbles
+
+Anytime your data is rectangular, spreadsheet-like data, the default data format in R is a data frame. Data frames can hold variables of different types. Where each column of the data, is essentially a vector, such as numeric data (GDP), character data (country name), and categorical information (infected vs. uninfected). 
+
+Data frames are extremely useful and many functions are set up to take a data frame for the `data =` argument. The `tidyverse` packages, which include `dplyr` and `ggplot2` work with a special type of data frame, called a "tibble".
+
+
+## Gapminder Data
+
+Our data comes from the Gapminder foundation, an organization dedicated to educating the public by using data to dispel common myths about the so-called developing world. The dataset we will use is one that has been combined from the gapminder data set from the `gapminder` package, and the gapminder data set from the `dslabs` package. 
+
+## Reading in the data
+
+Before you read in a data file you want to ask yourself two questions:
+
+1. What type of file is it?
+2. Where is the file stored?
+
+In this case, we are going to read in a `.csv` (comma separated value) file called `gapminder.csv`. 
+
+The tidyverse comes with a number of useful functions for reading in data. For some of the most common files you work with you can use:
+
+ * `read_csv`: reads in a csv file
+ * `read_excel`: from the `readxl` package reads in an excel file (.xls and .xlsx). Possible to add the sheet number or name you wish to extract. Check out the arguments in the helpfile using `?read_excel`. 
+ 
+and much, much, more! If you are looking for another file type I highly recommend checking out this section from Jenny Bryan's UBC stats course [Stat545 Import and Export](https://stat545.com/import-export.html) or looking more generally into the `readr` package. There are nice options for removing lines of meta data (e.g. rambles at the head of an excel spreadsheet) and other options for messier data frames.
+ 
+### Reading in the data using the `read_` functions
+
+The functions for reading in the data take the same basic form
+ 
+```{r Layout of the read functions, eval = FALSE}
+
+my_file <- file.path("data", "gapminder.csv")
+
+gapminder <- read_csv(file = my_file)
+
+```
+
+* First you need to specify the name of the data frame you want to store your data in. 
+
+* Then you specify the file name (`file = ` or in readxl `path = `) (don't forget the file format e.g. `.csv`) and the location where it is stored in quotes. 
+
+In this case the file is stored in the folder "data" which is part of the IntroR course master folder you were sent. Here, you'll notice that we are using a relative path, that is the location of the data is specified in relation to our script file. Relative paths are especially useful because they will work across all operating systems and unlike a "hard path", e.g. C:/Users/l-baker/repos/The_faculty/IntroR4IntlDev", this relative path will work on anyone's computer, not just my own! 
+
+For a 'relative path' to work, we need to get to the right directory (location where our script file is stored). You can do this using the RStudio menu: 
+
+* "Session -> Set Working Directory -> To Source File Location". In this case this will set the working directory to the location where the script file: "IntroR4IntlDev.Rmd" is stored. 
+
+* Alternatively, you can use `setwd("C:/Users/l-baker/repos/The_faculty/IntroR4IntlDev")` and give it the file path where your script file is located.
+
+* To find out where you are you can use the function `getwd()` which stands for "get working directory".
+
+```{r Working directories, eval = FALSE}
+
+getwd()
+
+```
+
+### Specifying Paths: Good practice 
+
+One of the good practices of coding is to never use absolute or "hard paths". Just because your script tells a colleague what subfolder the data is kept in on your computer, does not help them reproduce the code, especially as a hard path only works for your computer. 
+
+The advantage of "relative paths" is that they will work across operating systems and across anyone's computer. For each project, it is best practice to set up a folder for that project with your script file and subfolders to store the "figures" and the "data".
+
+In sharing code, you share the whole master folder complete with the figure and data subfolders. Then as long as they set the working directory to the location of your script file, they can run your script with little trouble accessing the figures and data needed from the relative paths specified. 
+
+## Exploring the Gapminder Data
+
+```{r Read in the file gapminder}
+
+my_file <- file.path("data", "gapminder.csv")
+
+gapminder <- read_csv(file = my_file)
+
+```
+
+
+The data contains 8 columns
+
+* country
+* continent
+* year
+* lifeExp. Life expectancy in years. 
+* pop. Country population
+* gdpPercap. GDP per capita according to World Bankdev.
+* infant_mortality. Infant deaths per 1000.
+* fertility. Average number of children per woman.
+
+
+### Quick Poll
+
+For each of the three pairs of countries below, which country do you think had the highest infant mortality rates in 2007? Which pairs do you think are the most similar?
+
+1. Sri Lanka or Turkey
+
+2. Poland or Malaysia
+
+3. Pakistan or Vietnam
+
+Which of the two pairs of countries do you think had the highest life expectancy in 2007. Which are the most similar?
+
+1. South Africa or Yemen
+
+2. Chile or Hungary
+
+For the two pairs of countries below, which country do you think had the highest gdpPercap in 2007?
+
+1. Switzerland or Kuwait
+
+2. Colombia or Nepal
+
+## Getting to know the data
+
+There are several tools to get to know our data.
+
+ * `View()`: allows us to view the data frame as a spreadsheet.
+ * `nrow()`: tells us the number of rows in our data frame.
+ * `names()`: gives us the names of the columns in our data frame.
+ * `dim()`: tells us the dimensions of our data frame.
+ * `summary()`: give us summary statistics (counts, min, median, mean, max). 
+ * `head()`: gives us the first 6 elements of the data.
+ * `tail()`: gives us the last 6 elements of the data.
+ * `str()`: tells us the variable type (e.g. Factor, num (number), int (integer)). 
+ * `unique()`: tells us the unique elements of a variable.
+
+
+### Using head() and View()
+
+Let's take a look at `head` and `View` to inspect the data more closely. 
+
+```{r Look at the top 6 rows using head()}
+
+head(gapminder)
+
+```
+
+
+```{r Look at the data using View(), eval = FALSE}
+
+View(gapminder)
+
+```
+
+
+From viewing the data we can see that the data contains eight variables: `country`, `continent`, `year`, `lifeExp`, `pop`, `gdpPercap`, `infant_mortality`, and `fertility`.
+
+
+Click "Filter" in the View menu, you can use this similarly to how you would interact with the data in Excel. 
+
+**Exercise**
+
+1. Using filter, what was the life expectancy in Rwanda in 1952?
+
+2. Which country had the highest infant mortality rate? What was the year?
+
+
+### Checking the structure of the data using str()
+
+We've already used `str()` to explore our vectors, we can also use it to take a look at our data frame to tell us what type of variables we have.
+
+```{r Check the structure of the data using str()}
+
+str(gapminder)
+
+```
+
+In this case `country` and `continent` are characters, `year`, `lifeExp`,  `pop`, `gdpPercap`, `infant_mortality` and `fertility` are numbers.
+
+You'll notice from the preview that both `infant_mortality` and `fertility` have some NAs. NAs are commonly used to show that there is no data for a given year and variable. 
+
+One of the first things we are going to do is change the columns `country` and `continent` to factors, as we can treat them as categorical variables (i.e. they indicate a category that data belongs to). We can do this using the `as.factor` function.
+
+```{r Changing gapminder characters to factors}
+
+gapminder$country <- as.factor(gapminder$country)
+gapminder$continent <- as.factor(gapminder$continent)
+
+
+str(gapminder)
+```
+
+*You'll notice from above that we can select columns by using the dollar sign `$`.
+
+
+### Exercises 
+
+Run the following lines of code to answer the questions below
+
+1. What are the dimensions of the dataframe? What do each of the numbers refer to?
+
+```{r Dataframe Dimensions, eval = FALSE}
+
+dim(gapminder)
+
+```
+
+2. What are the names of the columns in the data frame?
+
+```{r Column Names, eval = FALSE}
+
+names(gapminder)
+
+```
+
+*Given spelling is so important in R, `names()` is a handy way to check the names of our columns. 
+
+3. What are the first and last countries in the data frame?
+
+```{r Head and Tail of Data, eval = FALSE}
+
+head(gapminder)
+
+tail(gapminder)
+
+```
+
+4. What is the minimum and maximum gdpPercap? How many NAs are there for fertility? How many observations do we have for Africa?
+
+```{r Data Summary, eval = FALSE}
+
+summary(gapminder)
+
+```
+
+5. What years are covered in the data frame?
+
+```{r Unique years, eval = FALSE}
+
+unique(gapminder$year)
+
+```
+
+6. How many countries are in our data frame?
+
+```{r Unique countries, eval = FALSE}
+
+unique(gapminder$country)
+
+```
+
+
+## Extracting Information 
+
+**Battleship**
+
+![](pictures/battleship_game.png){width=350px}
+
+
+Whenever I think of R dataframes I think of the game battleship. In battleship, to strike the other opponent's ships you launch missiles by giving a row and column reference for the location to hit on your opponent's board.
+
+Data frames are much the same. We can extract an element by specifying the rows and the columns:
+
+* `data_frame[rows, columns]`
+
+### Selecting a single value
+
+If we wanted to get the first value from the first row and column in the dataframe we could use:
+
+```{r Select the first element}
+
+gapminder[1,1]
+
+```
+
+### Selecting a whole row
+
+If we wanted the whole first row we could use:
+
+```{r Select the first row}
+
+gapminder[1,]
+
+```
+
+Notice, that if we want to select all columns we simply add a comma and leave the column position blank.
+
+What happens if you run the following?
+
+```{r The wrong way to select first row, eval = FALSE}
+
+gapminder[1]
+
+```
+
+### Selecting specific rows and columns
+
+If we wanted the first 5 rows and the first and third columns we could use:
+
+```{r Select the first 5 rows and first and third columns}
+
+gapminder[1:5, c(1,3)]
+
+```
+
+Remember from before that if we have nonconsecutive positions, we need to use the `c()` function to **c**ombine these positions into a list. 
+
+### Reference columns by name
+
+We can also reference the column by name:
+
+```{r Referencing the column by column name}
+
+gapminder[1:5, c("country", "gdpPercap")]
+
+```
+
+Why might this be preferred to referencing columns by number?
+
+### Exercises
+
+
+1. Extract all rows from the column `pop` and save it in a new object called `pop`
+
+Hint: look back to how we selected row 1 and all columns. 
+
+```{r Select the column pop, eval = FALSE}
+
+pop <- gapminder[]
+
+```
+
+2. Extract the 5th row and 6th column from the dataset
+
+```{r Extract 5th row and 6th column, eval = FALSE}
+
+gapminder[]
+
+```
+
+**Bonus**
+
+3. Extract all the rows for the columns `gdpPercap` and `pop`.
+
+Hint: look back to how we selected row 1 and all columns. 
+
+
+```{r Select columns gdpPercap and pop, eval = FALSE}
+
+gapminder[]
+
+```
+
+4. Extract rows 5, 20, and 44 from the column `lifeExp` and save it in a new data frame called `sub_lifeExp`
+
+```{r Extract rows 5 and 20 and 44 from col lifeExp, eval = FALSE}
+
+ <- gapminder[]
+
+```
+
+
+## Data subsetting and summarising using `dplyr`:
+
+So far I've shown you the 'old school' method for extracting and filtering data. It is useful to know the layout of vectors and dataframes, especially if you end up writing your own `for loops` or functions in the future. 
+
+However, the package, `dplyr`, has made a lot of data manipulation easier and clearer using **verbs** to filter and select different elements.
+
+  * `select()` subsets columns based on their names.
+  * `filter()` subsets rows based on their values.
+  * `summarise()` calculates summary statistics.
+  * `group_by()` groups variable for summarising.
+  * `mutate()` adds new columns that are functions of existing variables. 
+
+These verbs can be combined in powerful ways to do some really interesting data manipulation tasks. 
+
+### select
+
+```{r Select columns lifeExp and pop using select()}
+
+select(gapminder, lifeExp, pop)
+
+```
+
+#### The pipe operator
+
+These verbs can be used by specifying the data frame first, or using the pipe operator `%>%`. You can think of the the pipe operator as meaning **"and then"**. 
+
+```{r Select the columns lifeExp and country using select()}
+
+gapminder %>%
+  select(lifeExp, country)
+
+```
+
+One big advantage of the pipe operator is that it does not change your raw data in any way!
+
+```{r The pipe operator does not change the data}
+
+head(gapminder)
+
+```
+
+This is really useful because it means you can manipulate your data without having to store new data frames for each step. It also means you never comprimise the original data. 
+
+#### Assign your output to a new data frame
+
+You can also assign your output to a new data frame.
+
+```{r Create a new data frame lifeExp_by_country with the columns lifeExp and country}
+
+lifeExp_by_country <- gapminder %>%
+  select(lifeExp, country)
+
+head(lifeExp_by_country)
+
+```
+
+### **Exercises**
+
+1. Run the following line of code, what does the minus do?
+
+
+```{r Using - to remove columns, eval = FALSE}
+
+gapminder %>%
+  select(-c(lifeExp, country))
+
+```
+
+2. Select the columns `country`, `continent` and `gdpPercap` from the data frame. 
+
+```{r Select the columns country, continent and gdpPercap using select, eval = FALSE}
+
+gapminder %>%
+
+
+```
+
+**Extra Credit**
+
+3. Write code for two ways you can select all the columns except for year.
+
+```{r Write code for two ways to select all columns but year, eval = FALSE}
+
+gapminder %>%
+
+
+```
+
+### filter
+
+* `filter`: subsetting rows
+
+For filtering it is useful to know your set of operators:
+
+Logical Operator| Description
+:--------------:|:------------:
+        <       | Less Than
+       <=       | Less Than or Equal To
+       \>       | Greater Than
+       >=       | Greater Than or Equal To
+       ==       | Equal To
+       !=       | Not Equal To
+       \|       | Or
+        &       | And
+  %in% c(....)  | Membership **one in** a list of elements
+
+(Ignore backslashes in the notebook.)
+
+We can use filter to pick out a particular country. N.B., if we are unsure of names we can always use `unique(gapminder$country)` to check spellings.
+
+#### Filter using `==`
+
+```{r Use filter to pick out a particular country}
+
+gapminder %>%
+  filter(country == "Yemen, Rep.")
+
+```
+
+#### Filter rows from a set of matches
+
+We can also use filter to filter rows from a set of countries of interest
+
+```{r Use filter to filter row from a set of countries}
+
+gapminder %>%
+  filter(country %in% c("Morocco", "Algeria", "Libya", "Tunisia", "Egypt", "Sudan", "Jordan", "Oman", "Lebanon", "Israel", "Syria", "Yemen, Rep."))
+
+```
+
+#### Combining multiple filters
+
+You can add multiple filters with a comma.
+
+```{r Add multiple filters with a comma}
+
+gapminder %>%
+  filter(country == "Yemen, Rep.", year >= 1960 & year <= 1985)
+
+```
+
+
+### **Exercises**
+
+1. What do these lines of code filter the data for?
+
+```{r What does this code filter for, eval = FALSE}
+
+gapminder %>%
+  filter(continent == "Europe", lifeExp > 70)
+
+```
+
+
+2. Filter the data so that you only get entries for countries in "Asia" where the "lifeExp" was below 35  
+
+```{r Filter the data for countries in Asia where lifeExp is less than 35, eval = FALSE}
+
+gapminder %>%
+  
+```
+
+3. Filter the data so that you only get entries where the gdpPercap was equal to 1000 or less. 
+
+```{r Filter the data so that you only get entries where gdpPercap is equal to 1000 or less, eval = FALSE}
+
+gapminder %>%
+  
+```
+
+**Extra Credit**
+
+4. Filter the data using `%in%` to get the countries "Chile", "Argentina", "Uruguay", and "Peru" and only years greater than or equal to 1992. 
+
+```{r Filter the data for Chile Argentina Uruguay and Peru for years greater than or equal to 1992, eval = FALSE}
+
+gapminder %>%
+
+
+```
+
+5. Filter the data using `!=` to include the data from all continents apart from Europe. 
+
+```{r Filter the data to inclue data from all continents apart from Europe, eval = FALSE}
+
+gapminder %>%
+
+```
+
+### summarise()
+
+* `summarise()` uses existing R functions to calculate summary statistics. 
+
+#### Calculate a summary statistic using `summarise()`
+
+For instance we may wish to calculate the mean lifeExp for all countries:
+
+```{r Calculate the mean_lifeExp using summarise}
+
+(lifeExp_stats <- gapminder %>%
+                  summarise(mean_lifeExp = mean(lifeExp)))
+
+```
+
+#### Calculate multiple summary statistics
+
+We can also calculate multiple summary statistics at the same time, separating each new summary variable with a `,`. This way we can calculate the mean, min, and max lifeExp for all countries combined:
+
+```{r Use summarise to calculate mean_lifeExp, min_lifeExp, and max_lifeExp}
+
+(lifeExp_stats <- gapminder %>%
+                  summarise(
+                    mean_lifeExp = mean(lifeExp), # mean
+                    min_lifeExp = min(lifeExp), # min
+                    max_lifeExp = max(lifeExp)) # max
+                    ) 
+
+
+```
+
+### group_by()
+
+* `group_by()` used to group variables. Can be especially useful before summarising.
+
+
+```{r Use group_by to group by country and then summarise}
+
+(lifeExp_stats_country <- gapminder %>%
+                             group_by(country) %>%
+                             summarise(
+                                mean_lifeExp = mean(lifeExp),
+                                min_lifeExp = min(lifeExp), 
+                                max_lifeExp = max(lifeExp)
+                                )) 
+
+```
+
+### **Exercises:**
+
+1. What does the following bit of code do? 
+
+```{r What does the following group_by summarise code do, eval = FALSE}
+
+gapminder %>%
+      group_by(continent, year) %>%
+      summarise(mean_gdpPercap = mean(gdpPercap))
+
+
+```
+
+2. Group the data by country and create two new variables which summarise the minimum and maximum population sizes. 
+
+
+```{r Group the data by country and create two new variables which summarise the minimum and maximum pop, eval = FALSE}
+
+gapminder %>%
+          
+```
+
+**Bonus**
+
+3. Group the data by continent and year. Summarise the maximum and minimum population.
+
+```{r Summarise maximum and Minimum population by continent and year, eval = FALSE}
+
+gapminder %>%
+          
+```
+
+
+### The pipe function %>%
+
+![](pictures/assembly_line.jpg){width=350px}
+
+
+We've seen an example of the pipe function `%>%` in the `group_by()` example above. The pipe function allows you to combine multiple data wrangling steps which will be carried out in order. 
+
+I like to think of the pipe function as the separator of different jobs on an assembly line. 
+
+
+![](pictures/assembly_line_bird_house.png){width=650px}
+
+* Tree (raw data) -> Planks (grouped data) -> Bird House (summarised data)
+
+You begin with your raw data (e.g. tree), it then goes through the pipe to the next station where it is modified in some way (e.g. cut into planks), it can then pass to another station where it can be further modified, and so on and so forth, until Voila! you have your final product (e.g. a bird house).
+
+Let's say we are interested in calculating the life expectancy in Yemen pre 1980. We can run the following:
+
+```{r Yemen Life Expectancy pre 1980}
+
+
+yemen_pre1980_mean_lifeExp <- gapminder %>%
+  filter(country == "Yemen, Rep.", year <1980) %>% # Return data for Yemen pre 1980
+  select(lifeExp) %>% # Select the column lifeExp (life expectancy)
+  summarise(meanlifeExp = mean(lifeExp)) # Calculate mean life expectancy
+
+```
+
+
+We can also combine multiple operators and look at a slice of the data.
+
+`slice()` chooses rows by their position within the group. In this case we are selecting out the minimum life Expectancy.
+
+```{r Using group_by and slice: min lifeExp}
+
+gapminder %>%
+  group_by(year) %>%
+  slice(which.min(lifeExp))
+
+```
+
+We can also see which country had the highest life Expectancy in each year. 
+
+```{r Using group_by and slice: max lifeExp}
+
+gapminder %>%
+  group_by(year) %>%
+  slice(which.max(lifeExp))
+
+```
+
+
+### Mutate
+
+  * `mutate()` adds new columns that are functions of existing variables. 
+
+Using the verb `mutate()` we can create a new data column called gdp. In this case the per capita GDP `gdpPercap` needs to be multiplied by the population `pop` to get the overall GDP.
+
+```{r Creating a new variable gdp}
+
+(gapminder<- gapminder %>%
+  mutate(gdp = gdpPercap*pop))
+
+```
+
+This is useful if we want to look at the overall gdp, but it is also a huge number which is difficult to compare among countries in a meaningful way.
+
+## Joining data frames: when one data frame is not enough
+
+It is often the case that our data is spread out over several data frames that we are interested in combining. We can **join** these data frames together using a variety of `join` functions from the `dplyr` package.
+
+![](pictures/explaining_joins.jpg){width=350px}
+
+Let's walk through the different types of joins using a simple example. 
+
+Let's say we have two data frames of "tables" we are interesting in joining together: `person_table`, which contains the information about the employee (`Person_ID`, `Name` and `Job_ID`) and the `job_table`, which contains information about the job (`Job_ID` and `Job_Name`). We can join the two table on the matched ID column `Job_ID`.
+
+**Person Table**
+
+```{r}
+
+person_table <- data.frame(Person_ID = c("Person1", "Person2"), Name = c("Jane Doe", "John Smith"), Job_ID = c("Job_1", "NA"))
+
+person_table
+```
+
+**Job Table**  
+   
+```{r}                           
+job_table <- data.frame(Job_ID = c("Job_1", "Job_2"), Job_Name = c("Programmer", "Statistician"))
+
+job_table
+```
+
+### Inner join:
+
+With an inner join, rows where there’s a match on the join criteria are returned. Unmatched rows are excluded. Don't worry about the warning message. It is just pointing out that the column `Job_ID` in the person table has 
+
+```{r Inner join example}
+
+inner_join(x = person_table, y = job_table, by = "Job_ID")
+
+```
+
+### Left join:
+
+With a left join, you get all rows from the left side of the join even if there are no matching rows on the right side. You only get rows from the right side where there’s a join match to a row on the left.
+
+```{r Left join example}
+
+left_join(x = person_table, y = job_table, by = "Job_ID")
+
+```
+
+### Right join:
+
+With a right join, you get all the rows from the left side of the join only where there’s a match on the right. You get all rows from the right side of the join even if there are no matching rows on the left.
+
+```{r Right join example}
+
+right_join(x = person_table, y = job_table, by = "Job_ID")
+
+```
+
+### Full join
+
+With a full join, you get all rows from the left and right hand side, joined where the criteria matches.
+
+```{r Full join example}
+
+full_join(x = person_table, y = job_table, by = "Job_ID")
+
+```
+
+### Matching the gapminder data to a new data frame `uk_gdpPercap_df`
+
+**Creating the new data frame `uk_gdpPercap_df`**
+
+To look at the per capita GDP in a way that's more meaningful, let's create a new variable `gdpPercap_rel`, that is the `gdpPercap` of the country relative to the United Kindom `gdpPercap` of that same year. 
+
+We can do this by dividing `gdpPercap` by the United Kingdom's `gdpPercap`, making sure that we always divide two numbers that are from the same year. To do this we need to first:
+
+1. Create a new dataframe `uk_gdpPercap_df`
+2. Filter the rows for `country == "United Kingdom"`.
+3. Select the columns `gdpPercap` and `year`. 
+4. Rename the variable `gdpPercap`, `uk_gdpPercap`.
+
+
+```{r Make a new data frame uk_gdpPercap_df}
+
+uk_gdpPercap_df <- gapminder %>%
+  filter(country == "United Kingdom") %>%
+  select(gdpPercap, year) %>%
+  rename(uk_gdpPercap = gdpPercap)
+
+head(uk_gdpPercap_df)
+
+```
+We want to divide all the other gdpPercap by the UK `gdpPercap` in that same year.
+
+One way we can do this is to match the two data frames using a `left_join` on the common variable, year. This will effectively make a new column, for the `uk_gdpPercap` that is joined up to our `gapminder` data frame.
+
+A `left_join` keeps all of the rows from the first data frame (x = gapminder) and on the matching rows from the other data frame (y = uk_gdpPercap_df), using the values in the column `year` to do the matching (`by = "year"`). 
+
+
+```{r Join the gapminder and uk_gdpPercap_df data frames}
+
+gapminder <- left_join(gapminder, uk_gdpPercap_df, by = "year")
+
+head(gapminder[, c("country", "year", "uk_gdpPercap", "gdpPercap")])
+
+```
+
+Now that we have the `gdpPercap` and `uk_gdpPercap` matched up, we can can calculate the relative GDP per capita `gdpPercap_rel`. 
+
+```{r Make a new variable gdpPercap_rel}
+
+gapminder <- gapminder %>%
+  mutate(gdpPercap_rel = gdpPercap/uk_gdpPercap)
+
+```
+
+We can doublecheck that our calculation worked by filtering for the United Kingdom to check that the relative gdp per capita is 1. 
+
+```{r Doublechecking our calculation of gdpPercap_rel worked}
+
+gapminder %>%
+  filter(country == "United Kingdom") %>%
+  select(gdpPercap_rel) %>%
+  head()
+
+```
+
+How many countries had a smaller gdp per capita than the UK each year?
+
+```{r How many countries had a smaller gdpPercapita}
+
+gapminder %>%
+  group_by(year) %>%
+  filter(gdpPercap_rel <= 1) %>%
+  summarise(count = n())
+
+```
+
+
+### **Exercises**
+
+1. What does the following bit of code do?
+
+```{r 1. Select 2. filter 3. group_by and 4. summarise, eval = FALSE}
+
+gapminder %>%
+  select(country, gdpPercap_rel) %>%
+  filter(country %in% c("Argentina", "Chile", "Peru", "Brazil")) %>%
+  group_by(country) %>%
+  summarise(
+            max_gdp = max(gdpPercap_rel), 
+            min_gdp = min(gdpPercap_rel), 
+            mean_gdp = mean(gdpPercap_rel)
+            )
+
+```
+
+
+2. How many countries had a higher relative gdp per capita than the United Kindom per year?
+
+```{r How many countries had a higher relative gdp per capita, eval = FALSE}
+
+gapminder %>%
+  group_by() %>%
+  filter(gdpPercap_rel > 1) %>%
+  summarise(count = n())
+
+```
+
+3. Which countries have a higher gdp per capita than the UK? Fill in the blanks
+
+```{r Which countries had a higher gdp per capita than the UK, eval = FALSE}
+
+gapminder %>%
+  filter(<BLANK>) %>%
+  select(country) %>%
+  unique()
+
+```
+
+### Answers to our poll 
+
+Using what we've learned so far, let's go back to our original comparisons.
+
+Which of the three pairs of countries do you think have a higher infant mortality rate in 2007? Which are the most similar?
+
+1. Sri Lanka or Turkey
+
+```{r Turkey or Sri Lanka: who has a higher infant mortality rate in 2007, eval = FALSE}
+
+gapminder %>%
+  filter(year == 2007, country %in% c("Sri Lanka", "Turkey")) %>%
+  select(country, infant_mortality)
+
+```
+
+2. Poland or Malaysia
+
+```{r Poland or Malaysia: who has a higher infant mortality rate in 2007, eval = FALSE}
+
+gapminder %>%
+  filter(year == 2007, country %in% c("Poland", "Malaysia")) %>%
+  select(country, infant_mortality)
+
+
+```
+
+3. Pakistan or Vietnam
+
+
+```{r Pakistan or Vietnam: who has a higher infant mortality rate in 2007, eval = FALSE}
+
+gapminder %>%
+  filter(year == 2007, country %in% c("Pakistan", "Vietnam")) %>%
+  select(country, infant_mortality)
+
+```
+
+Which of the two pairs of countries do you think have a higher life Expectancy in 2007? Which are the most similar?
+
+1. South Africa or Yemen
+
+```{r South Africa or Yemen: who has the highest life Expectancy}
+
+gapminder %>%
+  filter(year == 2007, country %in% c("South Africa", "Yemen, Rep.")) %>%
+  select(country, lifeExp)
+
+```
+
+2. Chile or Hungary
+
+```{r Chile or Hungary: who has the highest life Expectancy, eval = FALSE}
+
+gapminder %>%
+  filter(year == 2007, country %in% c("Chile", "Hungary")) %>%
+  select(country, lifeExp)
+
+```
+
+
+For the two pairs of countries below, which country do you think had the highest gdpPercap in 2007?
+
+1. Switzerland or Kuwait
+
+```{r Switzerland or Kuwait: who has the highest gdpPercap, eval = FALSE}
+
+gapminder %>%
+  filter(year == 2007, country %in% c("Switzerland", "Kuwait")) %>%
+  select(country, gdpPercap)
+
+```
+
+2. Colombia or Nepal
+
+
+```{r Colombia or Nepal: who has the highest gdpPercap, eval = FALSE}
+
+gapminder %>%
+  filter(year == 2007, country %in% c("Colombia", "Nepal")) %>%
+  select(country, gdpPercap)
+
+```
+
+
+Which results did you find the most surprising?
+
+
+# Intro to Data Visualisation Using ggplot2
+
+One of the most meaningful ways to interpret and make sense of data is through plotting! Plotting the data allows us to look for relationships between variables, generate hypotheses, and identified patterns. A great package to make attractive graphics is ggplot2. 
+
+Let's start by making a scatter plot of life Expectancy by year for a handful of countries in the middle east.
+
+First we can make a new dataframe called `gapminder_middle_east`
+
+```{r Creating a new data frame: gapminder_middle_east}
+
+middle_east <- c("Israel", "Jordan", "Oman",  "Yemen, Rep.")
+
+gapminder_middle_east <- gapminder %>%
+  filter(country %in% middle_east)
+
+```
+
+### Creating a scatter plot using ggplot2
+
+Then we can make a scatter plot in ggplot2 using the function geom_point plotting `year` on the x axis and `lifeExp` on the y axis. 
+
+```{r Basic Scatterplot in ggplot}
+
+ggplot(data = gapminder_middle_east) +
+  geom_point(mapping = aes(x = year, y = lifeExp))
+
+```
+
+## ggplot structure
+
+To make a plot with `ggplot2` you begin a plot with the function `ggplot()`: 
+
+* `ggplot()`
+
+The first argument of `ggplot()` is the dataset to use in the graph: 
+
+* `ggplot(data = gapminder_middle_east)` 
+
+You complete your graph by adding one or more layers to `ggplot()`.
+
+* e.g. `geom_point()`. 
+
+The function `geom_point()` adds a layer of points to your plot. Each `geom` function in ggplot2 takes a `mapping` argument which defines how variables in your dataset are mapped to visual properties. The `mapping` argument is always paired with `aes()`. In the case of `geom_point` the `x` and `y` arguments of `aes()` specify which variables to *map* to the x and y axes. 
+
+* `geom_point(mapping = aes(x = year, y = lifeExp))`. 
+
+When these are specified, ggplot2 looks for the mapped variables (`year` and `lifeExp`) in the `data` argument.
+
+
+## Graphing template
+
+Graphs in ggplot take the following form
+
+```{r ggplot2 graphing template, eval = FALSE}
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+```
+
+Depending on the `<GEOM_FUNCTION>` used the arguments may vary. For instance if we are plotting a histogram to look at the range of life Expectancy in the dataset, we only need to provide a variable for the x axis. We also need to provide a value for the argument `bins()`.
+
+```{r Trying a new geom function to make a histogram}
+
+ggplot(data = gapminder) +
+  geom_histogram(mapping = aes(x = lifeExp), bins = 25)
+
+```
+
+Take a look at what different plots are available by typing `geom_` and then tab. 
+
+### Aesthetic mappings
+
+You can add a third variable, like `country`, to a two dimensional scatterplot by mapping it to an **aesthetic**. **Aesthetics** are visual properties of the objects in your plot. Aesthetics include things like the size, the shape, or the color of your points. You can display a point (like the one below) in different ways by changing the values of its aesthetic properties. 
+
+It seems like overall, life expectancy (`lifeExp`) has been improving in most countries with time, but some are improving faster than others. We can add additional information to the `aes` argument to explore the data further. For instance, we can colour the points by country.
+
+#### Colouring points by a factor
+
+```{r Make a scatter plot with points coloured by country}
+
+ggplot(data = gapminder_middle_east) +
+  geom_point(mapping = aes(x = year, y = lifeExp, colour = country))
+
+```
+
+
+This makes the graph a little easier to read, but some of the colours blend together. We can add an additional argument to change the shape of the point as well. 
+
+#### Changing point shape by a factor
+
+```{r Make a scatterplot with colour and shape set by country}
+
+ggplot(data = gapminder_middle_east) +
+  geom_point(mapping = aes(x = year, y = lifeExp, colour = country, shape = country))
+
+```
+
+#### Changing point size equal to a numeric variable
+
+We can also change the size, making it equal to gdpPercap
+
+```{r Make a plot with size set by gdpPercap}
+
+ggplot(data = gapminder_middle_east) +
+  geom_point(mapping = aes(x = year, y = lifeExp, colour = country, size = gdpPercap))
+
+```
+
+In this case `ggplot` gives us two legends, one for the size of the points and one for the country colour. Most of the countries `gdpPercap` has been increasing overtime, although some increases are more slight than others. 
+
+We could also make the plot with the points sized by relative gdp per capita `gdpPercap_rel`
+
+
+```{r Make a plot with size equal to relative gdpPercap}
+
+ggplot(data = gapminder_middle_east) +
+  geom_point(mapping = aes(x = year, y = lifeExp, colour = country, size = gdpPercap_rel))
+
+```
+
+#### Adding titles and labels
+
+We can customise our graph further by adding titles and labels.
+
+```{r Customise a ggplot with titles and labels}
+
+ggplot(data = gapminder_middle_east) +
+  geom_point(mapping = aes(x = year, y = lifeExp, colour = country, size = gdpPercap)) +
+  ggtitle("Life Expectancy by Year") +
+  labs(x = "Year", y = "Life Expectancy")
+
+```
+
+#### Changing the limits of our axes
+
+We can also change the limits of our x and y axes. Generally it is a good idea to start axes from 0. 
+
+
+```{r Change the limits of the x and y axes}
+
+ggplot(data = gapminder_middle_east) +
+  geom_point(mapping = aes(x = year, y = lifeExp, colour = country, size = gdpPercap)) +
+  ggtitle("Life Expectancy by Year") +
+  labs(x = "Year", y = "Life Expectancy") +
+  ylim(0, 100)
+
+```
+
+#### Change the labels on a legend
+
+We can also change the labels of our legend. 
+
+```{r Change the labels of the legend}
+
+ggplot(data = gapminder_middle_east) +
+  geom_point(mapping = aes(x = year, y = lifeExp, colour = country, size = gdpPercap)) +
+  ggtitle("Life Expectancy by Year") +
+  labs(x = "Year", y = "Life Expectancy", colour = "Country", size = "GDP Per Capita") +
+  ylim(0, 100)
+  
+```
+
+#### Make multiple plots using `facet_wrap()`
+
+The function `facet_wrap()` wraps a series of plot panels into two dimensions. We can use it in our plot to make a plot panel for each country. There are other options for facet_wrap, take a look at the help file by typing `?facet_wrap` to look at other examples like wrapping the data by two variables. 
+
+```{r Make a facet grid plot}
+
+p1 <- ggplot(data = gapminder_middle_east) +
+  geom_point(mapping = aes(x = year, y = lifeExp, colour = country, size = gdpPercap)) +
+  ggtitle("Life Expectancy by Year") +
+  labs(x = "Year", y = "Life Expectancy", size = "GDP Per Capita", colour = "Country") +
+  ylim(0, 100) 
+
+p1 + facet_wrap(~country, ncol = 2)
+```
+ 
+And to save the last plot we made, we can run the following lines of code.  
+
+#### Save a plot using `ggsave()`
+ 
+```{r Save a plot using ggsave()}  
+
+ggsave(filename = "pictures/Life_Expectancy_by_Year.png", width = 6, height = 4)
+
+```
+
+From this plot it seems like the countries with the largest gdpPercap seem to overall have higher life Expectancy.
+
+### Making a time series plot
+
+Time series plots are a great way to look at the evolution of a process through time. We can use a time series plot to ask the questions:
+
+1. How does GDP per capita change with time?
+
+```{r Time series of gdp per capita}
+
+gapminder %>%
+  filter(country %in% c("Colombia", "Chile", "Argentina", "Brazil", "Peru", "Ecuador")) %>%
+  ggplot() +
+    geom_line(mapping = aes(x = year, y = gdpPercap, colour = country)) +
+    labs(x = "Year", y = "GDP Per Capita", colour = "Country") +
+    ylim(0, 15000)
+
+
+```
+
+Overall all the South American country's in the plot above GDP per capita have increased over time. But how does this compare to how the UK's gdp per capita changed?
+
+2. Which country's GDP per capita relative to the UK changed the most over time? Which changed the least? Which country's relative GDP increased the most from start to finish?
+
+```{r How does relative gdp per capita change over time }
+
+gapminder %>%
+  filter(country %in% c("Colombia", "Chile", "Argentina", "Brazil", "Peru", "Ecuador")) %>%
+  ggplot() +
+    geom_line(mapping = aes(x = year, y = gdpPercap_rel, colour = country)) +
+    labs(x = "Year", y = "GDP Per Capita Relative to the UK", colour = "Country")
+
+```
+
+3. What's the relationship between Infant Mortality and Time?
+
+```{r What is the relationship between Infant Mortality and Time}
+
+gapminder %>%
+  filter(country %in% c("Colombia", "Chile", "Argentina", "Brazil", "Peru", "Ecuador")) %>%
+  ggplot() +
+    geom_line(mapping = aes(x = year, y = infant_mortality, colour = country)) + 
+    ylim(0, 150) +
+    labs(y = "Infant Mortality", x = "Year", colour = "Country")
+
+```
+
+4. What is the relationship between fertility and time?
+
+What kind of trends can you pick out through time? Which country's fertility dropped the fastest? Which country's fertility changed the least? When do we start to have data for fertility from these countries?
+
+
+```{r What is the relationship between fertility and time}
+
+gapminder %>%
+  filter(country %in% c("Colombia", "Chile", "Argentina", "Brazil", "Peru", "Ecuador")) %>%
+  ggplot() +
+    geom_line(mapping = aes(x = year, y = fertility, colour = country)) + 
+    ylim(0, 10) +
+    labs(y = "Fertility", x = "Year", colour = "Country") +
+    ggtitle("Fertility over Time")
+
+
+```
+
+### **Exercises:**
+
+1. Run the following lines of code to make the plot below. Add the title "Life Expectancy in the Americas 1952 vs 2007" using `ggtitle()`.
+
+```{r Life expectancy in the Americas 1952 vs 2007}
+
+gapminder %>%
+  filter(continent == "Americas", year %in% c(1952, 2007)) %>%
+  mutate(year = as.factor(year)) %>%
+  ggplot() +
+    geom_point(mapping = aes(y = country, x = lifeExp, colour = year)) +
+    labs(x = "Life Expectancy", y = "Country", colour = "Year")
+
+```
+
+2. The plot below shows the difference in life expectancy for the 10 countries with the largest difference. 
+
+* Change the x = fct_reorder(country, life_exp_diff) to x = country. What does fct_reorder do? Take a look at ?fct_reorder for more info. 
+
+* Rerun the plot, this time removing `coord_flip()`. What does the function `coord_flip()` change in the plot?
+
+```{r What does fct_reorder and coord_flip do}
+
+gap_lifeExpdiff_df <- gapminder %>%
+  group_by(country) %>% 
+  summarise(life_exp_diff = max(lifeExp) - min(lifeExp)) %>% 
+  top_n(n = 10)
+
+p1 <- ggplot(gap_lifeExpdiff_df) +
+    geom_col(mapping = aes(x = fct_reorder(country, life_exp_diff), y = life_exp_diff), fill = "blue") +
+    labs(y = "Difference in Maximum and Minimum Life Expectancy (years)", x = "") +
+    ggtitle("Difference in Maximum and Minimum Life Expectancy", sub = "Top 10 countries with the largest difference (1952-2007)") +
+    ylim(0, 40)
+
+p1 + coord_flip()
+
+```
+
+
+3. Try recreating the following plot by filling in the blanks below
+
+![](pictures/Population_by_year.png){width=650px}
+
+```{r Reproduce the population by year plot, eval = FALSE}
+
+gapminder %>%
+  filter(country %in% c(<BLANK>)) %>%
+  select(year, pop, country) %>%
+  mutate(pop = pop/1000000) %>%
+  ggplot() +
+    geom_point(mapping = aes(x = <BLANK>, y = <BLANK>, colour = <BLANK>)) +
+  facet_wrap(country ~ .) +
+  ggtitle("Population in Argentina, Chile, Peru, and Uruguay") +
+  labs(x = "Year", y = "Population in Millions", colour = "Country")
+
+  
+```
+
+
+**Bonus**
+
+4. Change the plot so it shows the difference in life expectancy for the 10 countries with the smallest difference.
+
+*Hint:* You'll need to change top_n(), take a look at the help file using ?top_n and read what it says for the argument `n`.
+
+* Update the subtitle `sub =` to reflect that we're looking at the countries with the smallest difference.
+
+```{r Update so the plot shows countries with the smallest difference in life Expectancy}
+
+gap_lifeExpdiff_df <- gapminder %>%
+  group_by(country) %>% 
+  summarise(life_exp_diff = max(lifeExp) - min(lifeExp)) %>% 
+  top_n(n = 10)
+
+p1 <- ggplot(gap_lifeExpdiff_df) +
+    geom_col(mapping = aes(x = fct_reorder(country, life_exp_diff), y = life_exp_diff), fill = "blue") +
+    labs(y = "Difference in Maximum and Minimum Life Expectancy (years)", x = "") +
+    ggtitle("Difference in Maximum and Minimum Life Expectancy", sub = "Top 10 countries with the largest difference (1952-2007)") +
+    ylim(0, 40)
+
+p1 + coord_flip()
+
+```
+
+
+
+5. What's the relationship between Infant Mortality and Year by continent? Fill in the blanks to find out. 
+
+```{r What is the relationship between infant mortality and year by continent, eval = FALSE}
+
+gapminder %>%
+  ggplot() +
+    geom_line(mapping = aes(x = year, 
+                            y = <BLANK>, 
+                            group = country, 
+                            colour = <BLANK>)) + 
+    labs(y = "Infant Mortality", x = "Year", colour = "Continent") +
+    facet_wrap(. ~ <BLANK>)
+
+
+```
+
+5a. Filter the data to find out which countries in Europe had a infant mortality rate greater than 60?
+
+N.B. You do not need to make a plot.
+
+```{r Which countries in Europe had an infant mortality rate greater than 60, eval = FALSE}
+
+gapminder %>% 
+  filter(continent == "Europe", infant_mortality > <BLANK>)
+
+```
+
+
+5. Run the code below and take a look at the plot of the relationship between life expectancy and year by continent. Use the tidyverse verbs to figure out which countries are represented by the dips in Africa (1990s) and Asia (1970s).
+
+```{r Life expectancy by year by continent}
+
+gapminder %>%
+  ggplot() +
+    geom_line(mapping = aes(x = year, 
+                            y = lifeExp, 
+                            group = country, 
+                            colour = continent)) + 
+    ylim(0, 100) +
+    labs(y = "Life Expectancy", x = "Year", colour = "Continent") +
+    facet_wrap(continent ~ .)
+
+```
+
+
+Which country is represented in the dip in Africa?
+
+```{r}
+
+```
+
+Which country is represented in the dip in Asia?
+
+```{r}
+
+```
+
+# Getting Help
+
+1. **Help and Vignette** Check the function or the documentation of the package you're working with using the help function `?` or `vignette` respectively. 
+
+```{r Getting help: help and vignette, eval = FALSE}
+?filter
+
+vignette("dplyr")
+```
+
+2. **CRAN Task View** Looking for a package to carry out a particular analysis? Check out [CRAN Task View](https://cran.r-project.org/web/views/)
+
+3. **Stack Overflow** [Stack Overflow](https://stackoverflow.com/questions/tagged/r) Check out Stack Overflow. This is one of the first calls where members from the R Community will help you answer questions. 
+
+4. **Cheatsheets** Many of the tidyverse packages come with their own [cheatsheets](https://rstudio.com/resources/cheatsheets/), which are a quick reference on how to use various functions. It also gives a good overview of what functions are available.
+
+![](pictures/data-transformation-cheat-sheet.png){width=350px}
+
+
+
+5. **Google.** Google is your friend! Type "R help" followed by the warning or error message you received and I guarantee there will be someone who has had this problem before. 
+
+6. **Meet ups and coding clubs** Join a meet up or coffee and code group. Check out R-Ladies. 
+
+7. **Further resources** Looking to develop your learning further? Check out my [trello board](https://trello.com/b/ukAp9sUg/r-resources-for-data-science) on R Resources for Data Science. This is still a work in progress, but I'm continually updating it with useful resources. 
+
+
+# References
+
+* Changing R Studio Settings and Overview of RStudio Panels [Sydney R Ladies](https://rladiessydney.org/courses/ryouwithme/01-basicbasics-1/)
+* Showcasing RStudio features, overview of functions using `seq()` as an example. [Stat 545 University of British Columbia Blog](stat545.com) by Jenny Bryan
+* Introduction to ggplot2 and the grammar of graphics. [R for Data Science](https://r4ds.had.co.nz/) by Hadley Wickham and Garret Gromelund.
+
+## Acknowledgements
+
+Thank you to Jhai Ghaghada for laying the foundation for the Intro to R course. Thanks to Andrew Meechan, Rebecca Brown, David Bell, and Lewis Dunne for being the guinea pigs for this work. Special thanks to Rebecca Brown for the comments and feedback on the content.

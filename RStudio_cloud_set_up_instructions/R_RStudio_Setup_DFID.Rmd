@@ -1,0 +1,30 @@
+---
+title: "R_RStudio_Set_Up_DFID"
+author: "Laurie Baker"
+date: "06/01/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Putting in a SAW Request to install R and Rstudio.
+
+From **Insight**, navigate to **Service Anywhere**-> **Systems and Software** -> Type **"Request Software"** in the search -> Click **Request Service**. 
+
+In the form that opens fill in the following:
+
+![](pictures/Rstudio_SAW_request_form.png){width=650px}
+
+
+R and Rstudio are completely free, however, you will still need to supply a Component Code. Ask your line manager for the appropriate **Component Code to charge any licence costs to**. No charges will be made! Give a 2 day window for when the software is required.
+
+
+## Once the SAW Request is completed
+
+Open the file:  Test_Script.Rmd in RStudio.
+
+
+
+

@@ -1,0 +1,2524 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Intro to R for Data Science</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Laurie Baker" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+    <script src="libs/jquery-1.12.4/jquery.min.js"></script>
+    <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet-1.3.1/leaflet.js"></script>
+    <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+    <script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+    <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+    <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Intro to R for Data Science
+## ⚔
+### Dr. Laurie Baker
+### Data Science Campus, Office for National Statistics
+### (updated: 2020-08-10)
+
+---
+
+
+
+# Welcome to R!
+
+* R is a versatile coding language for data science and it's great because:
+
+--
+
+1. **Free and open source** 
+
+--
+
+2. **Reproducibility and Reporting** 
+
+--
+
+3. **RStudio** 
+
+--
+
+4. **Graphics** 
+
+--
+
+5. **R Packages and Community** Over 15,000 packages on [CRAN](https://cran.r-project.org/)!
+
+???
+
+R is a versatile coding language for data science, with a wonderful community supporting it. Here's a short list of some of the things that make R great.
+
+
+1. **Free and open source** It's a free and open source programming language and environment for statistical computing, machine learning, and graphics.
+
+2. **Reproducibility and Reporting** writing reproducible reports is now easier than ever thanks to packages like knitr and R Markdown. 
+3. **RStudio** RStudio is a powerful Interactive Development Environment that has made learning R and using R much easier. With options for workflow and project management.  
+4. **Graphics.** R can be used to make great data graphics, with packages like ggplot2 helping users make graphics in an intuitive way. 
+
+5. **R Packages and Community** With over 15,000 packages on [CRAN](https://cran.r-project.org/) alone, there’s pretty much a package to do anything. The greater R community has also expanded tremendously over time, bringing in new users and pushing R to be useful in more applications. Each year there are thousands of meetups, conferences, seminars, and workshops on R all around the world.
+
+---
+## But why should you care?
+
+* Can use it to automate your work and make it reproducible
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/DFID_RAP.png" alt="RAP Projects" width="700" height="470" /&gt;
+&lt;p class="caption"&gt;RAP Projects&lt;/p&gt;
+&lt;/div&gt;
+
+---
+## But why should you care?
+
+* Can use it to make meaningful visualisations of your work/programmes.
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/yemen_leaflet_example_2.png" alt="Leaflet Maps" width="720" height="480" /&gt;
+&lt;p class="caption"&gt;Leaflet Maps&lt;/p&gt;
+&lt;/div&gt;
+
+---
+## But why should you care?
+
+
+
+
+
+```r
+leaflet() %&gt;% addTiles() %&gt;% setView(lng = 48, lat = 16.5, 6)
+```
+
+<div id="htmlwidget-02c461d2abe8d5b098d4" style="width:504px;height:504px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-02c461d2abe8d5b098d4">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"setView":[[16.5,48],6,[]]},"evals":[],"jsHooks":[]}</script>
+
+
+---
+## Buy why should you care?
+
+* Take advantage of the expertise of 100000s researchers/users. 
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/CRAN_task_view.png" alt="CRAN Task View" width="600" height="480" /&gt;
+&lt;p class="caption"&gt;CRAN Task View&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# Learning objectives: Part 1
+
+- Familiarise yourself with RStudio and R Notebooks.
+
+--
+
+- Learn about R's most common data structures: **vector** and **data frame**.
+
+--
+
+- Explore a few of R's basic data types = **integer, character, factor, numeric**, etc. 
+
+--
+
+- Learn to read data into R. 
+
+--
+
+- Start exploring the gapminder data set.
+
+
+---
+class: inverse, center, middle
+
+
+# RStudio and RNotebooks
+
+
+---
+
+# RStudio Settings
+
+* First let's set it so that our notebook shows up in our viewer. 
+
+&lt;img src="pictures/R_notebook_viewing.png" width="400" height="350" style="display: block; margin: auto;" /&gt;
+
+
+* Now click on the little arrow next to Knit and select "Knit to HTML".
+
+???
+
+Click on the gear icon next to Knit on the menu. Select Preview in Viewer Pane. 
+
+
+---
+
+## RStudio
+
+* RStudio is an interactive development environment (IDE) for R!
+
+* **Q1**: where your script is written
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/RStudio_quadrants.jpg" alt="From R-Ladies Sydney Basic Basics" width="470" height="390" /&gt;
+&lt;p class="caption"&gt;From R-Ladies Sydney Basic Basics&lt;/p&gt;
+&lt;/div&gt;
+
+???
+
+In this training we will be using RStudio. RStudio is an interactive development environment (IDE) for R and is broken down into various panels for our convenience. 
+
+- **Q1**: script, data, command to run script
+  - This is the panel you’re reading this tutorial in. It contains the script editor where we can create and edit R Notebook files, among other files.
+  
+  
+---
+## RStudio
+
+* RStudio is an interactive development environment (IDE) for R!
+
+* **Q2**: the console where R code is passed to and executed
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/RStudio_quadrants.jpg" alt="From R-Ladies Sydney Basic Basics" width="470" height="390" /&gt;
+&lt;p class="caption"&gt;From R-Ladies Sydney Basic Basics&lt;/p&gt;
+&lt;/div&gt;
+
+
+???
+
+  
+- **Q2**: console
+  - This is the Console Panel where R code is passed to and executed.
+
+---
+
+## RStudio
+
+* RStudio is an interactive development environment (IDE) for R!
+
+* **Q3**: the environment where variables in our workspace are tracked.
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/RStudio_quadrants.jpg" alt="From R-Ladies Sydney Basic Basics" width="470" height="390" /&gt;
+&lt;p class="caption"&gt;From R-Ladies Sydney Basic Basics&lt;/p&gt;
+&lt;/div&gt;
+
+???
+
+- **Q3**: environment
+  - The environment tab keeps track of variables we’ve created in this workspace.
+
+---
+
+## RStudio
+
+* RStudio is an interactive development environment (IDE) for R!
+
+* **Q4**: files, plots, packages, help, viewer.
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/RStudio_quadrants.jpg" alt="From R-Ladies Sydney Basic Basics" width="470" height="390" /&gt;
+&lt;p class="caption"&gt;From R-Ladies Sydney Basic Basics&lt;/p&gt;
+&lt;/div&gt;
+
+???
+
+- **Q4**: files, plots, packages, help
+  - This is a multi-purpose panel which contains:
+      - **Files:** A basic file explorer,
+      - **Plots:** Where plots can be rendered,
+      - **Packages:** install and import libraries into R,
+      - **Help:** Explorer for Documentation of functions and libraries,
+      - **Viewer:** View local web content e.g. Shiny app.
+
+---
+
+## R Notebooks
+
+* Notebooks combine code and descriptions!
+
+
+
+```r
+print('code goes here!')
+```
+
+```
+## [1] "code goes here!"
+```
+
+
+???
+
+R Notebooks give the opportunity to combine code and description in a single human-readable notebook. You can conduct analysis and give interpretation side-by-side! This means that your entire analytical approach can be documented together, from the raw data to the analysis and finally results and conclusions.
+
+We can run the block of code using the play button on the right. We can also run this block of code with all previous blocks of code with the downwards facing play button in the middle. 
+
+In some places I have added additional arguments to the code chunk (e.g. `eval = FALSE`) so that something is not evaluated in order for the html file to compile. See the example below:
+
+Feel free to change this by simply removing the `, eval = FALSE` especially as you update the document. However, note that if there are any code errors left, the html file will not compile.  
+
+---
+
+## Comments and helpful shortcuts
+
+--
+
+* Comments are notes for you or a colleague, explaining what your code does. 
+
+--
+
+* Comments are added using `#`.
+
+
+--
+
+
+```r
+## print() is a function to print a statement
+
+print('code goes here!')
+```
+
+```
+## [1] "code goes here!"
+```
+
+--
+
+* You can comment/uncomment using `Ctrl + Shift + C`.
+
+--
+
+* Execute code by placing your cursor on the line and using `Ctrl + Enter`.
+
+???
+
+* Your comments can be notes for yourself, or explanation of what the code is doing for someone to follow. 
+
+* You can also comment out code you don't want to be immediately run. 
+
+* You can comment or uncomment code using `Ctrl + Shift + C`. 
+
+* You can run a line of code by placing your cursor anywhere on the line and using `Ctrl + Enter`. This will execute the line of code and move the cursor to the next line.
+
+---
+class: inverse, middle, center
+
+# Basics
+
+---
+
+## R as a big calculator
+
+* We can directly code into R and use it as a big calculator.
+
+--
+
+
+```r
+5+5 
+```
+
+```
+## [1] 10
+```
+
+```r
+(5*12)/6 + 3
+```
+
+```
+## [1] 13
+```
+
+
+---
+
+## Objects and Data Structures
+
+
+* R, like other programming languages (C++, Java, C#, Python, etc.) has "object-oriented" features. 
+
+--
+
+* There's a major difference between R and other languages: methods are not part of object class definitions. 
+
+--
+
+* **objects** refer to any of the data structures we create in our environment. 
+
+--
+
+* We'll cover two common object data structures today: **vector** and **data frame**
+
+
+---
+## Objects are storage containers
+
+--
+* Let's start by making an assignment and inspecting the object we created.
+
+
+```r
+x &lt;- 10*5
+
+x
+```
+
+```
+## [1] 50
+```
+
+--
+
+![](pictures/object.jpg)
+
+--
+
+* All R statements where you create objects by making an 'assignment', take the form:
+
+ -  `object_name &lt;- value`
+
+???
+
+You can think of objects as storage containers for values. An object is created using the operator `&lt;-`. It can be a pain to type `&lt;-`, but don't be tempted to use `=` as this has another specific use in the R language. 
+
+---
+
+## **Naming objects**
+
+* Names can include letters, numbers, periods and underscores. 
+
+--
+
+* Cannot start with a dot or a number `1,2,3...`. 
+
+--
+
+* Your name cannot contain other characters such as: "'", " " or ",". 
+
+--
+
+
+```r
+this_works &lt;- 10*5
+
+this_works
+```
+
+```
+## [1] 50
+```
+
+--
+
+* This doesn't work...
+
+
+```r
+# this_doesn't_work &lt;- 10*5
+```
+
+--
+
+???
+
+You can name your objects anything. You can use letters, numbers, periods and underscores. You just can't start names with a dot or a number `1,2,3...` and your name cannot contain other characters such as a comma or a space. 
+
+Try running the following lines of code. Try uncommenting the code `# this_doesn't_work &lt;- 10*5` by clicking on the line and using `Ctrl + Shift + C`.
+
+---
+
+## What's in a name?
+
+* Choose easy to read and descriptive object names.
+
+--
+
+* *Future you* and collaborators will thank you!
+
+--
+
+* Feeling adventurous? Try a naming convention
+
+--
+
+
+```r
+jenny_bryan_and_hadley_wickham_use_snake_case 
+```
+
+--
+
+
+```r
+some.people.use.periods
+```
+
+--
+
+
+```r
+othersUseCamelCase
+```
+
+
+???
+
+It is useful for **future you** and your collaborators to name your objects something that is reasonable and describes what the object contains. To make your object names easy to read it is useful to adopt a convention for demarcating words in names.
+
+---
+
+## Using Tab Completion to Complete Object Names
+
+* Make a new object 
+
+
+```r
+a_very_long_name &lt;- 7^2 
+```
+
+* Start by typing the first few letters of `a_very...` in the code chunk below and type `TAB` to complete the name. 
+
+
+```r
+a_very
+```
+
+???
+
+Sometimes unavoidably to make our object names readable we use long names that can be labourious to type. Luckily, RStudio has a handy completion facility. 
+
+Start by typing the first few letters of `a_very...` in the code chunk below and type `TAB` to complete the name. 
+
+---
+
+## R is case-sensitive and dislikes typos
+
+* Let's try inspecting the object again.
+
+
+```r
+# What happens if you run:
+
+a_vry_long_name
+
+A_very_long_name
+```
+
+--
+* a_vry_long_name forgets an "e"
+
+--
+
+* A_very_long_name the "A" is capitalized.
+
+???
+R is very sensitive to both case and spelling mistakes and won't run unless things are spelled correctly and are in the right case. If you get an error, check your spelling! More than 80% of the time, this is likely the cause of your error! 
+
+---
+
+## Vectors
+
+--
+* A `vector` is a 1-dimensional ordered collection of elements.
+
+--
+
+* the elements are **all of the same data type** (e.g. numeric).
+
+--
+
+* It is the fundamental data structure in R with a lot of useful properties. 
+
+--
+
+* We'll work with some example character and numeric vectors
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/character_vector.jpg" alt="Character vector" width="600" height="100" /&gt;
+&lt;p class="caption"&gt;Character vector&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/numeric_vector.jpg" alt="Numeric vector" width="600" height="100" /&gt;
+&lt;p class="caption"&gt;Numeric vector&lt;/p&gt;
+&lt;/div&gt;
+
+
+## Creating a vector with `c()`
+
+* Let's make a new vector called `character_vector` using the function `c()` which can be used to **c()**ombine elements.  
+
+
+```r
+## Defining the character vector:
+
+character_vector &lt;- c("ET", "phone", "home", "ET", "phone", "home")
+```
+
+--
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/character_vector.jpg" alt="Character vector" width="600" height="100" /&gt;
+&lt;p class="caption"&gt;Character vector&lt;/p&gt;
+&lt;/div&gt;
+
+
+* N.B. when we specify words or characters, we use `""`.
+
+---
+
+## Checking the structure of the vector using `str()`
+
+
+```r
+str(character_vector)
+```
+
+```
+##  chr [1:6] "ET" "phone" "home" "ET" "phone" "home"
+```
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/character_vector.jpg" alt="Character vector" width="600" height="100" /&gt;
+&lt;p class="caption"&gt;Character vector&lt;/p&gt;
+&lt;/div&gt;
+
+* From the "" around the text, R recognises the text as a character string `chr`.
+
+
+---
+
+## Check the length of a vector using `length()`
+
+
+```r
+length(character_vector)
+```
+
+```
+## [1] 6
+```
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/character_vector.jpg" alt="Character vector" width="600" height="100" /&gt;
+&lt;p class="caption"&gt;Character vector&lt;/p&gt;
+&lt;/div&gt;
+
+
+
+---
+
+## Extract multiple consecutive elements using `:`. 
+
+* We can extract an element from a vector by referencing its position. 
+
+
+
+```r
+character_vector[3:5]
+```
+
+```
+## [1] "home"  "ET"    "phone"
+```
+
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/character_vector_consecutive.jpg" alt="Character vector" width="600" height="100" /&gt;
+&lt;p class="caption"&gt;Character vector&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+## Replace elements using `&lt;-`
+
+Try replacing the 4th element with your name:
+
+
+```r
+character_vector[4] &lt;- "Laurie"
+
+character_vector
+```
+
+```
+## [1] "ET"     "phone"  "home"   "Laurie" "phone"  "home"
+```
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/character_vector_replace.jpg" alt="Character vector" width="600" height="100" /&gt;
+&lt;p class="caption"&gt;Character vector&lt;/p&gt;
+&lt;/div&gt;
+
+
+---
+
+## Define a numeric vector
+
+* The same method used to extract information works for any type of vector. 
+
+* Let's create a new `numeric_vector` containing the numbers 1, 2, 3, 4, and 5. 
+
+
+
+```r
+numeric_vector &lt;- c(1:5) 
+```
+
+--
+
+### Check the structure using `str()`
+
+
+```r
+str(numeric_vector)
+```
+
+```
+##  int [1:5] 1 2 3 4 5
+```
+
+--
+
+Because we have specified whole numbers, R can either classify the vector as an integer `int` or as numeric `num`.
+
+---
+
+## Extract the first two elements
+
+
+```r
+numeric_vector[1:2]
+```
+
+```
+## [1] 1 2
+```
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/numeric1_2.jpg" alt="Numeric vector" width="600" height="100" /&gt;
+&lt;p class="caption"&gt;Numeric vector&lt;/p&gt;
+&lt;/div&gt;
+
+
+---
+
+## Extract non-consecutive elements using `c()`
+
+Trying uncommenting and running the line below:
+
+
+```r
+# numeric_vector[1,3]
+```
+
+--
+
+Note that if we want, we can only select the 1 and 3 or 1, 3, and 4 elements using `c()`. 
+
+
+```r
+numeric_vector[c(1,3:4)]
+```
+
+```
+## [1] 1 3 4
+```
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/numeric_non_consec.jpg" alt="Character vector" width="600" height="100" /&gt;
+&lt;p class="caption"&gt;Character vector&lt;/p&gt;
+&lt;/div&gt;
+
+
+---
+class: inverse, center, middle
+
+
+# Your Turn: Exercises Part I
+
+---
+
+## 1. Take the last two elements of the numeric vector
+
+
+```r
+## Don't know which element is the last? Use length() to find out
+length(numeric_vector)
+```
+
+```
+## [1] 5
+```
+
+```r
+## You can use : because the positions are consecutive.
+
+numeric_vector[4:5]
+```
+
+```
+## [1] 4 5
+```
+
+---
+
+## 2. Take the first and last elements of the character_vector. 
+
+Hint: you can use `length()` to find out how many elements there are in the character vector. 
+
+
+```r
+## Checking the length comes in handy here too!
+
+length(character_vector)
+```
+
+```
+## [1] 6
+```
+
+```r
+## Because they are non-consecutive we need to use c()
+
+character_vector[c(1,6)]
+```
+
+```
+## [1] "ET"   "home"
+```
+
+---
+
+
+## A dynamically typed language
+
+* R will try to be smart and figure out your data type for you
+
+
+```r
+numeric_vector2 &lt;- c(1.1,3:4)
+
+## Check the structure
+
+str(numeric_vector2)
+```
+
+```
+##  num [1:3] 1.1 3 4
+```
+
+--
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/numeric_vector_3.jpg" alt="Numeric vector" width="300" height="100" /&gt;
+&lt;p class="caption"&gt;Numeric vector&lt;/p&gt;
+&lt;/div&gt;
+
+--
+
+* But sometimes it gets it wrong...
+
+* factor/character and numeric/integer are commonly wrong
+
+
+???
+
+R is what is known as a dynamically typed language. This means that unlike in other languages, where you have to set the data type when you create a vector (e.g. numeric, integer), R will infer the data type for you based on what is in your vector (e.g. numeric, character, factor, logical etc.)
+
+We can demonstrate this by making a second numeric vector, numeric_vector2.
+
+* You'll notice that now when we check the structure, the vector is numeric (num). This is because we now have a number with a decimal place. 
+
+* However, sometimes the data type you want to work with, and the one R infers are not the same. 
+* This happens often with character/factor, integer/numeric.
+You can change the data type using a range of in-built functions that enable you to convert data from one type to another. 
+
+---
+
+## The `as.` functions: integer to numeric
+
+
+* The `as.` functions take the form `as.&lt;structure&gt;`.
+
+--
+
+* We want to make our vector numeric so, `&lt;structure&gt;` =  numeric
+
+--
+
+
+```r
+numeric_vector &lt;- as.numeric(numeric_vector)
+
+str(numeric_vector)
+```
+
+```
+##  num [1:5] 1 2 3 4 5
+```
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/as_numeric.jpg" alt="Now it's a numeric vector" width="600" height="100" /&gt;
+&lt;p class="caption"&gt;Now it's a numeric vector&lt;/p&gt;
+&lt;/div&gt;
+
+
+???
+A useful set of functions are the `as.` functions, which take the form `as.&lt;structure&gt;`. We can use this to specify the structure of our numeric vector to be `numeric`.
+
+
+---
+
+## The `as.` functions: character to factor
+
+* Example 2: Change character to factor.
+
+--
+
+* How does a character differ from a factor?
+
+--
+
+
+```r
+character_vector &lt;- as.factor(character_vector)
+
+str(character_vector)
+```
+
+```
+##  Factor w/ 4 levels "ET","home","Laurie",..: 1 4 2 3 4 2
+```
+
+--
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/factor_vector.jpg" alt="A factor vector" width="600" height="100" /&gt;
+&lt;p class="caption"&gt;A factor vector&lt;/p&gt;
+&lt;/div&gt;
+
+
+* Now our vector is a`Factor` with 4 levels: "ET", "home", "Laurie", and "phone".
+
+--
+
+* When you create a factor it uses an integer code. "ET" is both "ET" and 1, "home" is both "home" and 2. 
+
+--
+
+* What would the integer codes be if instead of "Laurie" we had "Arnold"?
+
+???
+
+* When you create a factor it uses an integer code to represent each level. So that "ET" is both "ET" and 1, "Home" is both "Home" and 2. You'll notice that it automatically takes the alphabetic order when determining the factor levels. This means that even though "Phone" occurs 2nd in our character vector, it gets the integer code: 4. This is just a detail now, but becomes important in plotting, especially if you want to change the order in which your factors are plotted.
+
+* Factors are especially useful if we want to group data by a factor (e.g. country) for counting or summarising. For instance, "Home" and "Phone" each occur twice, whereas "Laurie" and "ET" each only occur once. 
+
+---
+
+## Vectorised Language
+
+* R is a **vectorised language.**
+
+--
+
+* Operations are applied to each element automatically without the need to loop through!
+
+--
+
+* Vectorised = Fast! Computers are optimised for these types of calculations. 
+
+--
+
+* Can mutiply, divide, add, and subtract vectors of the same length or multiples of the same length
+
+???
+
+Vectors aren't just containers for homogeneous data. As R is a vectorised language, this means operations are applied to each element of the vector automatically, without the need to loop through the vector. 
+
+This is powerful as at a low-level as computer chips are generally optimised for these types of calculations [SIMD](https://en.wikipedia.org/wiki/SIMD).
+
+---
+
+## Vectorised language
+
+* Can multiply and exponentiate vectors
+
+
+```r
+numeric_vector*3
+```
+
+```
+## [1]  3  6  9 12 15
+```
+
+```r
+numeric_vector^2
+```
+
+```
+## [1]  1  4  9 16 25
+```
+
+
+---
+
+## Vectorised language
+
+* Divide vectors of the same length
+
+
+```r
+x &lt;- seq(from = 1, to = 20, by = 4)
+
+x
+```
+
+```
+## [1]  1  5  9 13 17
+```
+
+```r
+numeric_vector/x
+```
+
+```
+## [1] 1.0000000 0.4000000 0.3333333 0.3076923 0.2941176
+```
+
+---
+
+## Vectorised language
+
+* Subtract or add vectors of the same length
+
+
+
+```r
+x - numeric_vector
+```
+
+```
+## [1]  0  3  6  9 12
+```
+
+---
+
+## Many functions are designed for vectors
+
+* **Let's calculate some simple statistics**
+
+
+```r
+mean(numeric_vector)
+```
+
+```
+## [1] 3
+```
+
+```r
+min(numeric_vector)
+```
+
+```
+## [1] 1
+```
+
+```r
+max(numeric_vector)
+```
+
+```
+## [1] 5
+```
+
+```r
+range(numeric_vector)
+```
+
+```
+## [1] 1 5
+```
+
+
+---
+class: inverse, center, middle
+
+
+# Your Turn: Exercises Part II
+
+---
+
+## 1. Divide the numeric_vector by 3
+
+
+```r
+numeric_vector/3
+```
+
+```
+## [1] 0.3333333 0.6666667 1.0000000 1.3333333 1.6666667
+```
+
+---
+
+## 2. Multiply the numeric_vector by the new vector 'y'
+
+
+```r
+y &lt;- c(5:1)
+
+y ## Let's see what y looks like
+```
+
+```
+## [1] 5 4 3 2 1
+```
+
+```r
+numeric_vector ## Let's remind ourselves what numeric_vector looks like
+```
+
+```
+## [1] 1 2 3 4 5
+```
+
+```r
+*numeric_vector*y
+```
+
+```
+## [1] 5 8 9 8 5
+```
+
+---
+## 3. Why do the following lines of code not work?
+
+
+
+```r
+w &lt;- c(1:4)
+
+numeric_vector/w
+```
+
+
+
+```r
+w &lt;- c(1:4)
+
+## what's the length of w?
+length(w)
+```
+
+```
+## [1] 4
+```
+
+```r
+## what's the length of the numeric_vector?
+length(numeric_vector)
+```
+
+```
+## [1] 5
+```
+
+---
+
+# Data Structures
+
+* Data structures are defined based on their dimensions and contents.
+
+
+![http://adv-r.had.co.nz/Data-structures.html](pictures/data_structures.PNG)
+Overview of Data Structures from the book [Advanced R by Hadley Wickham](http://adv-r.had.co.nz/Data-structures.html)
+
+---
+
+# CRAN, library, packages, and functions
+
+???
+So far, we've seen R's capabilities as a large calculator and also as a place for storing objects and vectors. However, it is much much more than that! One of the things that makes R amazing is the open source community surrounding it.
+
+The R community which is made up of academics, statisticians, social and political scientists, economists, and data scientists to name a few, are responsible for authoring a wide variety of packages (&gt;15,000) that can do a wide range of data manipulation, visualisation, and analysis tasks. 
+
+
+To get your head around what CRAN, library, packages, and functions are I find it helpful to think of books. 
+
+---
+
+## CRAN: **C**omprehensive **R** **A**rchive **N**etwork.
+
+- R equivalent of the British Library or Library of Congress.
+
+
+&lt;img src="pictures/CRAN_packages_example.png" width="620" height="540" style="display: block; margin: auto;" /&gt;
+
+
+
+???
+It's like the R equivalent of the British Library or Library of Congress. It holds a copy of every package (book) and all the versions of R. 
+
+
+
+## Library
+
+
+- On your computer you'll have a local library with copies of the packages you've installed from CRAN.
+
+- It's like your home office book shelf.
+
+---
+
+## Library: What's on your bookshelf?
+
+* Click on the 'Packages' tab in the lower right hand panel (Q4 from before). 
+
+* Packages that are loaded have a check mark in the box on the left.
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/RStudio_quadrants.jpg" alt="From R-Ladies Sydney Basic Basics" width="470" height="430" /&gt;
+&lt;p class="caption"&gt;From R-Ladies Sydney Basic Basics&lt;/p&gt;
+&lt;/div&gt;
+
+
+???
+You can see what packages are in your library, a short description of what they do, and the package version. 
+* The packages that are loaded have a check mark in the box on the left. As before, there are several packages that are automatically loaded each time you start an R session, e.g. `base` package.  
+
+* Although it is possible to load and install your packages from here, I recommend using the functions shown below instead. This way, someoneelse or **future you** knows exactly what packages they need to run the analyses. 
+
+* You should load the packages you will use at the top of your script, so that future you or your colleague knows what needs to be installed/loaded.
+
+---
+
+## Installing Packages on a Personal Computer
+
+* A package needs to be installed **only once**. 
+
+--
+
+* Installing requires an internet connection to communicate with the CRAN server.
+
+--
+
+* The argument `dependencies = TRUE` will also install any packages that the package depends on.
+
+--
+
+* On your personal computer, you can install a package to your local library from CRAN by uncommenting and running the following:
+
+
+```r
+## install.packages("tidyverse")
+
+## install.packages("ggplot2", dependencies = TRUE)
+```
+
+--
+
+* However, if you are on a government laptop without elevated access rights...
+
+---
+
+## Installing Packages on a Government Computer
+
+* You guessed it... a **Service Desk Software Request** for any packages you want installed. 
+
+--
+
+* If you do install packages yourself you may get this error:
+
+--
+
+&gt; *"Error: package or namespace load failed for ‘ggplot2’ in inDL(x, as.logical(local), as.logical(now), ...):
+ unable to load shared object 'C:/Users/l-baker/Documents/R/win-library/3.6/rlang/libs/x64/rlang.dll':
+  LoadLibrary failure:  This program is **blocked by group policy.** For more information, contact your system administrator."*
+
+* You can fix it by **deleting your R folder** from Documents. 
+
+???
+* As a standard user, you are unable to run R packages that you download as it installs them to your Documents folder. Because of restrictions on the government laptops, it is then unable to run the package from this location because the DLL files it contains are blocked.
+
+* As a result, the R installation often comes with many of the packages you'll need pre-installed. For any other packages you wish to install, you can put in a Service Desk request. 
+
+If you do try to install packages and if you get the above error you can fix it by **deleting your R folder from Documents**. R will then return to looking for packages that come supplied with your department's R distribution. 
+
+---
+
+## Loading packages
+
+* To use a package you need to load it to your workspace each time you start a new RStudio session or project. 
+
+--
+
+
+```r
+library(tidyverse)
+```
+
+```
+## -- Attaching packages ---------------------------------------------------------------- tidyverse 1.3.0 --
+```
+
+```
+## v ggplot2 3.2.1     v purrr   0.3.3
+## v tibble  2.1.3     v dplyr   0.8.3
+## v tidyr   1.0.0     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.4.0
+```
+
+```
+## -- Conflicts ------------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+```
+
+* Think of it as taking the book off the shelf and opening it to use.
+
+???
+
+In order to use the package you need to load it to your workspace. This needs to be done each time you start a new RStudio session or project. Think of it as taking the book you will use off your book shelf to place next to you on the desk.
+
+In this case, `tidyverse` is a meta-package, which actually contains several individual packages including `dplyr`, `forcats`, etc., but more on those later. The `tidyverse` metapackage is in your library already so we can simply make a call to load them. 
+
+Alas, there are not enough names to make each function in every package unique. The "Conflicts" line that is printed tells us that the `dplyr` function `filter` will mask the `stats` package function `filter`. 
+
+If we want to be completely accurate, we can specify the package and function using the following form `&lt;package_name&gt;::&lt;function_name&gt;`, e.g. `dplyr::filter()`. 
+
+If we follow the recipe book analogy, this is like saying we want the lasagna recipe from `jamie_oliver::lasagna` so that it isn't confused with the `nigella_lawson::lasagna` recipe.  
+
+---
+
+## Library vs install
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/install_vs_library.jfif" alt="Install vs library" width="550" height="400" /&gt;
+&lt;p class="caption"&gt;Install vs library&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+## Packages
+
+&lt;img src="pictures/package_book.jpg" width="230" height="350" style="display: block; margin: auto;" /&gt;
+
+* Each package is designed to do a specific set of tasks 
+    * (e.g. data manipulation, implement linear models, etc.).
+
+--
+
+* Each task is implemented using a **function**.
+
+???
+
+You can think of a package like a book on a particular subject. Each **package** is designed to do a specific set of tasks (e.g. data manipulation, implement linear models, draw geographical maps, etc.). Each task is implemented using a **function**, which is a set of statements organised to complete the task. 
+
+---
+
+## Functions
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/recipe_function.png" alt="From R-Ladies Sydney Basic Basics" width="400" height="400" /&gt;
+&lt;p class="caption"&gt;From R-Ladies Sydney Basic Basics&lt;/p&gt;
+&lt;/div&gt;
+
+
+* The function takes **arguments** (e.g. ingredients) and then carries out a **series of steps** (e.g. directions) to carry out a task.
+
+---
+
+## Functions
+
+* Some **arguments** are optional (e.g. add or don't add cinnamon).
+
+--
+
+* other arguments are required (e.g. the cupcake requires flour!).
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/required_arguments.jpg" alt="Required arguments" width="470" height="390" /&gt;
+&lt;p class="caption"&gt;Required arguments&lt;/p&gt;
+&lt;/div&gt;
+
+
+???
+
+A function is like a recipe from a book. It is designed to make one specific thing, e.g. cupcakes or steak and kidney pie. The function takes arguments (e.g. ingredients) and then carries out a series of steps where the ingredients are modified, cooked, combined, etc. to create the final recipe. 
+
+Some of these arguments will be optional (e.g. add or don't add cinnamon), whereas other arguments will be required for the function to run (e.g. you can't make the cake without flour!).
+
+---
+## Functions
+
+Functions follow the form:
+
+* `functionName(argument1 = value1, argument2 = value2, and so on)`
+
+--
+
+Let's take a look at `seq()`, which makes regular sequences of numbers.
+
+--
+
+* Type `se` and hit TAB. A pop up shows you possible completions. 
+
+
+```r
+se
+```
+
+--
+
+* select `seq` from the drop-down menu or complete the name with more typing. Add the numbers "1,10" and run the function.
+
+--
+
+
+```r
+seq(1,10)
+```
+
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+???
+Let’s try using `seq()` which makes regular sequences of numbers and, while we’re at it, demo more helpful features of RStudio.
+
+
+* Specify seq() by typing more to specify the function or using the up/down arrows to select. Doing this, you'll notice the floating help box that pops up to remind you of the function’s arguments. 
+
+* If you want even more help, press F1 as directed to get the full documentation in the help tab of the lower right pane. 
+You can also access the help file for a function by typing `?seq`. 
+
+* Now open the parentheses and notice the automatic addition of the closing parenthesis and the placement of cursor in the middle. Type the arguments 1, 10 and hit return. RStudio also exits the parenthetical expression for you.
+
+---
+## Help files: `seq()`
+
+
+
+```r
+?seq
+```
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="pictures/Seq_helpfile.png" alt="Help file" width="550" height="430" /&gt;
+&lt;p class="caption"&gt;Help file&lt;/p&gt;
+&lt;/div&gt;
+
+
+
+
+???
+
+Every help file will have a series of sections describing what the function does. I generally focus first on: **Description**, **Usage**, **Arguments**, and **Examples**. 
+
+* **Description**
+
+For example, in the helpfile for `seq()` under **Description**, it tells us it is a function to "Generate regular sequences". 
+
+* **Usage**
+
+We can see that `seq()` takes the arguments `from`, `to`, and `by`, and the optional arguments `length.out` and `along.with`. 
+
+* **Arguments**
+
+Here, we can find out what these arguments are:
+
+  - `from, to`: the starting and maximal end values of the sequence.
+  - `by` number: increment of the sequence.
+  
+In the code we used above in sequence, we generated a sequence of numbers `from` 1 `to` 10. In this case we did not supply a value for `by`, so it took the default value, which in this case is 1.
+
+---
+
+## How are function arguments resolved?
+
+What happens if we try:
+
+
+```r
+seq(10,1)
+```
+
+```
+##  [1] 10  9  8  7  6  5  4  3  2  1
+```
+
+--
+
+And what about:
+
+
+```r
+seq(to = 10, from = 1)
+```
+
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+--
+
+R resolves **first by name and then by position**
+
+???
+
+The above demonstrates something about how R resolves function arguments. You can always specify in `name = value` form. But if you do not, R attempts to resolve by position. 
+
+So above, first it is assumed that we want a sequence from = 1 that goes to = 10. Then if we swap the numbers it is assumed we want to sequence from = 10 that goes to = 1. If we name the arguments explicitly using `name = value`, the order of the arguments doesn't matter. 
+
+---
+## Printing objects and viewing your workspace
+
+* To store our output and see it in the same line, we can use:
+
+
+```r
+(y &lt;- seq(from = 1, to = 10))
+```
+
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+--
+
+* We can look at our workspace using `ls()`.  
+
+```r
+ls()
+```
+
+--
+
+* Remove the vector name `y`:
+
+
+```r
+rm(y)
+```
+
+--
+
+* Remove everything using:
+
+
+```r
+rm(list = ls())
+```
+
+???
+Let's take a look at our workspace and showcase a function that doesn't require any arguments. 
+
+You may want to do this at the end of an analysis before you start on another project. 
+
+---
+
+# Data frames and tibbles
+
+* Data frames are essentially rectangular, spreadsheet-like data.
+
+--
+
+* Data frames can hold **variables** of different types.
+
+--
+
+* Each column of data is like a vector (e.g. **GDP:** numeric vector; **Country:** character vector, etc.)
+
+--
+
+* Many functions are set up to take data frames for their `data =` argument.
+
+--
+* `dplyr` and `ggplot2` work with a special type of data frame, called a `tibble`.
+
+-- 
+
+* We'll be working with the [gapminder](http://www.gapminder.org/data/) dataset from the website and [`gapminder` package](https://github.com/jennybc/gapminder) by Jenny Bryan.
+
+???
+
+Anytime your data is rectangular, spreadsheet-like data, the default data format in R is a data frame. Data frames can hold variables of different types. Where each column of the data, is essentially a vector, such as numeric data (GDP), character data (country name), and categorical information (infected vs. uninfected). 
+
+Data frames are extremely useful and many functions are set up to take a data frame for the `data =` argument. The `tidyverse` packages, which include `dplyr` and `ggplot2` work with a special type of data frame, called a "tibble".
+
+
+Our data comes from the Gapminder foundation, an organization dedicated to educating the public by using data to dispel common myths about the so-called developing world. The dataset we will use is one that has been combined from the gapminder data set from the `gapminder` package, and the gapminder data set from the `dslabs` package. 
+
+---
+
+## Gapminder: Quick Poll 1
+
+Which country do you think had the highest infant mortality rates in 2007? Which pairs do you think are the most similar?
+
+1. Sri Lanka or Turkey
+
+2. Poland or Malaysia
+
+3. Pakistan or Vietnam
+---
+
+## Gapminder: Quick Poll 2
+
+Which of the two pairs of countries do you think had the highest life expectancy in 2007. Which are the most similar?
+
+1. South Africa or Yemen
+
+2. Chile or Hungary
+
+--
+
+## Gapminder: Quick Poll 3
+
+For the two pairs of countries below, which country do you think had the highest gdpPercap in 2007?
+
+1. Switzerland or Kuwait
+
+2. Colombia or Nepal
+
+---
+
+## Reading in the data
+
+Before you read in a data file you want to ask yourself two questions:
+
+1. What type of file is it?
+2. Where is the file stored?
+
+In this case, we are going to read in a `.csv` (comma separated value) file called `gapminder.csv`. 
+
+--
+
+The tidyverse has several useful functions!
+
+--
+
+ * `read_csv`: reads in a csv file
+
+--
+
+ * `read_excel`: from the `readxl` package reads in an excel file (.xls and .xlsx). 
+--
+
+ * Possible to add the sheet number or name you wish to extract. 
+ * Check out the arguments in the helpfile using `?read_excel`. 
+
+???
+
+and much, much, more! If you are looking for another file type I highly recommend checking out this section from Jenny Bryan's UBC stats course [Stat545 Import and Export](https://stat545.com/import-export.html) or looking more generally into the `readr` package. There are nice options for removing lines of meta data (e.g. rambles at the head of an excel spreadsheet) and other options for messier data frames.
+
+---
+ 
+## Reading in the data using the `read_` functions
+
+The functions for reading in the data take the same basic form
+ 
+
+```r
+my_file &lt;- file.path("../data", "gapminder.csv")
+
+gapminder &lt;- read_csv(file = my_file)
+```
+
+* First you need to specify the **name of the data frame** you want to store your data in. 
+  * my_file
+
+* Then the file name and location
+  * read_csv(file = ".csv")
+  * read_excel(path = ".xlsx")
+
+
+
+???
+
+In this case the file is stored in the folder "data" which is part of the IntroR course master folder you were sent. Here, you'll notice that we are using a relative path, that is the location of the data is specified in relation to our script file. Relative paths are especially useful because they will work across all operating systems and unlike a "hard path", e.g. C:/Users/l-baker/repos/The_faculty/IntroR4IntlDev", this relative path will work on anyone's computer, not just my own! 
+
+For a 'relative path' to work, we need to get to the right directory (location where our script file is stored). You can do this using the RStudio menu: 
+
+* "Session -&gt; Set Working Directory -&gt; To Source File Location". In this case this will set the working directory to the location where the script file: "IntroR4IntlDev.Rmd" is stored. 
+
+* Alternatively, you can use `setwd("C:/Users/l-baker/repos/The_faculty/IntroR4IntlDev")` and give it the file path where your script file is located.
+
+* To find out where you are you can use the function `getwd()` which stands for "get working directory".
+
+
+```r
+getwd()
+```
+
+
+## Specifying Paths: Good practice 
+
+One of the good practices of coding is to never use absolute or "hard paths". Just because your script tells a colleague what subfolder the data is kept in on your computer, does not help them reproduce the code, especially as a hard path only works for your computer. 
+
+The advantage of "relative paths" is that they will work across operating systems and across anyone's computer. For each project, it is best practice to set up a folder for that project with your script file and subfolders to store the "figures" and the "data".
+
+In sharing code, you share the whole master folder complete with the figure and data subfolders. Then as long as they set the working directory to the location of your script file, they can run your script with little trouble accessing the figures and data needed from the relative paths specified. 
+
+---
+
+## Exploring the Gapminder Data
+
+
+```r
+my_file &lt;- file.path("../data", "gapminder.csv")
+
+gapminder &lt;- read_csv(file = my_file)
+```
+
+```
+## Parsed with column specification:
+## cols(
+##   country = col_character(),
+##   continent = col_character(),
+##   year = col_double(),
+##   lifeExp = col_double(),
+##   pop = col_double(),
+##   gdpPercap = col_double(),
+##   infant_mortality = col_double(),
+##   fertility = col_double()
+## )
+```
+
+???
+
+The data contains 8 columns
+
+* country
+* continent
+* year
+* lifeExp. Life expectancy in years. 
+* pop. Country population
+* gdpPercap. GDP per capita according to World Bankdev.
+* infant_mortality. Infant deaths per 1000.
+* fertility. Average number of children per woman.
+
+---
+## Getting to know the data
+
+
+ * `View()`: allows us to view the data frame as a spreadsheet.
+
+--
+ 
+ * `nrow()`: tells us the number of rows in our data frame.
+
+--
+
+ * `names()`: gives us the names of the columns in our data frame.
+
+--
+
+ * `dim()`: tells us the dimensions of our data frame.
+
+--
+
+ * `summary()`: give us summary statistics (counts, min, median, mean, max). 
+
+--
+
+ * `head()`: gives us the first 6 elements of the data.
+
+--
+
+ * `tail()`: gives us the last 6 elements of the data.
+
+--
+
+ * `str()`: tells us the variable type (e.g. Factor, num (number), int (integer)). 
+ 
+--
+
+ * `unique()`: tells us the unique elements of a variable.
+---
+
+## Using head()
+
+Let's take a look at `head` and `View` to inspect the data more closely. 
+
+
+```r
+head(gapminder)
+```
+
+```
+## # A tibble: 6 x 8
+##   country continent  year lifeExp    pop gdpPercap infant_mortality
+##   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt;
+## 1 Afghan~ Asia       1952    28.8 8.43e6      779.               NA
+## 2 Afghan~ Asia       1957    30.3 9.24e6      821.               NA
+## 3 Afghan~ Asia       1962    32.0 1.03e7      853.               NA
+## 4 Afghan~ Asia       1967    34.0 1.15e7      836.               NA
+## 5 Afghan~ Asia       1972    36.1 1.31e7      740.               NA
+## 6 Afghan~ Asia       1977    38.4 1.49e7      786.               NA
+## # ... with 1 more variable: fertility &lt;dbl&gt;
+```
+
+---
+## Using View()
+
+
+```r
+View(gapminder)
+```
+
+
+From viewing the data we can see that the data contains eight variables: `country`, `continent`, `year`, `lifeExp`, `pop`, `gdpPercap`, `infant_mortality`, and `fertility`.
+
+---
+
+## Checking the structure of the data using str()
+
+
+```r
+str(gapminder)
+```
+
+```
+## Classes 'spec_tbl_df', 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  8 variables:
+##  $ country         : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
+##  $ continent       : chr  "Asia" "Asia" "Asia" "Asia" ...
+##  $ year            : num  1952 1957 1962 1967 1972 ...
+##  $ lifeExp         : num  28.8 30.3 32 34 36.1 ...
+##  $ pop             : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ gdpPercap       : num  779 821 853 836 740 ...
+##  $ infant_mortality: num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ fertility       : num  NA NA NA NA NA NA NA NA NA NA ...
+##  - attr(*, "spec")=
+##   .. cols(
+##   ..   country = col_character(),
+##   ..   continent = col_character(),
+##   ..   year = col_double(),
+##   ..   lifeExp = col_double(),
+##   ..   pop = col_double(),
+##   ..   gdpPercap = col_double(),
+##   ..   infant_mortality = col_double(),
+##   ..   fertility = col_double()
+##   .. )
+```
+
+??
+
+We've already used `str()` to explore our vectors, we can also use it to take a look at our data frame to tell us what type of variables we have.
+
+
+In this case `country` and `continent` are characters, `year`, `lifeExp`,  `pop`, `gdpPercap`, `infant_mortality` and `fertility` are numbers.
+
+You'll notice from the preview that both `infant_mortality` and `fertility` have some NAs. NAs are commonly used to show that there is no data for a given year and variable. 
+
+---
+## Changing the character data to factors
+
+
+```r
+gapminder$country &lt;- as.factor(gapminder$country)
+gapminder$continent &lt;- as.factor(gapminder$continent)
+
+
+str(gapminder)
+```
+
+```
+## Classes 'spec_tbl_df', 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  8 variables:
+##  $ country         : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ continent       : Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ year            : num  1952 1957 1962 1967 1972 ...
+##  $ lifeExp         : num  28.8 30.3 32 34 36.1 ...
+##  $ pop             : num  8425333 9240934 10267083 11537966 13079460 ...
+##  $ gdpPercap       : num  779 821 853 836 740 ...
+##  $ infant_mortality: num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ fertility       : num  NA NA NA NA NA NA NA NA NA NA ...
+##  - attr(*, "spec")=
+##   .. cols(
+##   ..   country = col_character(),
+##   ..   continent = col_character(),
+##   ..   year = col_double(),
+##   ..   lifeExp = col_double(),
+##   ..   pop = col_double(),
+##   ..   gdpPercap = col_double(),
+##   ..   infant_mortality = col_double(),
+##   ..   fertility = col_double()
+##   .. )
+```
+
+???
+
+One of the first things we are going to do is change the columns `country` and `continent` to factors, as we can treat them as categorical variables (i.e. they indicate a category that data belongs to). We can do this using the `as.factor` function.
+
+*You'll notice from above that we can select columns by using the dollar sign `$`.
+
+---
+## Your Turn: Exercises Part II
+
+???
+* Click "Filter" in the View menu, you can use this similarly to how you would interact with the data in Excel. 
+
+
+1. What are the dimensions of the dataframe? What do each of the numbers refer to?
+
+
+```r
+dim(gapminder)
+```
+
+2. What are the names of the columns in the data frame?
+
+
+```r
+names(gapminder)
+```
+
+3. What are the first countries and last countries in the data frame?
+
+
+```r
+head(gapminder)
+
+tail(gapminder)
+```
+
+4. What is the minimum and maximum gdpPercap? How many NAs are there for fertility? How many observations do we have for Africa?
+
+
+```r
+summary(gapminder)
+```
+
+5. What years are covered in the data frame?
+
+
+```r
+unique(gapminder$year)
+```
+
+6. How many countries are in our data frame?
+
+
+```r
+unique(gapminder$country)
+```
+
+---
+
+## View()
+
+Click "Filter" in the View menu, you can use this similarly to how you would interact with the data in Excel. 
+
+1. What was the life expectancy in Rwanda in 1952?
+
+2. Which country had the highest infant mortality rate? What was the year?
+
+
+---
+## 1. What are the dimensions of the dataframe? What do each of the numbers refer to?
+
+
+```r
+dim(gapminder)
+```
+
+```
+## [1] 1704    8
+```
+
+---
+## 2. What are the names of the columns in the data frame?
+
+
+```r
+names(gapminder)
+```
+
+```
+## [1] "country"          "continent"        "year"            
+## [4] "lifeExp"          "pop"              "gdpPercap"       
+## [7] "infant_mortality" "fertility"
+```
+
+*Given spelling is so important in R, `names()` is a handy way to check the names of our columns. 
+
+---
+
+## 3. What are the first and last countries in the data frame?
+
+
+```r
+head(gapminder)
+```
+
+```
+## # A tibble: 6 x 8
+##   country continent  year lifeExp    pop gdpPercap infant_mortality
+##   &lt;fct&gt;   &lt;fct&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt;
+## 1 Afghan~ Asia       1952    28.8 8.43e6      779.               NA
+## 2 Afghan~ Asia       1957    30.3 9.24e6      821.               NA
+## 3 Afghan~ Asia       1962    32.0 1.03e7      853.               NA
+## 4 Afghan~ Asia       1967    34.0 1.15e7      836.               NA
+## 5 Afghan~ Asia       1972    36.1 1.31e7      740.               NA
+## 6 Afghan~ Asia       1977    38.4 1.49e7      786.               NA
+## # ... with 1 more variable: fertility &lt;dbl&gt;
+```
+
+---
+
+## 3. What are the last countries in the data frame?
+
+
+```r
+tail(gapminder)
+```
+
+```
+## # A tibble: 6 x 8
+##   country continent  year lifeExp    pop gdpPercap infant_mortality
+##   &lt;fct&gt;   &lt;fct&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt;
+## 1 Zimbab~ Africa     1982    60.4 7.64e6      789.             61.6
+## 2 Zimbab~ Africa     1987    62.4 9.22e6      706.             50.4
+## 3 Zimbab~ Africa     1992    60.4 1.07e7      693.             54.5
+## 4 Zimbab~ Africa     1997    46.8 1.14e7      792.             62.7
+## 5 Zimbab~ Africa     2002    40.0 1.19e7      672.             62.7
+## 6 Zimbab~ Africa     2007    43.5 1.23e7      470.             59.9
+## # ... with 1 more variable: fertility &lt;dbl&gt;
+```
+
+
+---
+
+## 4. What is the minimum and maximum gdpPercap?
+
+
+```r
+summary(gapminder)
+```
+
+```
+##         country        continent        year         lifeExp     
+##  Afghanistan:  12   Africa  :624   Min.   :1952   Min.   :23.60  
+##  Albania    :  12   Americas:300   1st Qu.:1966   1st Qu.:48.20  
+##  Algeria    :  12   Asia    :396   Median :1980   Median :60.71  
+##  Angola     :  12   Europe  :360   Mean   :1980   Mean   :59.47  
+##  Argentina  :  12   Oceania : 24   3rd Qu.:1993   3rd Qu.:70.85  
+##  Australia  :  12                  Max.   :2007   Max.   :82.60  
+##  (Other)    :1632                                                
+##       pop              gdpPercap        infant_mortality   fertility    
+##  Min.   :6.001e+04   Min.   :   241.2   Min.   :  2.20   Min.   :0.920  
+##  1st Qu.:2.794e+06   1st Qu.:  1202.1   1st Qu.: 18.70   1st Qu.:2.350  
+##  Median :7.024e+06   Median :  3531.8   Median : 52.55   Median :4.500  
+##  Mean   :2.960e+07   Mean   :  7215.3   Mean   : 63.71   Mean   :4.407  
+##  3rd Qu.:1.959e+07   3rd Qu.:  9325.5   3rd Qu.:101.67   3rd Qu.:6.348  
+##  Max.   :1.319e+09   Max.   :113523.1   Max.   :226.00   Max.   :8.420  
+##                                         NA's   :480      NA's   :374
+```
+
+---
+
+## 4. How many NAs are there for fertility? 
+
+
+```r
+summary(gapminder)
+```
+
+```
+##         country        continent        year         lifeExp     
+##  Afghanistan:  12   Africa  :624   Min.   :1952   Min.   :23.60  
+##  Albania    :  12   Americas:300   1st Qu.:1966   1st Qu.:48.20  
+##  Algeria    :  12   Asia    :396   Median :1980   Median :60.71  
+##  Angola     :  12   Europe  :360   Mean   :1980   Mean   :59.47  
+##  Argentina  :  12   Oceania : 24   3rd Qu.:1993   3rd Qu.:70.85  
+##  Australia  :  12                  Max.   :2007   Max.   :82.60  
+##  (Other)    :1632                                                
+##       pop              gdpPercap        infant_mortality   fertility    
+##  Min.   :6.001e+04   Min.   :   241.2   Min.   :  2.20   Min.   :0.920  
+##  1st Qu.:2.794e+06   1st Qu.:  1202.1   1st Qu.: 18.70   1st Qu.:2.350  
+##  Median :7.024e+06   Median :  3531.8   Median : 52.55   Median :4.500  
+##  Mean   :2.960e+07   Mean   :  7215.3   Mean   : 63.71   Mean   :4.407  
+##  3rd Qu.:1.959e+07   3rd Qu.:  9325.5   3rd Qu.:101.67   3rd Qu.:6.348  
+##  Max.   :1.319e+09   Max.   :113523.1   Max.   :226.00   Max.   :8.420  
+##                                         NA's   :480      NA's   :374
+```
+
+---
+
+## 4. How many observations do we have for Africa? 
+
+
+```r
+summary(gapminder)
+```
+
+```
+##         country        continent        year         lifeExp     
+##  Afghanistan:  12   Africa  :624   Min.   :1952   Min.   :23.60  
+##  Albania    :  12   Americas:300   1st Qu.:1966   1st Qu.:48.20  
+##  Algeria    :  12   Asia    :396   Median :1980   Median :60.71  
+##  Angola     :  12   Europe  :360   Mean   :1980   Mean   :59.47  
+##  Argentina  :  12   Oceania : 24   3rd Qu.:1993   3rd Qu.:70.85  
+##  Australia  :  12                  Max.   :2007   Max.   :82.60  
+##  (Other)    :1632                                                
+##       pop              gdpPercap        infant_mortality   fertility    
+##  Min.   :6.001e+04   Min.   :   241.2   Min.   :  2.20   Min.   :0.920  
+##  1st Qu.:2.794e+06   1st Qu.:  1202.1   1st Qu.: 18.70   1st Qu.:2.350  
+##  Median :7.024e+06   Median :  3531.8   Median : 52.55   Median :4.500  
+##  Mean   :2.960e+07   Mean   :  7215.3   Mean   : 63.71   Mean   :4.407  
+##  3rd Qu.:1.959e+07   3rd Qu.:  9325.5   3rd Qu.:101.67   3rd Qu.:6.348  
+##  Max.   :1.319e+09   Max.   :113523.1   Max.   :226.00   Max.   :8.420  
+##                                         NA's   :480      NA's   :374
+```
+
+---
+
+## 5. What years are covered in the data frame?
+
+
+```r
+unique(gapminder$year)
+```
+
+```
+##  [1] 1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 2002 2007
+```
+
+---
+
+## 6. How many countries are in our data frame?
+
+
+```r
+unique(gapminder$country)
+```
+
+```
+##   [1] Afghanistan              Albania                 
+##   [3] Algeria                  Angola                  
+##   [5] Argentina                Australia               
+##   [7] Austria                  Bahrain                 
+##   [9] Bangladesh               Belgium                 
+##  [11] Benin                    Bolivia                 
+##  [13] Bosnia and Herzegovina   Botswana                
+##  [15] Brazil                   Bulgaria                
+##  [17] Burkina Faso             Burundi                 
+##  [19] Cambodia                 Cameroon                
+##  [21] Canada                   Central African Republic
+##  [23] Chad                     Chile                   
+##  [25] China                    Colombia                
+##  [27] Comoros                  Congo, Dem. Rep.        
+##  [29] Congo, Rep.              Costa Rica              
+##  [31] Cote d'Ivoire            Croatia                 
+##  [33] Cuba                     Czech Republic          
+##  [35] Denmark                  Djibouti                
+##  [37] Dominican Republic       Ecuador                 
+##  [39] Egypt                    El Salvador             
+##  [41] Equatorial Guinea        Eritrea                 
+##  [43] Ethiopia                 Finland                 
+##  [45] France                   Gabon                   
+##  [47] Gambia                   Germany                 
+##  [49] Ghana                    Greece                  
+##  [51] Guatemala                Guinea                  
+##  [53] Guinea-Bissau            Haiti                   
+##  [55] Honduras                 Hong Kong, China        
+##  [57] Hungary                  Iceland                 
+##  [59] India                    Indonesia               
+##  [61] Iran                     Iraq                    
+##  [63] Ireland                  Israel                  
+##  [65] Italy                    Jamaica                 
+##  [67] Japan                    Jordan                  
+##  [69] Kenya                    Korea, Dem. Rep.        
+##  [71] Korea, Rep.              Kuwait                  
+##  [73] Lebanon                  Lesotho                 
+##  [75] Liberia                  Libya                   
+##  [77] Madagascar               Malawi                  
+##  [79] Malaysia                 Mali                    
+##  [81] Mauritania               Mauritius               
+##  [83] Mexico                   Mongolia                
+##  [85] Montenegro               Morocco                 
+##  [87] Mozambique               Myanmar                 
+##  [89] Namibia                  Nepal                   
+##  [91] Netherlands              New Zealand             
+##  [93] Nicaragua                Niger                   
+##  [95] Nigeria                  Norway                  
+##  [97] Oman                     Pakistan                
+##  [99] Panama                   Paraguay                
+## [101] Peru                     Philippines             
+## [103] Poland                   Portugal                
+## [105] Puerto Rico              Reunion                 
+## [107] Romania                  Rwanda                  
+## [109] Sao Tome and Principe    Saudi Arabia            
+## [111] Senegal                  Serbia                  
+## [113] Sierra Leone             Singapore               
+## [115] Slovak Republic          Slovenia                
+## [117] Somalia                  South Africa            
+## [119] Spain                    Sri Lanka               
+## [121] Sudan                    Swaziland               
+## [123] Sweden                   Switzerland             
+## [125] Syria                    Taiwan                  
+## [127] Tanzania                 Thailand                
+## [129] Togo                     Trinidad and Tobago     
+## [131] Tunisia                  Turkey                  
+## [133] Uganda                   United Kingdom          
+## [135] United States            Uruguay                 
+## [137] Venezuela                Vietnam                 
+## [139] West Bank and Gaza       Yemen, Rep.             
+## [141] Zambia                   Zimbabwe                
+## 142 Levels: Afghanistan Albania Algeria Angola Argentina ... Zimbabwe
+```
+
+---
+
+## Extracting Information 
+
+**Battleship**
+
+![](pictures/battleship_game.png)
+--
+
+* We can extract elements from a data frame by specifying the rows and columns.
+
+* `data_frame[rows, columns]`
+
+???
+
+Whenever I think of R dataframes I think of the game battleship. In battleship, to strike the other opponent's ships you launch missiles by giving a row and column reference for the location to hit on your opponent's board.
+
+Data frames are much the same. We can extract an element by specifying the rows and the columns:
+
+---
+## Selecting a single value
+
+If we wanted to get the first value from the first row and column in the dataframe we could use:
+
+
+```r
+gapminder[1,1]
+```
+
+```
+## # A tibble: 1 x 1
+##   country    
+##   &lt;fct&gt;      
+## 1 Afghanistan
+```
+
+---
+## Selecting a whole row
+
+If we wanted the whole first row we could use:
+
+
+```r
+gapminder[1,]
+```
+
+```
+## # A tibble: 1 x 8
+##   country continent  year lifeExp    pop gdpPercap infant_mortality
+##   &lt;fct&gt;   &lt;fct&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;            &lt;dbl&gt;
+## 1 Afghan~ Asia       1952    28.8 8.43e6      779.               NA
+## # ... with 1 more variable: fertility &lt;dbl&gt;
+```
+
+Notice, that if we want to select all columns we simply add a comma and leave the column position blank.
+
+What happens if you run the following?
+
+
+```r
+gapminder[1]
+```
+
+---
+## Selecting specific rows and columns
+
+If we wanted the first 5 rows and the first and third columns we could use:
+
+
+```r
+gapminder[1:5, c(1,3)]
+```
+
+```
+## # A tibble: 5 x 2
+##   country      year
+##   &lt;fct&gt;       &lt;dbl&gt;
+## 1 Afghanistan  1952
+## 2 Afghanistan  1957
+## 3 Afghanistan  1962
+## 4 Afghanistan  1967
+## 5 Afghanistan  1972
+```
+
+Remember from before that if we have nonconsecutive positions, we need to use the `c()` function to **c**ombine these positions into a list. 
+
+---
+## Reference columns by name
+
+We can also reference the column by name:
+
+
+```r
+gapminder[1:5, c("country", "gdpPercap")]
+```
+
+```
+## # A tibble: 5 x 2
+##   country     gdpPercap
+##   &lt;fct&gt;           &lt;dbl&gt;
+## 1 Afghanistan      779.
+## 2 Afghanistan      821.
+## 3 Afghanistan      853.
+## 4 Afghanistan      836.
+## 5 Afghanistan      740.
+```
+
+Why might this be preferred to referencing columns by number?
+
+---
+
+## Your Turn: Exercises Part III
+
+
+???
+
+1. Extract all rows from the column `pop` and save it in a new object called `pop`
+
+Hint: look back to how we selected row 1 and all columns. 
+
+
+```r
+pop &lt;- gapminder[]
+```
+
+
+2. Extract the 5th row and 6th column from the dataset
+
+
+```r
+gapminder[]
+```
+
+
+3. **Bonus** Extract all the rows for the columns `gdpPercap` and `pop`.
+
+Hint: look back to how we selected row 1 and all columns. 
+
+
+
+```r
+gapminder[]
+```
+
+
+---
+
+## 1. Extract all rows from the column `pop` and save it in a new object called `pop`
+
+Hint: look back to how we selected row 1 and all columns. 
+
+
+```r
+pop &lt;- gapminder[, "pop"]
+```
+
+---
+
+## 2. Extract the 5th row and 6th column from the dataset
+
+
+```r
+gapminder[5,6]
+```
+
+```
+## # A tibble: 1 x 1
+##   gdpPercap
+##       &lt;dbl&gt;
+## 1      740.
+```
+
+---
+
+## **Bonus**
+
+3. Extract all the rows for the columns `gdpPercap` and `pop`.
+
+Hint: look back to how we selected row 1 and all columns. 
+
+
+
+```r
+gapminder[, c("gdpPercap", "pop")]
+```
+
+```
+## # A tibble: 1,704 x 2
+##    gdpPercap      pop
+##        &lt;dbl&gt;    &lt;dbl&gt;
+##  1      779.  8425333
+##  2      821.  9240934
+##  3      853. 10267083
+##  4      836. 11537966
+##  5      740. 13079460
+##  6      786. 14880372
+##  7      978. 12881816
+##  8      852. 13867957
+##  9      649. 16317921
+## 10      635. 22227415
+## # ... with 1,694 more rows
+```
+
+---
+## **Bonus**
+
+4. Extract rows 5, 20, and 44 from the column `lifeExp` and save it in a new data frame called `sub_lifeExp`
+
+
+```r
+ sub_lifeExp &lt;- gapminder[c(5, 20, 44), "lifeExp"]
+```
+
+
+---
+
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](http://yihui.org/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

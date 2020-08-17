@@ -1,0 +1,734 @@
+---
+title: "Introduction to R Part I: Exercises"
+author: "Dr. Laurie Baker"
+date: "15/04/2020"
+output: 
+  html_document:
+    number_sections: true
+    toc: yes
+    toc_depth: '1'
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Basics
+
+## R Notebooks
+
+* Notebooks combine code and descriptions!
+
+```{r Print a statement}
+
+print('code goes here!')
+
+```
+
+### Adding Comments
+
+
+* Comments are added using `#`.
+
+
+```{r Print a statement 1}
+
+## print() is a function to print a statement
+
+print('code goes here!')
+
+```
+
+## Objects
+
+* Let's start by making an assignment and inspecting the object we created.
+
+```{r First R Object}
+
+x <- 10*5
+
+x
+
+```
+
+### Names
+
+```{r Names that work for objects}
+
+this_works <- 10*5
+
+this_works
+
+```
+
+* This doesn't work...
+
+```{r Names that do not work for objects, eval = FALSE}
+
+# this_doesn't_work <- 10*5
+
+```
+
+### Using Tab Completion to Complete Object Names
+
+* Make a new object 
+
+```{r Make a new object with a long name}
+
+a_very_long_name <- 7^2 
+
+```
+
+* Start by typing the first few letters of `a_very...` in the code chunk below and type `TAB` to complete the name. 
+
+```{r Using Tab to Test out the Completion Facility in RStudio, eval = FALSE}
+
+a_very
+
+```
+
+### R is case-sensitive and dislikes typos
+
+* Let's try inspecting the object again.
+
+```{r R is case-sensitive and does not like typos, eval = FALSE}
+# What happens if you run:
+
+a_vry_long_name
+
+A_very_long_name
+
+```
+
+## Vectors
+
+
+* A `vector` is a 1-dimensional ordered collection of elements where the elements are **all of the same type.** 
+
+* It is the fundamental data structure in R with a lot of useful properties. 
+### Creating a vector with `c()`
+
+* Let's make a new vector called `character_vector` using the function `c()` which can be used to **c()**ombine elements.  
+
+```{r Define a character vector}
+
+## Defining the character vector:
+
+character_vector <- c("ET", "phone", "home", "ET", "phone", "home")
+
+```
+
+### Checking the structure of the vector using `str()`
+
+```{r Checking the structure of the character vector}
+
+str(character_vector)
+
+```
+
+### Check the length of a vector using `length()`
+
+```{r Checking the length of the character vector}
+
+length(character_vector)
+
+```
+
+### Extract multiple consecutive elements using `:`. 
+
+* We can extract an element from a vector by referencing its position. 
+
+
+```{r Take the 3rd and 4th and 5th elements}
+
+character_vector[3:5]
+
+```
+
+
+### Replace elements using `<-`
+
+Try replacing the 4th element with your name:
+
+```{r Replace an element}
+
+character_vector[4] <- "Laurie"
+
+character_vector
+```
+
+### Define a numeric vector
+
+* The same method used to extract information works for any type of vector. 
+
+* Let's create a new `numeric_vector` containing the numbers 1, 2, 3, 4, and 5. 
+
+
+```{r Define a numeric vector}
+
+numeric_vector <- c(1:5) 
+
+```
+
+### Check the structure using `str()`
+
+```{r Check the structure of a numeric vector}
+
+str(numeric_vector)
+
+```
+
+
+### Extract the first two elements
+
+```{r Take the first two elements from a numeric vector}
+
+numeric_vector[1:2]
+
+```
+
+
+### Extract non-consecutive elements using `c()`
+
+Trying uncommenting and running the line below:
+
+```{r We always need to use c() to specify multiple non-consecutive positions}
+
+# numeric_vector[1,3]
+
+```
+
+
+Note that if we want, we can only select the 1 and 3 or 1, 3, and 4 elements using `c()`. 
+
+```{r Use c() to specify non-consecutive positions}
+
+numeric_vector[c(1,3:4)]
+
+```
+
+
+### A dynamically typed language
+
+* R will try to be smart and figure out your data type for you
+
+```{r Make a second numeric vector}
+
+numeric_vector2 <- c(1.1,3:4)
+
+## Check the structure
+
+str(numeric_vector2)
+
+```
+
+### The `as.` functions: integer to numeric
+
+
+* The `as.` functions take the form `as.<structure>`.
+
+* We want to make our vector numeric so, `<structure>` =  numeric
+
+```{r Change the structure of a numeric vector using as. functions}
+
+numeric_vector <- as.numeric(numeric_vector)
+
+str(numeric_vector)
+
+```
+
+
+### The `as.` functions: character to factor
+
+* Example 2: Change character to factor. 
+
+```{r Change the structure of a character vector using as. functions}
+
+character_vector <- as.factor(character_vector)
+
+str(character_vector)
+
+
+```
+
+## Vectorised Language
+
+* R is a **vectorised language.**
+
+* Operations are applied to each element automatically without the need to loop through!
+
+* Vectorised = Fast! Computers are optimised for these types of calculations. 
+
+* Can mutiply, divide, add, and subtract vectors of the same length or multiples of the same length
+### Can multiply and exponentiate vectors
+
+```{r You can multiply and exponentiate vectors}
+
+numeric_vector*3
+
+numeric_vector^2
+
+```
+
+### Divide vectors of the same length
+
+```{r Divide vectors of the same length}
+
+x <- seq(from = 1, to = 20, by = 4)
+
+x
+
+numeric_vector/x
+
+```
+
+### Subtract or add vectors of the same length
+
+
+```{r You can subtract vectors of the same length}
+
+x - numeric_vector
+
+```
+
+### Many functions are designed for vectors
+
+* **Let's calculate some simple statistics**
+
+```{r}
+
+mean(numeric_vector)
+
+min(numeric_vector)
+
+max(numeric_vector)
+
+range(numeric_vector)
+
+```
+
+
+# Exercises Part I
+
+1. Take the last two elements of the numeric vector
+
+Hint: use length() to find out the last element
+
+```{r Take the last two elements of the numeric vector, eval = FALSE}
+
+numeric_vector[]
+
+```
+
+
+2. Take the first and last elements of the character_vector. 
+
+Hint: you can use `length()` to find out how many elements there are in the character vector. 
+
+```{r Take the first and last elements of the character_vector, eval = FALSE}
+
+character_vector[]
+
+```
+
+3. Divide the numeric_vector by 3
+
+```{r Divide the numeric vector by 3, eval = FALSE}
+
+numeric_vector
+
+```
+
+4. Multiply the numeric_vector by the new vector 'y'
+
+```{r Multiply the numeric_vector by the new vector y, eval = FALSE}
+
+y <- c(5:1)
+
+
+
+```
+
+5. Why do the following lines of code not work?
+
+
+```{r Why does dividing numeric_vector by the object w not work, eval = FALSE}
+
+w <- c(1:4)
+
+numeric_vector/w
+
+```
+
+
+# CRAN, Library, Function, Package
+
+```{r Importing Packages, eval = TRUE}
+
+library(tidyverse)
+
+```
+
+## Functions
+
+
+Functions follow the form:
+
+* `functionName(argument1 = value1, argument2 = value2, and so on)`
+
+Let's take a look at `seq()`, which makes regular sequences of numbers.
+
+* Type `se` and hit TAB. A pop up shows you possible completions. 
+
+```{r Autocompleting using TAB, eval = FALSE}
+
+se
+
+```
+
+* select `seq` from the drop-down menu or complete the name with more typing. Add the numbers "1,10" and run the function.
+
+
+```{r Using the function seq}
+
+seq(1,10)
+
+```
+
+### Help files: `seq()`
+
+
+```{r Helpfile for seq(), eval = FALSE}
+
+?seq
+
+```
+
+### How are function arguments resolved?
+
+What happens if we try:
+
+```{r How are function arguments resolved part 1, eval = T}
+
+seq(10,1)
+
+```
+
+
+And what about:
+
+```{r How are function arguments resolved part 2, eval = T}
+
+seq(to = 10, from = 1)
+
+```
+
+R resolves **first by name and then by position**
+
+### Printing objects and viewing your workspace
+
+* To store our output and see it in the same line, we can use:
+
+```{r Storing and printing objects using parentheses, eval = TRUE}
+
+(y <- seq(from = 1, to = 10))
+
+```
+
+
+* We can look at our workspace using `ls()`.  
+
+```{r Use ls() to see what is in your workspace, eval = TRUE}
+
+ls()
+
+```
+
+* Remove the vector name `y`:
+
+```{r Removing vectors using rm(), eval = TRUE}
+
+rm(y)
+
+```
+
+* Remove everything using:
+
+```{r Remove everything using rm() and ls()}
+
+rm(list = ls())
+
+```
+
+# Data frames and tibbles
+
+* Data frames are essentially rectangular, spreadsheet-like data.
+
+* Data frames can hold **variables** of different types.
+
+
+## Reading in the data
+
+Before you read in a data file you want to ask yourself two questions:
+
+1. What type of file is it?
+2. Where is the file stored?
+
+In this case, we are going to read in a `.csv` (comma separated value) file called `gapminder.csv`. 
+
+
+## Reading in the data using the `read_` functions
+
+The functions for reading in the data take the same basic form
+ 
+```{r Layout of the read functions, eval = TRUE}
+
+my_file <- file.path("data", "gapminder.csv")
+
+gapminder <- read_csv(file = my_file)
+
+```
+
+* First you need to specify the **name of the data frame** you want to store your data in. 
+  * my_file
+
+* Then the file name and location
+  * read_csv(file = ".csv")
+  * read_excel(path = ".xlsx")
+
+
+## Getting to know the data
+
+There are several tools to get to know our data.
+
+ * `View()`: allows us to view the data frame as a spreadsheet.
+
+
+ * `nrow()`: tells us the number of rows in our data frame.
+
+
+ * `names()`: gives us the names of the columns in our data frame.
+
+
+ * `dim()`: tells us the dimensions of our data frame.
+
+
+ * `summary()`: give us summary statistics (counts, min, median, mean, max). 
+
+
+ * `head()`: gives us the first 6 elements of the data.
+
+
+ * `tail()`: gives us the last 6 elements of the data.
+
+
+ * `str()`: tells us the variable type (e.g. Factor, num (number), int (integer)). 
+ 
+
+ * `unique()`: tells us the unique elements of a variable.
+
+## Using head()
+
+Let's take a look at `head` and `View` to inspect the data more closely. 
+
+```{r Look at the top 6 rows using head()}
+
+head(gapminder)
+
+```
+
+---
+## Using View()
+
+```{r Look at the data using View(), eval = FALSE}
+
+View(gapminder)
+
+```
+
+
+From viewing the data we can see that the data contains eight variables: `country`, `continent`, `year`, `lifeExp`, `pop`, `gdpPercap`, `infant_mortality`, and `fertility`.
+
+### Checking the structure of the data using str()
+
+```{r Check the structure of the data using str()}
+
+str(gapminder)
+
+```
+### Changing the character data to factors
+
+```{r Changing gapminder characters to factors}
+
+gapminder$country <- as.factor(gapminder$country)
+gapminder$continent <- as.factor(gapminder$continent)
+
+
+str(gapminder)
+```
+
+# Exercises Part II
+
+Click "Filter" in the View menu, you can use this similarly to how you would interact with the data in Excel. 
+
+1. Using filter, what was the life expectancy in Rwanda in 1952?
+
+2. Which country had the highest infant mortality rate? What was the year?
+
+**Next**
+
+
+Run the following lines of code to answer the questions below
+
+1. What are the dimensions of the dataframe? What do each of the numbers refer to?
+
+```{r Dataframe Dimensions, eval = FALSE}
+
+dim(gapminder)
+
+```
+
+2. What are the names of the columns in the data frame?
+
+```{r Column Names, eval = FALSE}
+
+names(gapminder)
+
+```
+
+3. What are the first and last countries in the data frame?
+
+```{r Head and Tail of Data, eval = FALSE}
+
+head(gapminder)
+
+tail(gapminder)
+
+```
+
+4. What is the minimum and maximum gdpPercap? How many NAs are there for fertility? How many observations do we have for Africa?
+
+```{r Data Summary, eval = FALSE}
+
+summary(gapminder)
+
+```
+
+5. What years are covered in the data frame?
+
+```{r Unique years, eval = FALSE}
+
+unique(gapminder$year)
+
+```
+
+6. How many countries are in our data frame?
+
+```{r Unique countries, eval = FALSE}
+
+unique(gapminder$country)
+
+```
+
+
+## Extracting Information 
+
+### Selecting a single value
+
+If we wanted to get the first value from the first row and column in the dataframe we could use:
+
+```{r Select the first element}
+
+gapminder[1,1]
+
+```
+
+
+### Selecting a whole row
+
+If we wanted the whole first row we could use:
+
+```{r Select the first row}
+
+gapminder[1,]
+
+```
+
+Notice, that if we want to select all columns we simply add a comma and leave the column position blank.
+
+What happens if you run the following?
+
+```{r The wrong way to select first row, eval = FALSE}
+
+gapminder[1]
+
+```
+
+### Selecting specific rows and columns
+
+If we wanted the first 5 rows and the first and third columns we could use:
+
+```{r Select the first 5 rows and first and third columns}
+
+gapminder[1:5, c(1,3)]
+
+```
+
+Remember from before that if we have nonconsecutive positions, we need to use the `c()` function to **c**ombine these positions into a list. 
+
+
+### Reference columns by name
+
+We can also reference the column by name:
+
+```{r Referencing the column by column name}
+
+gapminder[1:5, c("country", "gdpPercap")]
+
+```
+
+Why might this be preferred to referencing columns by number?
+
+
+# Exercises Part III
+
+1. Extract all rows from the column `pop` and save it in a new object called `pop`
+
+Hint: look back to how we selected row 1 and all columns. 
+
+```{r Select the column pop , eval = FALSE}
+
+pop <- gapminder[]
+
+```
+
+
+2. Extract the 5th row and 6th column from the dataset
+
+```{r Extract 5th row and 6th column, eval = FALSE}
+
+gapminder[]
+
+```
+
+
+3. **Bonus** Extract all the rows for the columns `gdpPercap` and `pop`.
+
+Hint: look back to how we selected row 1 and all columns. 
+
+
+```{r Select columns gdpPercap and pop, eval = FALSE}
+
+gapminder[]
+
+```
+
+4. Extract rows 5, 20, and 44 from the column `lifeExp` and save it in a new data frame called `sub_lifeExp`
+
+```{r Extract rows 5 and 20 and 44 from col lifeExp A, eval = TRUE}
+
+ sub_lifeExp <- gapminder[c(5, 20, 44), "lifeExp"]
+
+```
+

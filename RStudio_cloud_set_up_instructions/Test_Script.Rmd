@@ -1,0 +1,51 @@
+---
+title: "My First Script"
+author: "Laurie Baker"
+date: "06/01/2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## R Markdown
+
+Congratulations! You've opened your first script in RStudio. Change author from "Laurie Baker" to "Your Name", e.g. "Joanna Smith". Don't forget the quotes! Feel free to change the date too!
+
+Next, on the little arrow next to the Knit symbol, click "Knit to html".
+
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. You can add headings using multiple hashes, '##'. Fewer hashes the bigger the heading (e.g. '##' vs. '###'). You can also make words **bold**, and words *italic*. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+### Adding Code Chunks
+
+When you click "Knit to html", a new html document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this, or clicking "+C Insert" on the menu:
+
+
+```{r cars}
+summary(cars)
+```
+
+### Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+### Adding Comments to Code
+
+```{r}
+head(cars) # You can add comments to code using '#'
+```
+
+
+Click the small down arrow next to the **Knit** button on the menu and select "Knit to html". Congrats, you've generated your first markdown html document. 
+

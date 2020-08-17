@@ -1,0 +1,112 @@
+data and libraries	gapminder	my_file	.Random.seed
+Select columns lifeExp and pop using select()	
+Select the columns lifeExp and country using select()	
+Create a new data frame lifeExp_by_country with the columns lifeExp and country	lifeExp_by_country
+Using - to remove columns	
+Select the columns country, continent and gdpPercap using select	
+Write code for two ways to select all columns but year	
+Write code for two ways to select all columns but year 2	
+Use filter to pick out a particular country	
+Use filter to filter row from a set of countries	
+Add multiple filters with a comma	
+What does this code filter for	
+Filter the data for countries in Asia where lifeExp is less than 35	
+Filter the data so that you only get entries where gdpPercap is equal to 1000 or less	
+Filter the data for Chile Argentina Uruguay and Peru for years greater than or equal to 1992	
+Filter the data to inclue data from all continents apart from Europe	
+Calculate the mean_lifeExp using summarise	lifeExp_stats
+Use summarise to calculate mean_lifeExp, min_lifeExp, and max_lifeExp	lifeExp_stats
+Use group_by to group by country and then summarise	lifeExp_stats_country
+What does the following group_by summarise code do	
+Group the data by country and create two new variables which summarise the minimum and maximum pop	
+Summarise maximum and Minimum population by continent and year	
+unnamed-chunk-1	
+Yemen Life Expectancy pre 1980	yemen_pre1980_mean_lifeExp
+Using group_by and slice: min lifeExp	
+Using group_by and slice: max lifeExp	
+Creating a new variable gdp	gapminder
+unnamed-chunk-2	person_table
+unnamed-chunk-3	job_table
+unnamed-chunk-4	
+unnamed-chunk-5	
+Inner join example	
+unnamed-chunk-6	
+unnamed-chunk-7	
+Left join example	
+unnamed-chunk-8	
+unnamed-chunk-9	
+Right join example	
+unnamed-chunk-10	
+unnamed-chunk-11	
+Full join example	
+Make a new data frame uk_gdpPercap_df 1	uk_gdpPercap_df
+Make a new data frame uk_gdpPercap_df 2	uk_gdpPercap_df
+Make a new data frame uk_gdpPercap_df 3	uk_gdpPercap_df
+Make a new data frame uk_gdpPercap_df 4	uk_gdpPercap_df
+Make a new data frame uk_gdpPercap_df 5	uk_gdpPercap_df
+Join the gapminder and uk_gdpPercap_df data frames	gapminder
+Make a new variable gdpPercap_rel	gapminder
+Doublechecking our calculation of gdpPercap_rel worked	
+How many countries had a smaller gdpPercapita	
+1. Select 2. filter 3. group_by and 4. summarise	
+How many countries had a higher relative gdp per capita	
+Which countries had a higher gdp per capita than the UK	
+Turkey or Sri Lanka: who has a higher infant mortality rate in 2007	
+Poland or Malaysia: who has a higher infant mortality rate in 2007	
+Pakistan or Vietnam: who has a higher infant mortality rate in 2007	
+South Africa or Yemen: who has the highest life Expectancy	
+Chile or Hungary: who has the highest life Expectancy	
+Switzerland or Kuwait: who has the highest gdpPercap	
+Colombia or Nepal: who has the highest gdpPercap	
+geom_demo	df_geom	g_geom	minimal_theme
+Creating a new data frame: gapminder_middle_east	gapminder_middle_east	middle_east
+Basic Scatterplot in ggplot	
+ggplot2 graphing template	
+Trying a new geom function to make a histogram	
+Make a scatter plot with points coloured by country	
+Make a scatterplot with colour and shape set by country	
+Make a plot with size set by gdpPercap	
+Make a plot with size equal to relative gdpPercap	
+Customise a ggplot with titles and labels	
+Change the limits of the x and y axes	
+Change the labels of the legend	g1
+Make a facet grid plot	
+Save a plot using ggsave()	
+Time series of gdp per capita	
+How does relative gdp per capita change over time	
+What is the relationship between Infant Mortality and Time	
+What is the relationship between fertility and time	
+Life expectancy in the Americas 1952 vs 2007	
+What does fct_reorder and coord_flip do	gap_lifeExpdiff_df	p1
+Reproduce the population by year plot	
+Update so the plot shows countries with the smallest difference in life Expectancy	gap_lifeExpdiff_df	p1
+What is the relationship between infant mortality and year by continent	
+Which countries in Europe had an infant mortality rate greater than 60	
+Life expectancy by year by continent	
+unnamed-chunk-12	
+unnamed-chunk-13	
+Getting help: help and vignette	
+unnamed-chunk-14	
+Store a plot	g1
+tidy-messy1	messy_pop	pop_simple
+tidy-tidy1	tidy_pop
+tidy-tidy-show	tidy_pop
+tidy-tidy-show-2	tidy_pop
+geom_demo 1	df_geom	g_geom	minimal_theme
+ggplot2-geom-names	old_width
+first-plot1a	
+first-plot1b	
+first-plot1c	
+first-plot1	
+first-plot2-fake	
+first-plot2	
+first-plot3	
+first-plot-geom-1	g
+geom_facet_setup	g	tidy_pop2
+geom_facet	
+geom_grid	
+geom_label_setup	g	tidy_pop2
+labs-ex	g
+Yemen Life Expectancy pre 1980 1	yemen_pre1980_mean_lifeExp
+Yemen Life Expectancy pre 1980 2	yemen_pre1980_mean_lifeExp
+Yemen Life Expectancy pre 1980 3	yemen_pre1980_mean_lifeExp

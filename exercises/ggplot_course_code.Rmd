@@ -1,0 +1,290 @@
+---
+title: "Introduction to ggplot: course code"
+author: "Dr. Laurie Baker"
+date: "21/04/2020"
+output: 
+  html_document:
+    number_sections: true
+    toc: yes
+    toc_depth: '2'
+    toc_float: yes
+---
+
+# Getting started
+
+## Installing and loading packages
+
+```{r libraries, echo=TRUE, message=TRUE, warning=TRUE}
+# install.packages("tidyverse")
+# install.packages("gapminder")
+
+library(tidyverse)
+library(gapminder)
+
+```
+
+## Cleaning and prepping the data
+
+### This is messy data
+
+```{r tidy-messy1, results='asis', echo=FALSE}
+
+pop_simple <- gapminder %>% 
+  filter(
+    country %in% c("Syria", "Rwanda", "Chile"), 
+    year >= 1997
+  ) %>% 
+  select(country, year, pop) %>% 
+  mutate(pop = pop / 10^6)
+
+messy_pop <- pop_simple %>% spread(year, pop)
+
+knitr::kable(messy_pop, format = 'html')
+
+```
+## Cleaning and prepping the data
+
+
+```{r tidy-tidy1, result='asis'}
+
+tidy_pop <- gather(messy_pop, 'year', 'pop', -country)
+tidy_pop %>%
+  head(4) 
+
+```
+
+
+## Building a plot
+
+### Calling `ggplot()`
+
+```{r first-plot1a, ref.label='first-plot1a', out.width="100%"}
+
+ggplot(tidy_pop)
+
+```
+
+### Adding aesthetics
+
+```{r first-plot1b, ref.label='first-plot1b', out.width="100%"}
+
+ggplot(tidy_pop,
+  aes(x = year, #<<
+      y = pop) #<<
+  )
+```
+
+### Choosing the geometry (geom)
+
+```{r first-plot1c, ref.label='first-plot1c', out.width="100%"}
+
+ggplot(tidy_pop,
+  aes(x = year,
+      y = pop)
+  ) +
+  geom_point() 
+
+```
+
+### Adding a third variable, country, as a colour.
+
+```{r first-plot1d, out.width = "100%"}
+
+ggplot(tidy_pop,
+  aes(x = year,
+      y = pop,
+      color = country) 
+  ) + 
+  geom_point()
+
+```
+
+### Adding a line to the plot
+
+```{r first-plot1e, out.width = "100%"}
+
+ggplot(tidy_pop,
+  aes(x = year,
+      y = pop,
+      color = country) 
+  ) +
+  geom_point() +
+  geom_line()
+
+```
+
+### Adding a line to the plot, group by country.
+
+```{r first-plot1f, out.width = "100%"}
+
+ggplot(tidy_pop,
+  aes(x = year,
+      y = pop,
+      color = country) 
+  ) +
+  geom_point() +
+  geom_line(
+    aes(group = country)) 
+
+```
+
+### Storing a plot
+
+```{r first-plot1g, out.width = "100%"}
+
+g <- ggplot(tidy_pop, 
+  aes(x = year,
+      y = pop,
+      color = country) 
+  ) +
+  geom_point() +
+  geom_line(
+    aes(group = country))
+
+g 
+
+
+```
+
+### Specifying the aesthetics for each geometry.
+
+```{r}
+
+g <- ggplot() +
+  geom_point(
+    data = tidy_pop, 
+    aes(x = year, 
+      y = pop, 
+      color = country) 
+  ) +
+  geom_line(
+    data = tidy_pop, 
+    aes(x = year, 
+      y = pop, 
+      color = country, 
+      group = country) 
+    )
+
+g
+
+```
+
+### Adding more data. Creating `tidy_pop2`
+
+```{r}
+
+tidy_pop2 <- left_join(tidy_pop, select(gapminder, country, continent))
+
+g <- ggplot(tidy_pop2) +
+  aes(x = year,
+      y = pop,
+      color = country) +
+  geom_point() +
+  geom_line(aes(group = country))
+
+```
+
+### Using Facets
+
+```{r geom_facet}
+
+g + facet_wrap(~ country)
+
+```
+
+### Using facet_grid, two variables.
+
+```{r geom_grid}
+g + facet_grid(continent ~ country)
+```
+
+### Adding labels
+
+```{r labs-ex}
+
+(g <- g + labs(x = "Year", y = "Population (millions)"))
+
+```
+
+### Showing coordinates
+
+```{r adding coordinates}
+
+g + coord_flip()
+
+```
+
+### Changing the color scale
+
+```{r}
+
+g + scale_color_manual(values = c("peru", "pink", "plum"))
+
+```
+
+### Changing the scale of the y
+
+```{r}
+
+g + scale_y_log10()
+
+```
+
+### Changing the scale of the x
+
+```{r}
+
+g + scale_x_discrete(labels = c("MCMXCVII", "MMII", "MMVII"))
+
+```
+
+### Changing the theme
+
+```{r theme ex1}
+
+g + theme_bw()
+
+```
+
+### Changing the theme (fonts and colours) 
+
+```{r theme ex2}
+
+g + theme_bw() + theme(text = element_text(colour = "hotpink", size = 20))
+
+```
+
+### Setting an overall theme:
+
+```{r Setting a theme}
+
+my_theme <- theme_bw() +
+  theme(
+    text = element_text(family = "Palatino", size = 12),
+    panel.border = element_rect(colour = 'grey80'), 
+    panel.grid.minor = element_blank()
+  )
+
+theme_set(my_theme)
+
+```
+
+
+### Making the plot with the new theme
+
+```{r}
+
+theme_set(my_theme)
+g 
+
+```
+
+### Changing the position of the legend
+
+```{r}
+
+theme_set(my_theme)
+g + theme(legend.position = 'bottom')
+
+```
+

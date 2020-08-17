@@ -1,0 +1,111 @@
+data and libraries	file.path	library	read_csv
+Select columns lifeExp and pop using select()	gapminder	lifeExp	pop	select
+Select the columns lifeExp and country using select()	%>%	country	gapminder	lifeExp	select
+Create a new data frame lifeExp_by_country with the columns lifeExp and country	%>%	country	gapminder	head	lifeExp	select
+Using - to remove columns	%>%	c	country	gapminder	lifeExp	select
+Select the columns country, continent and gdpPercap using select	%>%	gapminder	select
+Write code for two ways to select all columns but year	%>%	c	gapminder	select
+Write code for two ways to select all columns but year 2	%>%	gapminder	select	year
+Use filter to pick out a particular country	%>%	==	country	filter	gapminder	head
+Use filter to filter row from a set of countries	%>%	c	country	filter	gapminder
+Add multiple filters with a comma	%>%	&	<=	==	>=	country	filter	gapminder	year
+What does this code filter for	%>%	==	>	continent	filter	gapminder	lifeExp
+Filter the data for countries in Asia where lifeExp is less than 35	%>%	<	==	continent	filter	gapminder	lifeExp
+Filter the data so that you only get entries where gdpPercap is equal to 1000 or less	%>%	<=	filter	gapminder	gdpPercap
+Filter the data for Chile Argentina Uruguay and Peru for years greater than or equal to 1992	%>%	&	>=	c	country	filter	gapminder	year
+Filter the data to inclue data from all continents apart from Europe	!=	%>%	continent	filter	gapminder
+Calculate the mean_lifeExp using summarise	%>%	gapminder	lifeExp	mean	summarise
+Use summarise to calculate mean_lifeExp, min_lifeExp, and max_lifeExp	%>%	gapminder	lifeExp	max	mean	min	summarise
+Use group_by to group by country and then summarise	%>%	country	gapminder	group_by	lifeExp	max	mean	min	summarise
+What does the following group_by summarise code do	%>%	continent	gapminder	gdpPercap	group_by	mean	summarise	year
+Group the data by country and create two new variables which summarise the minimum and maximum pop	%>%	country	gapminder	group_by	head	max	min	pop	summarise
+Summarise maximum and Minimum population by continent and year	%>%	continent	gapminder	group_by	head	max	min	pop	summarise	year
+unnamed-chunk-1	::
+Yemen Life Expectancy pre 1980	%>%	<	==	country	filter	gapminder	lifeExp	mean	select	summarise	year
+Using group_by and slice: min lifeExp	%>%	gapminder	group_by	lifeExp	slice	which.min	year
+Using group_by and slice: max lifeExp	%>%	gapminder	group_by	lifeExp	slice	which.max	year
+Creating a new variable gdp	%>%	gdpPercap	mutate	pop
+unnamed-chunk-2	c	data.frame
+unnamed-chunk-3	c	data.frame
+unnamed-chunk-4	person_table
+unnamed-chunk-5	job_table
+Inner join example	inner_join	job_table	person_table
+unnamed-chunk-6	person_table
+unnamed-chunk-7	job_table
+Left join example	job_table	left_join	person_table
+unnamed-chunk-8	person_table
+unnamed-chunk-9	job_table
+Right join example	job_table	person_table	right_join
+unnamed-chunk-10	person_table
+unnamed-chunk-11	job_table
+Full join example	full_join	job_table	person_table
+Make a new data frame uk_gdpPercap_df 1	%>%	==	country	filter	gapminder	gdpPercap	rename	select	year
+Make a new data frame uk_gdpPercap_df 2	%>%	==	country	filter	gapminder	gdpPercap	rename	select	year
+Make a new data frame uk_gdpPercap_df 3	%>%	==	country	filter	gapminder	gdpPercap	rename	select	year
+Make a new data frame uk_gdpPercap_df 4	%>%	==	country	filter	gapminder	gdpPercap	rename	select	year
+Make a new data frame uk_gdpPercap_df 5	%>%	==	country	filter	gapminder	gdpPercap	head	rename	select	year
+Join the gapminder and uk_gdpPercap_df data frames	left_join	names	uk_gdpPercap_df
+Make a new variable gdpPercap_rel	%>%	gdpPercap	mutate	uk_gdpPercap
+Doublechecking our calculation of gdpPercap_rel worked	%>%	==	country	filter	gapminder	gdpPercap_rel	head	select
+How many countries had a smaller gdpPercapita	%>%	<	filter	gapminder	gdpPercap_rel	group_by	n	summarise	year
+1. Select 2. filter 3. group_by and 4. summarise	%>%	c	country	filter	gapminder	gdpPercap_rel	group_by	max	mean	min	select	summarise
+How many countries had a higher relative gdp per capita	%>%	>	filter	gapminder	gdpPercap_rel	group_by	n	summarise
+Turkey or Sri Lanka: who has a higher infant mortality rate in 2007	%>%	==	c	country	filter	gapminder	infant_mortality	select	year
+Poland or Malaysia: who has a higher infant mortality rate in 2007	%>%	==	c	country	filter	gapminder	infant_mortality	select	year
+Pakistan or Vietnam: who has a higher infant mortality rate in 2007	%>%	==	c	country	filter	gapminder	infant_mortality	select	year
+South Africa or Yemen: who has the highest life Expectancy	%>%	==	c	country	filter	gapminder	lifeExp	select	year
+Chile or Hungary: who has the highest life Expectancy	%>%	==	c	country	filter	gapminder	lifeExp	select	year
+Switzerland or Kuwait: who has the highest gdpPercap	%>%	==	c	country	filter	gapminder	gdpPercap	select	year
+Colombia or Nepal: who has the highest gdpPercap	%>%	==	c	country	filter	gapminder	gdpPercap	select	year
+geom_demo	$<-	::	~	aes	element_blank	element_rect	element_text	geom_boxplot	geom_col	geom_density	geom_histogram	geom_line	geom_point	ggplot	ggtitle	list	map	rnorm	set.seed	theme	theme_bw	tibble	x	xlim	y
+Creating a new data frame: gapminder_middle_east	%>%	c	country	filter	gapminder
+Basic Scatterplot in ggplot	aes	gapminder_middle_east	geom_point	ggplot	lifeExp	year
+Which countries had a higher gdp per capita than the UK	%>%	==	>	country	filter	gapminder	gdpPercap_rel	select	unique	year
+Trying a new geom function to make a histogram	aes	gapminder	geom_histogram	ggplot	lifeExp
+Make a scatter plot with points coloured by country	aes	country	gapminder_middle_east	geom_point	ggplot	lifeExp	year
+Make a scatterplot with colour and shape set by country	aes	country	gapminder_middle_east	geom_point	ggplot	lifeExp	year
+Make a plot with size set by gdpPercap	aes	country	gapminder_middle_east	gdpPercap	geom_point	ggplot	lifeExp	year
+Make a plot with size equal to relative gdpPercap	aes	country	gapminder_middle_east	gdpPercap_rel	geom_point	ggplot	lifeExp	year
+Customise a ggplot with titles and labels	g1	ggtitle	labs
+Change the limits of the x and y axes	g1	ggtitle	labs	ylim
+Change the labels of the legend	ggtitle	labs	ylim
+Make a facet grid plot	~	facet_wrap	g1
+Save a plot using ggsave()	ggsave
+Time series of gdp per capita	%>%	aes	c	country	filter	gapminder	gdpPercap	geom_line	ggplot	labs	year	ylim
+How does relative gdp per capita change over time	%>%	aes	c	country	filter	gapminder	gdpPercap_rel	geom_line	ggplot	labs	year
+What is the relationship between Infant Mortality and Time	%>%	aes	c	country	filter	gapminder	geom_line	ggplot	infant_mortality	labs	year	ylim
+What is the relationship between fertility and time	%>%	aes	c	country	fertility	filter	gapminder	geom_line	ggplot	ggtitle	labs	year	ylim
+Life expectancy in the Americas 1952 vs 2007	%>%	==	aes	as.factor	c	continent	country	filter	gapminder	geom_point	ggplot	labs	lifeExp	mutate	year
+What does fct_reorder and coord_flip do	%>%	aes	coord_flip	country	fct_reorder	gapminder	geom_col	ggplot	ggtitle	group_by	labs	life_exp_diff	lifeExp	max	min	summarise	top_n	ylim
+Reproduce the population by year plot	%>%	~	aes	BLANK	c	country	facet_wrap	filter	gapminder	geom_point	ggplot	ggtitle	labs	mutate	pop	select	year
+Update so the plot shows countries with the smallest difference in life Expectancy	%>%	aes	coord_flip	country	fct_reorder	gapminder	geom_col	ggplot	ggtitle	group_by	labs	life_exp_diff	lifeExp	max	min	summarise	top_n	ylim
+What is the relationship between infant mortality and year by continent	%>%	~	aes	BLANK	country	facet_wrap	gapminder	geom_line	ggplot	labs	year
+Which countries in Europe had an infant mortality rate greater than 60	%>%	==	>	BLANK	continent	filter	gapminder	infant_mortality
+Life expectancy by year by continent	%>%	~	aes	continent	country	facet_wrap	gapminder	geom_line	ggplot	labs	lifeExp	year	ylim
+unnamed-chunk-12	
+unnamed-chunk-13	
+Getting help: help and vignette	?	filter	vignette
+unnamed-chunk-14	
+Store a plot	aes	country	gapminder_middle_east	gdpPercap	geom_point	ggplot	lifeExp	year
+tidy-messy1	%>%	::	^	>=	c	country	filter	gapminder	mutate	pop	select	spread	year
+tidy-tidy1	%>%	as_table	country	gather	head	messy_pop
+tidy-tidy-show	%>%	as_table	country	gather	head	messy_pop
+tidy-tidy-show-2	%>%	as_table	country	gather	head	messy_pop
+geom_demo 1	$<-	::	~	aes	data_frame	element_blank	element_rect	element_text	geom_boxplot	geom_col	geom_density	geom_histogram	geom_line	geom_point	ggplot	ggtitle	list	map	rnorm	set.seed	theme	theme_bw	x	xlim	y
+ggplot2-geom-names	$	%>%	.	grep	lsf.str	options
+first-plot1a	ggplot	tidy_pop
+first-plot1b	aes	ggplot	pop	tidy_pop	year
+first-plot1c	aes	geom_point	ggplot	pop	tidy_pop	year
+first-plot1	aes	country	geom_point	ggplot	pop	tidy_pop	year
+first-plot2-fake	aes	country	geom_line	geom_point	ggplot	pop	tidy_pop	year
+first-plot2	aes	country	geom_line	geom_point	ggplot	pop	tidy_pop	year
+first-plot3	aes	country	geom_line	geom_point	ggplot	pop	tidy_pop	year
+first-plot-geom-1	aes	country	geom_line	geom_point	ggplot	pop	tidy_pop	year
+geom_facet_setup	aes	continent	country	gapminder	geom_line	geom_point	ggplot	left_join	pop	select	tidy_pop	year
+geom_facet	~	facet_wrap	g
+geom_grid	~	facet_grid	g
+geom_label_setup	aes	continent	country	gapminder	geom_line	geom_point	ggplot	left_join	pop	select	tidy_pop	year
+labs-ex	labs
+Yemen Life Expectancy pre 1980 1	%>%	<	==	country	filter	gapminder	lifeExp	mean	select	summarise	year
+Yemen Life Expectancy pre 1980 2	%>%	<	==	country	filter	gapminder	lifeExp	mean	select	summarise	year
+Yemen Life Expectancy pre 1980 3	%>%	<	==	country	filter	gapminder	lifeExp	mean	select	summarise	year

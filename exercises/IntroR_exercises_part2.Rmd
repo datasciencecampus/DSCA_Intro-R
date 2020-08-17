@@ -1,0 +1,821 @@
+---
+title: "Introduction to R Part II: Exercises"
+author: "Dr. Laurie Baker"
+date: "15/04/2020"
+output: 
+  html_document:
+    number_sections: true
+    toc: yes
+    toc_depth: '1'
+    toc_float: yes
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Loading in the relevant packages and the data
+ 
+```{r data and libraries}
+
+library(tidyverse)
+
+### If your data folder is outside your exercises folder:
+
+my_file <- file.path("../data", "gapminder.csv")
+
+### If your data folder is in your exercises folder:
+
+#my_file <- file.path("data", "gapminder.csv")
+
+gapminder <- read_csv(file = my_file)
+
+```
+
+# Subsetting and summarising using dplyr:
+
+`dplyr`, has made a lot of data manipulation easier and clearer using **verbs** to filter and select different elements.
+
+
+
+  * `select()` subsets columns based on their names.
+
+
+
+  * `filter()` subsets rows based on their values.
+
+
+
+  * `summarise()` calculates summary statistics.
+
+
+
+  * `group_by()` groups variable for summarising.
+
+
+
+  * `mutate()` adds new columns that are functions of existing variables. 
+
+
+
+These verbs can be combined in powerful ways to do some really interesting data manipulation tasks! 
+
+## select
+
+```{r Select columns lifeExp and pop using select()}
+
+select(gapminder, lifeExp, pop)
+
+```
+
+
+
+## The pipe operator
+
+* `%>%` = **"and then"**
+
+```{r Select the columns lifeExp and country using select()}
+
+gapminder %>%
+  select(lifeExp, country)
+
+```
+
+
+## Assign your output to a new data frame
+
+
+```{r Create a new data frame lifeExp_by_country with the columns lifeExp and country}
+
+lifeExp_by_country <- gapminder %>%
+  select(lifeExp, country)
+
+head(lifeExp_by_country)
+
+```
+
+
+class: inverse, center, middle
+
+# Exercises Part 1
+
+
+
+## 1. Run the following line of code, what does the minus do?
+
+```{r Using - to remove columns, eval = FALSE}
+
+gapminder %>%
+  select(-c(lifeExp, country))
+
+```
+
+
+## 2. Select the columns `country`, `continent` and `gdpPercap` from the data frame. 
+
+```{r Select the columns country, continent and gdpPercap using select, eval = FALSE}
+
+gapminder %>%
+  select()
+
+```
+
+
+## 3. Write 2 ways to select all the columns except for year.
+
+**Option 1**
+
+
+```{r Write code for two ways to select all columns but year, eval = FALSE}
+gapminder %>%
+  select()
+
+```
+
+
+
+**Option 2**
+
+```{r Write code for two ways to select all columns but year 2, eval = FALSE}
+
+gapminder %>%
+  select() 
+
+```
+
+
+
+## filter
+
+* `filter`: subsetting rows
+
+
+## Filter using double "="
+
+* Filter a particular country:
+
+```{r Use filter to pick out a particular country}
+
+gapminder %>%
+  filter(country == "Yemen, Rep.") %>%
+  head()
+
+```
+
+
+
+## Filter rows from a set of matches
+
+
+```{r Use filter to filter row from a set of countries}
+
+gapminder %>%
+  filter(country %in% c("Jordan", "Oman",
+                        "Syria", "Yemen, Rep."))
+
+```
+
+
+## Combining multiple filters
+
+* You can add multiple filters with a comma.
+
+```{r Add multiple filters with a comma}
+
+gapminder %>%
+  filter(country == "Yemen, Rep.", year >= 1960 & year <= 1985)
+
+```
+
+
+class: inverse, center, middle
+
+# Exercises Part 2
+
+
+## 1. What do these lines of code filter the data for?
+
+```{r What does this code filter for, eval = FALSE}
+
+gapminder %>%
+  filter(continent == "Europe", lifeExp > 70)
+
+```
+
+
+## 2. Filter the data for countries in "Asia" where the "lifeExp" was below 35  
+
+```{r Filter the data for countries in Asia where lifeExp is less than 35, eval = FALSE}
+
+gapminder %>%
+  filter(continent == BLANK, lifeExp BLANK)
+  
+```
+
+
+## 3. Filter the data for observations where the gdpPercap was equal to 1000 or less. 
+
+```{r Filter the data so that you only get entries where gdpPercap is equal to 1000 or less, eval = FALSE}
+
+gapminder %>%
+  filter(gdpPercap BLANK)
+  
+```
+
+**BONUS**
+
+## 4. Filter using `%in%` for countries "Chile", "Argentina", "Uruguay", and "Peru" and year >= to 1992. 
+
+```{r Filter the data for Chile Argentina Uruguay and Peru for years greater than or equal to 1992, eval = FALSE}
+
+gapminder %>%
+  filter(country %in% BLANK & year BLANK)
+
+
+```
+
+**BONUS**
+
+## 5. Filter the data using `!=` to include the data from all continents apart from Europe. 
+
+```{r Filter the data to inclue data from all continents apart from Europe, eval = FALSE}
+
+gapminder %>%
+  filter(continent BLANK)
+
+```
+
+
+## summarise()
+
+
+
+* `summarise()` uses existing R functions to calculate summary statistics. 
+
+
+
+* mean lifeExp for all countries:
+
+
+
+```{r Calculate the mean_lifeExp using summarise}
+
+(lifeExp_stats <- gapminder %>%
+                  summarise(
+                    mean_lifeExp = mean(lifeExp) 
+                    )
+ )
+
+```
+
+
+## summarise() multiple summary statistics
+
+* Calculate multiple summary statistics by separating using ","
+
+```{r Use summarise to calculate mean_lifeExp, min_lifeExp, and max_lifeExp}
+
+(lifeExp_stats <- gapminder %>%
+                  summarise(
+                    mean_lifeExp = mean(lifeExp), # mean 
+                    min_lifeExp = min(lifeExp), # min 
+                    max_lifeExp = max(lifeExp)) # max 
+                    ) 
+
+
+```
+
+
+
+## group_by()
+
+
+
+* `group_by()` used to group variables. 
+
+
+* summarise min, mean, and max `lifeExp` per country
+
+
+
+```{r Use group_by to group by country and then summarise}
+
+(lifeExp_stats_country <- gapminder %>%
+                             group_by(country) %>% 
+                             summarise(
+                                mean_lifeExp = mean(lifeExp),
+                                min_lifeExp = min(lifeExp), 
+                                max_lifeExp = max(lifeExp)
+                                ))
+
+```
+
+
+
+class: inverse, center, middle
+
+# Exercises Part 3
+
+
+## 1. What does the following bit of code do? 
+
+```{r What does the following group_by summarise code do, eval = FALSE}
+
+gapminder %>%
+      group_by(continent, year) %>%
+      summarise(mean_gdpPercap = mean(gdpPercap))
+
+
+```
+
+
+## 2. Group the data by country and summarise the minimum and maximum population sizes. 
+
+
+```{r Group the data by country and create two new variables which summarise the minimum and maximum pop, eval = FALSE}
+
+gapminder %>%
+  group_by(BLANK) %>%
+  summarise(min_pop = BLANK,
+            max_pop = BLANK) %>%
+            head(8)
+          
+```
+
+
+## 3. Group the data by continent and year. Summarise the max and min population.
+
+```{r Summarise maximum and Minimum population by continent and year, eval = FALSE}
+
+gapminder %>%
+  group_by(BLANK, BLANK) %>%
+  summarise(min_pop = min(pop),
+            max_pop = max(pop)) %>%
+            head(8)
+          
+```
+
+
+
+
+# The pipe function %>%
+
+## The pipe function in action!
+
+
+```{r Yemen Life Expectancy pre 1980 3}
+
+
+yemen_pre1980_mean_lifeExp <- gapminder %>%
+    filter(country == "Yemen, Rep.", year <1980) %>% 
+    select(lifeExp) %>% 
+    summarise(mean_lifeExp = mean(lifeExp)) 
+
+
+yemen_pre1980_mean_lifeExp
+
+```
+
+
+
+## Looking at a slice()
+
+
+`slice()` chooses rows by their position within the group, e.g. minimum `lifeExp`.
+
+```{r Using group_by and slice: min lifeExp}
+
+gapminder %>%
+  group_by(year) %>%
+  slice(which.min(lifeExp)) 
+
+```
+
+
+## Looking at a slice()
+
+* Which country had the highest life Expectancy in each year?
+
+```{r Using group_by and slice: max lifeExp}
+
+gapminder %>%
+  group_by(year) %>%
+  slice(which.max(lifeExp))
+
+```
+
+
+## Mutate
+
+  * `mutate()` adds new columns that are functions of existing variables. 
+  
+
+
+```{r Creating a new variable gdp}
+
+(gapminder <- gapminder %>%
+    mutate(gdp = gdpPercap*pop)) 
+
+
+
+```
+
+
+
+  * gdp is useful... but it's also a huge number! Which makes it difficult to compare. 
+  
+
+
+# Joining data frames: when one data frame is not enough
+
+* Our data is often spread out over several data frames!
+
+* We can **join** these data frames together using a variety of `join` functions from the `dplyr` package.
+
+Let's walk through the different types of joins using a simple example. 
+
+
+## Joining data
+
+**Person Table**
+
+```{r}
+
+(person_table <- data.frame(Person_ID = c("Person1", "Person2"), 
+                           Name = c("Jane Doe", "John Smith"), 
+                           Job_ID = c("Job_1", "NA")))
+```
+
+
+
+**Job Table**  
+   
+```{r}                           
+(job_table <- data.frame(Job_ID = c("Job_1", "Job_2"), 
+                        Job_Name = c("Programmer", "Statistician")))
+```
+
+
+## Inner join:
+
+
+```{r}
+person_table
+```
+
+```{r}
+job_table
+```
+
+
+
+* `inner_join:` only rows where there is a match. 
+
+```{r Inner join example, warning = FALSE}
+
+inner_join(x = person_table, y = job_table, by = "Job_ID")
+
+```
+
+
+## Left join:
+
+
+```{r}
+person_table
+```
+
+```{r}
+job_table
+```
+
+
+
+* `left_join:` All rows on the left side of join. 
+
+
+
+* Only rows from the right side where there's a match on the left. 
+
+
+
+```{r Left join example, warning = FALSE}
+
+
+left_join(x = person_table, y = job_table, by = "Job_ID")
+
+```
+
+
+## Right join:
+
+```{r}
+person_table
+```
+
+```{r}
+job_table
+```
+
+
+
+* `right_join:` Rows from the left side only where there is a match on the right. 
+
+
+
+* All rows from the right side of the join.
+
+```{r Right join example, warning = FALSE}
+
+right_join(x = person_table, y = job_table, by = "Job_ID")
+
+```
+
+
+
+## Full join
+
+```{r}
+person_table
+```
+
+```{r}
+job_table
+```
+
+
+
+* `full_join:` All rows from the left.
+
+* All rows from the right, **Joined** where the criteria matches. NAs where no matches.
+
+```{r Full join example, warning = FALSE}
+
+full_join(x = person_table, y = job_table, by = "Job_ID")
+
+```
+
+
+# Creating a new data frame uk_gdpPercap_df
+
+* Let's look at the per capita GDP in a way that's more meaningful.
+
+
+
+* Let's create `gdpPercap_rel`, that is the `gdpPercap` of the country **relative** to the UK's `gdpPercap` of that same year.
+
+
+
+* How? Country A: `gdpPercap` divided by UK's `gdpPercap` in the same year.
+
+
+
+# Creating a new data frame uk_gdpPercap_df
+
+* Create a new dataframe `uk_gdpPercap_df`
+
+* Filter the rows for `country == "United Kingdom"`.
+
+* Select the columns `gdpPercap` and `year`.
+
+* Rename the variable `gdpPercap` to `uk_gdpPercap`.
+
+* Inspect the data frame.
+
+```{r Make a new data frame uk_gdpPercap_df 5}
+
+uk_gdpPercap_df <- gapminder %>%  
+  filter(country == "United Kingdom") %>% 
+  select(gdpPercap, year) %>% 
+  rename(uk_gdpPercap = gdpPercap)
+
+head(uk_gdpPercap_df) 
+
+```
+
+
+## Joining `uk_gdpPercap_df` to the `gapminder` data frame
+
+* We want to divide all the other country's `gdpPercap` by the UK `gdpPercap` in that same year.
+ 
+
+ 
+* We can match the two data frames using a `left_join` on the common variable, `year`.
+
+
+
+```{r Join the gapminder and uk_gdpPercap_df data frames}
+
+gapminder <- left_join(gapminder, uk_gdpPercap_df, by = "year")
+
+names(gapminder)
+
+```
+
+ 
+## Calculating the relative GDP per capita
+
+```{r Make a new variable gdpPercap_rel}
+
+gapminder <- gapminder %>%
+  mutate(gdpPercap_rel = gdpPercap/uk_gdpPercap) 
+
+```
+
+* Doublechecking our calculations... Is the United Kindom relative gdp always 1?
+
+
+```{r Doublechecking our calculation of gdpPercap_rel worked}
+
+gapminder %>%
+  filter(country == "United Kingdom") %>%
+  select(gdpPercap_rel) %>%
+  head()
+
+```
+
+We can doublecheck that our calculation worked by filtering for the United Kingdom to check that the relative gdp per capita is 1. 
+
+Now that we have the `gdpPercap` and `uk_gdpPercap` matched up, we can calculate the relative GDP per capita `gdpPercap_rel`. 
+
+
+
+## How many countries had a smaller gdp per capita than the UK each year?
+
+```{r How many countries had a smaller gdpPercapita}
+
+gapminder %>%
+  group_by(year) %>%
+  filter(gdpPercap_rel < 1) %>%
+  summarise(count = n()) 
+
+```
+
+
+# Exercises Part 4
+
+## 1. What does the following bit of code do?
+
+```{r 1. Select 2. filter 3. group_by and 4. summarise, eval = FALSE}
+
+gapminder %>%
+  select(country, gdpPercap_rel) %>%
+  filter(country %in% c("Argentina", "Chile", "Peru", "Brazil")) %>%
+  group_by(country) %>%
+  summarise(
+            max_gdp = max(gdpPercap_rel), 
+            min_gdp = min(gdpPercap_rel), 
+            mean_gdp = mean(gdpPercap_rel)
+            )
+
+```
+
+
+## 2. How many countries had a higher relative gdp per capita than the United Kindom per year?
+
+```{r How many countries had a higher relative gdp per capita, eval = FALSE}
+
+gapminder %>%
+  group_by() %>%
+  filter(gdpPercap_rel BLANK) %>%
+  summarise(count = n())
+
+```
+
+
+## 3. **Which countries** had a higher relative gdp per capita than the UK in 2007? Fill in the blanks
+
+```{r Which countries had a higher relative gdp per capita than the UK, eval = FALSE}
+
+gapminder %>%
+  filter(BLANK, year == 2007) %>%
+  select(country) %>%
+  unique()
+
+```
+
+
+# Answers to our poll 
+
+
+## Which country had a higher infant mortality rate in 2007? 
+
+* Sri Lanka or Turkey
+
+```{r Turkey or Sri Lanka: who has a higher infant mortality rate in 2007, eval = TRUE}
+
+gapminder %>%
+  filter(year == 2007, country %in% c("Sri Lanka", "Turkey")) %>%
+  select(country, infant_mortality)
+
+```
+
+* **Turkey**, difference = 9.5.
+
+## Which country had a higher infant mortality rate in 2007? 
+
+* Poland or Malaysia
+
+```{r Poland or Malaysia: who has a higher infant mortality rate in 2007, eval = TRUE}
+
+gapminder %>%
+  filter(year == 2007, country %in% c("Poland", "Malaysia")) %>%
+  select(country, infant_mortality)
+
+
+```
+
+
+
+* **Poland**, difference = 0.9
+
+
+## Which country had a higher infant mortality rate in 2007?
+
+* Pakistan or Vietnam
+
+
+```{r Pakistan or Vietnam: who has a higher infant mortality rate in 2007, eval = TRUE}
+
+gapminder %>%
+  filter(year == 2007, country %in% c("Pakistan", "Vietnam")) %>%
+  select(country, infant_mortality)
+
+```
+
+
+
+* **Pakistan**, difference = 56
+
+
+## Which country had a higher life Expectancy in 2007? 
+
+* South Africa or Yemen
+
+```{r South Africa or Yemen: who has the highest life Expectancy}
+
+gapminder %>%
+  filter(year == 2007, country %in% c("South Africa", "Yemen, Rep.")) %>%
+  select(country, lifeExp)
+
+```
+
+
+* **Yemen**, difference ~ 13.4 years
+
+
+## Which country had a higher life Expectancy in 2007? 
+
+* Chile or Hungary
+
+```{r Chile or Hungary: who has the highest life Expectancy, eval = TRUE}
+
+gapminder %>%
+  filter(year == 2007, country %in% c("Chile", "Hungary")) %>%
+  select(country, lifeExp)
+
+```
+
+
+
+* **Chile**, difference ~ 5.2 years
+
+
+## Which country do you think had the highest gdpPercap in 2007?
+
+* Switzerland or Kuwait
+
+```{r Switzerland or Kuwait: who has the highest gdpPercap, eval = TRUE}
+
+gapminder %>%
+  filter(year == 2007, country %in% c("Switzerland", "Kuwait")) %>%
+  select(country, gdpPercap)
+
+```
+
+
+
+
+* **Kuwait**, difference ~ 10,000 USD, about 20-25% more
+
+
+
+## Which country do you think had the highest gdpPercap in 2007?
+
+
+* Colombia or Nepal
+
+
+```{r Colombia or Nepal: who has the highest gdpPercap, eval = TRUE}
+
+gapminder %>%
+  filter(year == 2007, country %in% c("Colombia", "Nepal")) %>%
+  select(country, gdpPercap)
+
+```
+
+
+
+* **Colombia**, difference ~ 5,915, more than 3x
+
