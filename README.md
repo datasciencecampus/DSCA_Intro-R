@@ -52,7 +52,7 @@ Learn the basic building blocks of R and introduction to data manipulation and d
 **Course Type**
 
 * E learning - Available
-* Self learning - Available
+* Self learning - Available Soon
 * Face to face - Available
 
 **Skill Level**
