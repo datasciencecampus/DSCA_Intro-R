@@ -12,7 +12,7 @@ Designed for statistical analysis and reporting, R is a powerful tool for data a
 
 **Course Objective**
 
-The aim of this course is to equip you with a toolbox to get started with data in R aand Rstudio and to provide a sound foundation from which to continue your learning beyond the classroom. 
+The aim of this course is to equip you with a toolbox to get started with data in R and Rstudio and to provide a sound foundation from which to continue your learning beyond the classroom. 
 
 **Lead Developer**
 
