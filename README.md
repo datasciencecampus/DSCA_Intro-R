@@ -66,7 +66,7 @@ This course has no prerequisites. The software R and RStudio are required to com
 
 ## E-learning
 
-For E-learning, Participants should follow along with the pdf [slides](https://github.com/datasciencecampus/DSCA_Intro-R_dev/tree/master/slides/slides_pdf) for part 1 and 2. Exercises to accompany the E-learning are in the [exercises folder](https://github.com/datasciencecampus/DSCA_Intro-R_dev/tree/master/exercises). 
+For E-learning, Participants should follow along with the pdf [slides](https://github.com/datasciencecampus/DSCA_Intro-R/tree/master/slides/slides_pdf) for part 1 and 2. Exercises to accompany the E-learning are in the [exercises folder](https://github.com/datasciencecampus/DSCA_Intro-R/tree/master/exercises). 
 
 **Slides**: IntroR_slides_part1.pdf; IntroR_slides_part2.pdf
 
@@ -78,7 +78,7 @@ Videos will be shortly made available for part 1 and part 2 of the course:
 
 ## Self-learning 
 
-Self-learning files are located in the folder [self-learning-tutorial](https://github.com/datasciencecampus/DSCA_Intro-R_dev/tree/master/self-learning-tutorial).
+Self-learning files are located in the folder [self-learning-tutorial](https://github.com/datasciencecampus/DSCA_Intro-R/tree/master/self-learning-tutorial).
 
 1. IntroR4IntlDev.html (Self-learning tutorial in html)
 
@@ -86,5 +86,5 @@ Self-learning files are located in the folder [self-learning-tutorial](https://g
 
 ## In person training
 
-The in-person training will be delivered using the slides and exercises provided for E-learning. Participants can follow the pdf of the [slides](https://github.com/datasciencecampus/DSCA_Intro-R_dev/tree/master/slides/slides_pdf) for part 1 and 2. Exercises to accompany the E-learning are in the [exercises folder](https://github.com/datasciencecampus/DSCA_Intro-R_dev/tree/master/exercises). 
+The in-person training will be delivered using the slides and exercises provided for E-learning. Participants can follow the pdf of the [slides](https://github.com/datasciencecampus/DSCA_Intro-R/tree/master/slides/slides_pdf) for part 1 and 2. Exercises to accompany the E-learning are in the [exercises folder](https://github.com/datasciencecampus/DSCA_Intro-R/tree/master/exercises). 
 
