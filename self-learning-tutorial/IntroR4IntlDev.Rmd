@@ -286,7 +286,7 @@ The same method used to extract information works for any type of vector. Here w
 
 ```{r Define a numeric vector}
 
-numeric_vector <- c(1:5) # c() is a function to
+numeric_vector <- 1:5
 
 ```
 
@@ -397,7 +397,7 @@ numeric_vector^2
 
 You can also multiply, divide, add, and subtract vectors of the same length.
 
-#### Divide vectors of the same length
+#### Divide vectors of the same length {#divsamelength}
 
 ```{r Divide vectors of the same length}
 
@@ -425,7 +425,9 @@ x - numeric_vector
 
 Fill in the code chunks to answer the following questions
 
-1. Take the last two elements of the numeric vector
+#### 1. Take the last two elements of the numeric vector.{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Take the last two elements of the numeric vector, eval = FALSE}
 
@@ -433,9 +435,36 @@ numeric_vector[]
 
 ```
 
-2. Take the first and last elements of the character_vector. 
+<br>
+  
+##### **Hint**{-}
+  
+Don't know which element is the last? Use `length()` to find out.
+  
+```{r}
 
-Hint: you can use `length()` to find out how many elements there are in the character vector. 
+length(numeric_vector)
+
+```
+
+<br>
+
+##### **Show Answer**{-}
+  
+You can use `:` because the positions are consecutive.
+
+```{r}
+
+numeric_vector[4:5]
+
+```
+
+<br>
+
+
+#### 2. Take the first and last elements of the character_vector.{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Take the first and last elements of the character_vector, eval = FALSE}
 
@@ -443,7 +472,27 @@ character_vector[]
 
 ```
 
-3. Divide the numeric_vector by 3
+<br>
+
+##### **Hint**{-}
+You can use `length()` to find out how many elements there are in the character vector. 
+```{r}
+length(character_vector)
+```
+
+<br>
+
+##### **Show Answer**{-}
+```{r}
+character_vector[c(1,length(character_vector))]
+```
+
+<br>
+
+
+#### 3. Divide the numeric_vector by 3{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Divide the numeric vector by 3, eval = FALSE}
 
@@ -451,26 +500,76 @@ numeric_vector
 
 ```
 
-4. Multiple the numeric_vector by the new vector 'y'
+<br>
+  
+##### **Hint**{-}
+
+`/` is used to divide.
+
+##### **Show Answer**{-}
+```{r}
+numeric_vector/3
+```
+
+<br>
+
+
+#### 4. Multiply the numeric_vector by the new vector 'y'{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Multiple the numeric_vector by the new vector y}
 
-y <- c(5:1)
+y <- 5:1
 
 
 ```
 
+<br>
 
-5. Why do the following lines of code not work?
+##### **Hint**{-}
 
+We can multiply vectors using `*`.
+
+<br>
+
+##### **Show Answer**{-}
+```{r}
+
+y <- 5:1
+
+numeric_vector * y
+
+```
+
+<br>
+
+
+#### 5. Why do the following lines of code not work?{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Why does dividing numeric_vector by the object w not work, eval = FALSE}
 
-w <- c(1:4)
+w <- 1:4
 
 numeric_vector/w
 
 ```
+
+<br>
+
+##### **Hint**{-}
+
+Check earlier [section](#divsamelength).
+
+<br>
+  
+##### **Show Answer**{-}
+
+The code doesn't work because the two vectors are of different lengths.
+
+<br>
 
 
 # CRAN, library, packages, and functions
@@ -878,59 +977,152 @@ str(gapminder)
 
 ### Exercises 
 
-Run the following lines of code to answer the questions below
+Use these new exploration functions to answer the questions below:
 
-1. What are the dimensions of the dataframe? What do each of the numbers refer to?
+#### 1. What are the dimensions of the dataframe? What do each of the numbers refer to?{- .tabset .tabset-fade}
 
-```{r Dataframe Dimensions, eval = FALSE}
+##### {-}
+
+<br>
+
+##### **Hint**{-}
+
+We can use the `dim()` function for this.
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Dataframe Dimensions}
 
 dim(gapminder)
 
 ```
 
-2. What are the names of the columns in the data frame?
+The first number is the number of rows, and the second is the number of columns in the dataframe.
+  
+<br>
 
-```{r Column Names, eval = FALSE}
+
+#### 2. What are the names of the columns in the data frame?{- .tabset .tabset-fade .tabset-fade}
+
+##### {-}
+
+<br>
+  
+##### **Hint**{-}
+
+We can use the `names()` function for this.
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Column Names}
 
 names(gapminder)
 
 ```
 
-*Given spelling is so important in R, `names()` is a handy way to check the names of our columns. 
+Note: Given spelling is so important in R, `names()` is a handy way to check the names of our columns. 
 
-3. What are the first and last countries in the data frame?
+<br>
 
-```{r Head and Tail of Data, eval = FALSE}
+
+#### 3. What are the first and last countries in the data frame?{- .tabset .tabset-fade .tabset-fade}
+
+##### {-}
+
+<br>
+  
+##### **Hint**{-}
+
+We can use the `head()` and `tail()` functions here.
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Head and Tail of Data}
 
 head(gapminder)
 
 tail(gapminder)
 
 ```
+  
+<br>
 
-4. What is the minimum and maximum gdpPercap? How many NAs are there for fertility? How many observations do we have for Africa?
 
-```{r Data Summary, eval = FALSE}
+#### 4. What is the minimum and maximum gdpPercap? How many NAs are there for fertility? How many observations do we have for Africa?{- .tabset .tabset-fade .tabset-fade}
+
+##### {-}
+
+<br>
+  
+##### **Hint**{-}
+
+These questions can all be answered using the `summary()` function.
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Data Summary}
 
 summary(gapminder)
 
 ```
 
-5. What years are covered in the data frame?
+<br>
 
-```{r Unique years, eval = FALSE}
+
+#### 5. What years are covered in the data frame?{- .tabset .tabset-fade .tabset-fade}
+
+##### {-}
+
+<br>
+  
+##### **Hint**{-}
+
+The `unique()` function should come in handy here.
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Unique years}
 
 unique(gapminder$year)
 
 ```
+  
+<br>
 
-6. How many countries are in our data frame?
 
-```{r Unique countries, eval = FALSE}
+#### 6. How many countries are in our data frame?{- .tabset .tabset-fade .tabset-fade}
 
-unique(gapminder$country)
+##### {-}
+
+<br>
+  
+##### **Hint**{-}
+
+We can use the `unique()` function again here.
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Unique countries}
+
+length(unique(gapminder$country))
 
 ```
+
+`length()` returns the length of its argument, and hence the number of unique countries in the dataframe.
+
+<br>
 
 
 ## Extracting Information 
@@ -1002,10 +1194,11 @@ Why might this be preferred to referencing columns by number?
 
 ### Exercises
 
+Fill in the code chunks to answer the following questions.
 
-1. Extract all rows from the column `pop` and save it in a new object called `pop`
+#### 1. Extract all rows from the column `pop` and save it in a new object called `pop` {- .tabset .tabset-fade .tabset-fade}
 
-Hint: look back to how we selected row 1 and all columns. 
+##### **Exercise**{-}
 
 ```{r Select the column pop, eval = FALSE}
 
@@ -1013,7 +1206,27 @@ pop <- gapminder[]
 
 ```
 
-2. Extract the 5th row and 6th column from the dataset
+<br>
+  
+##### **Hint**{-}
+
+Hint: look back to how we selected row 1 and all columns.
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Select the column pop A, eval = TRUE}
+
+pop <- gapminder[, "pop"]
+
+```  
+
+<br>
+
+#### 2. Extract the element in the 5th row and 6th column from the dataset{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Extract 5th row and 6th column, eval = FALSE}
 
@@ -1021,12 +1234,30 @@ gapminder[]
 
 ```
 
+<br>
+  
+##### **Hint**{-}
+
+Look back at how to select a single value.
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Extract 5th row and 6th column A, eval = TRUE}
+
+gapminder[5,6]
+
+```  
+
+<br>
+
+#### {-}
 **Bonus**
 
-3. Extract all the rows for the columns `gdpPercap` and `pop`.
+#### 3. Extract all the rows for the columns `gdpPercap` and `pop`.{- .tabset .tabset-fade .tabset-fade}
 
-Hint: look back to how we selected row 1 and all columns. 
-
+##### **Exercise**{-}
 
 ```{r Select columns gdpPercap and pop, eval = FALSE}
 
@@ -1034,13 +1265,52 @@ gapminder[]
 
 ```
 
-4. Extract rows 5, 20, and 44 from the column `lifeExp` and save it in a new data frame called `sub_lifeExp`
+<br>
+  
+##### **Hint**{-}
+
+Look back to how we selected row 1 and all columns.
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Select columns gdpPercap and pop A, eval = TRUE}
+
+gapminder[, c("gdpPercap", "pop")]
+
+```
+ 
+<br>
+
+#### 4. Extract rows 5, 20, and 44 from the column `lifeExp` and save it in a new data frame called `sub_lifeExp`.{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Extract rows 5 and 20 and 44 from col lifeExp, eval = FALSE}
 
  <- gapminder[]
 
 ```
+
+<br>
+  
+##### **Hint**{-}
+
+Look back at how to select several rows.
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Extract rows 5 and 20 and 44 from col lifeExp A, eval = TRUE}
+
+sub_lifeExp <- gapminder[c(5, 20, 44), "lifeExp"]
+
+sub_lifeExp
+```
+  
+<br>
 
 
 ## Data subsetting and summarising using `dplyr`:
@@ -1101,8 +1371,9 @@ head(lifeExp_by_country)
 
 ### **Exercises**
 
-1. Run the following line of code, what does the minus do?
+#### 1. Run the following line of code, what does the minus do?{- .tabset .tabset-fade .tabset-fade}
 
+##### **Exercise**{-}
 
 ```{r Using - to remove columns, eval = FALSE}
 
@@ -1111,25 +1382,81 @@ gapminder %>%
 
 ```
 
-2. Select the columns `country`, `continent` and `gdpPercap` from the data frame. 
+<br>
+
+##### **Show Answer**{-}
+
+The minus inverts the selection. That is, it selects every column **except** the named ones.
+
+```{r Using - to remove columns A, eval = TRUE}
+
+gapminder %>%
+  select(-c(lifeExp, country))
+
+```
+
+<br>
+
+#### 2. Select the columns `country`, `continent` and `gdpPercap` from the data frame.{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Select the columns country, continent and gdpPercap using select, eval = FALSE}
 
 gapminder %>%
 
+```
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Select the columns country, continent and gdpPercap using select A, eval = TRUE}
+
+gapminder %>% select("country", "continent", "gdpPercap")
 
 ```
 
-**Extra Credit**
+<br>
 
-3. Write code for two ways you can select all the columns except for year.
+####**Extra Credit**{-}
+
+#### 3. Write code for two ways you can select all the columns except for year.{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Write code for two ways to select all columns but year, eval = FALSE}
 
 gapminder %>%
 
-
 ```
+
+<br>
+  
+##### **Hint**{-}
+
+Consider what we learned in the first exercise.
+
+<br>
+
+##### **Show Answer**{-}
+
+Option 1
+```{r Write code for two ways to select all columns but year A1}
+
+gapminder %>%
+  select(c("country", "continent", "lifeExp", 
+           "pop", "gdpPercap", "infant_mortality", 
+           "fertility"))
+```
+
+Option 2
+```{r Write code for two ways to select all columns but year A2}
+
+gapminder %>%
+  select(-year)
+```
+<br>
 
 ### filter
 
@@ -1187,7 +1514,9 @@ gapminder %>%
 
 ### **Exercises**
 
-1. What do these lines of code filter the data for?
+#### 1. What do these lines of code filter the data for?{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r What does this code filter for, eval = FALSE}
 
@@ -1196,16 +1525,55 @@ gapminder %>%
 
 ```
 
+<br>
 
-2. Filter the data so that you only get entries for countries in "Asia" where the "lifeExp" was below 35  
+##### **Show Answer**{-}
+
+It filters for the European records where the life expectancy is greater than 70.
+
+```{r What does this code filter for A}
+
+gapminder %>%
+  filter(continent == "Europe", lifeExp > 70)
+
+```
+
+<br>
+
+
+#### 2. Filter the data so that you only get entries for countries in "Asia" where the "lifeExp" was below 35 {- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Filter the data for countries in Asia where lifeExp is less than 35, eval = FALSE}
 
 gapminder %>%
   
 ```
+ 
+<br>
+  
+##### **Hint**{-}
 
-3. Filter the data so that you only get entries where the gdpPercap was equal to 1000 or less. 
+You could start with the code in the previous exercise. How would you adapt this for these new constraints?
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Filter the data for countries in Asia where lifeExp is less than 35 A}
+
+gapminder %>%
+  filter(continent == "Asia", lifeExp < 35)
+  
+```
+
+<br>
+
+
+#### 3. Filter the data so that you only get entries where the gdpPercap was equal to 1000 or less.{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Filter the data so that you only get entries where gdpPercap is equal to 1000 or less, eval = FALSE}
 
@@ -1213,9 +1581,31 @@ gapminder %>%
   
 ```
 
-**Extra Credit**
+<br>
+  
+##### **Hint**{-}
 
-4. Filter the data using `%in%` to get the countries "Chile", "Argentina", "Uruguay", and "Peru" and only years greater than or equal to 1992. 
+Be wary of which logical operator you use (`<` or `<=`).
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Filter the data so that you only get entries where gdpPercap is equal to 1000 or less A}
+
+gapminder %>%
+  filter(gdpPercap <= 1000)
+  
+```
+
+<br>
+
+
+####**Extra Credit**{-}
+
+#### 4. Filter the data to get the countries "Chile", "Argentina", "Uruguay", and "Peru" and only years greater than or equal to 1992.{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Filter the data for Chile Argentina Uruguay and Peru for years greater than or equal to 1992, eval = FALSE}
 
@@ -1224,7 +1614,28 @@ gapminder %>%
 
 ```
 
-5. Filter the data using `!=` to include the data from all continents apart from Europe. 
+<br>
+  
+##### **Hint**{-}
+
+We can use `%in%` to filter rows from a set of countries of interest.
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Filter the data for Chile Argentina Uruguay and Peru for years greater than or equal to 1992 A}
+
+gapminder %>%
+  filter(country %in% c("Chile", "Argentina", "Uruguay", "Peru") & year >= 1992)
+
+```
+
+<br>
+
+#### 5. Filter the data to include the data from all continents apart from Europe.{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Filter the data to inclue data from all continents apart from Europe, eval = FALSE}
 
@@ -1232,6 +1643,24 @@ gapminder %>%
 
 ```
 
+<br>
+  
+##### **Hint**{-}
+
+Use `!=` to filter for when a column does **not** equal a value.
+<br>
+
+##### **Show Answer**{-}
+
+```{r Filter the data to inclue data from all continents apart from Europe A}
+
+gapminder %>%
+  filter(continent != "Europe")
+
+```
+
+<br>
+ 
 ### summarise()
 
 * `summarise()` uses existing R functions to calculate summary statistics. 
@@ -1282,7 +1711,9 @@ We can also calculate multiple summary statistics at the same time, separating e
 
 ### **Exercises:**
 
-1. What does the following bit of code do? 
+#### 1. What does the following bit of code do?{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r What does the following group_by summarise code do, eval = FALSE}
 
@@ -1290,11 +1721,26 @@ gapminder %>%
       group_by(continent, year) %>%
       summarise(mean_gdpPercap = mean(gdpPercap))
 
-
 ```
 
-2. Group the data by country and create two new variables which summarise the minimum and maximum population sizes. 
+<br>
 
+##### **Show Answer**{-}
+It groups the data by continent and year and then finds the mean gdpPercap in these groups.
+
+```{r What does the following group_by summarise code do A}
+
+gapminder %>%
+      group_by(continent, year) %>%
+      summarise(mean_gdpPercap = mean(gdpPercap))
+
+```
+  
+<br>
+
+#### 2. Group the data by country and create two new variables which summarise the minimum and maximum population sizes.{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Group the data by country and create two new variables which summarise the minimum and maximum pop, eval = FALSE}
 
@@ -1302,15 +1748,57 @@ gapminder %>%
           
 ```
 
+<br>
+  
+##### **Hint**{-}
+The functions `min()` and `max()` should come in handy here.
+<br>
+
+##### **Show Answer**{-}
+
+```{r Group the data by country and create two new variables which summarise the minimum and maximum pop A}
+
+gapminder %>%
+  group_by(country) %>%
+  summarise(min_pop = min(pop),
+            max_pop = max(pop))
+          
+```
+  
+<br>
+
 **Bonus**
 
-3. Group the data by continent and year. Summarise the maximum and minimum population.
+#### 3. Group the data by continent and year. Summarise the maximum and minimum population.{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Summarise maximum and Minimum population by continent and year, eval = FALSE}
 
 gapminder %>%
           
 ```
+
+<br>
+  
+##### **Hint**{-}
+
+You can pass more than one column name to the `group_by` function.
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Summarise maximum and Minimum population by continent and year A}
+
+gapminder %>%
+  group_by(continent, year) %>%
+  summarise(min_pop = min(pop),
+            max_pop = max(pop))
+          
+```
+  
+<br>
 
 
 ### The pipe function %>%
@@ -1520,7 +2008,9 @@ gapminder %>%
 
 ### **Exercises**
 
-1. What does the following bit of code do?
+#### 1. What does the following bit of code do?{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r 1. Select 2. filter 3. group_by and 4. summarise, eval = FALSE}
 
@@ -1536,8 +2026,36 @@ gapminder %>%
 
 ```
 
+<br>
+  
+##### **Hint**{-}
+This example combines all of the functionality we have covered in the previous sections.
 
-2. How many countries had a higher relative gdp per capita than the United Kindom per year?
+<br>
+
+##### **Show Answer**{-}
+
+This code first **selects** only the `country` and `gdpPercap_rel` columns. It then **filters** for the four specific countries before **grouping by** country and **summarising** the min, max and mean `gdpPercap_rel` for each country.
+
+```{r 1. Select 2. filter 3. group_by and 4. summarise A}
+
+gapminder %>%
+  select(country, gdpPercap_rel) %>%
+  filter(country %in% c("Argentina", "Chile", "Peru", "Brazil")) %>%
+  group_by(country) %>%
+  summarise(
+            max_gdp = max(gdpPercap_rel), 
+            min_gdp = min(gdpPercap_rel), 
+            mean_gdp = mean(gdpPercap_rel)
+            )
+
+```
+
+<br>
+
+#### 2. How many countries had a higher relative gdp per capita than the United Kindom per year?{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r How many countries had a higher relative gdp per capita, eval = FALSE}
 
@@ -1548,7 +2066,30 @@ gapminder %>%
 
 ```
 
-3. Which countries have a higher gdp per capita than the UK? Fill in the blanks
+<br>
+  
+##### **Hint**{-}
+
+The code currently counts all entries in the dataframe where the relative gdp per capita is higher than the UK's, including a seperate count for each year a country appeared. How could we group the data so as the results are **per year**?
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r How many countries had a higher relative gdp per capita A}
+
+gapminder %>%
+  group_by(year) %>%
+  filter(gdpPercap_rel > 1) %>%
+  summarise(count = n())
+
+```
+  
+<br>
+
+#### 3. Which countries had a higher gdp per capita than the UK in 2007? Fill in the blanks.{- .tabset .tabset-fade .tabset-fade}
+
+##### **Exercise**{-}
 
 ```{r Which countries had a higher gdp per capita than the UK, eval = FALSE}
 
@@ -1558,6 +2099,29 @@ gapminder %>%
   unique()
 
 ```
+
+<br>
+  
+##### **Hint**{-}
+
+We need to filter by two conditions for this one.
+
+<br>
+
+##### **Show Answer**{-}
+
+```{r Which countries had a higher gdp per capita than the UK A}
+
+gapminder %>%
+  filter(gdpPercap_rel > 1, year == 2007) %>%
+  select(country) %>%
+  unique()
+
+```
+
+<br>
+
+
 
 ### Answers to our poll 
 
