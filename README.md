@@ -8,7 +8,7 @@
 
 **Course Summary**
 
-Designed for statistical analysis and reporting, R is a powerful tool for data analysis. This course focuses on the application of key data skills, providing opportunities to build confidence, independence, and resilience. This 1 day course will introduce you to the building blocks of R including objects, vectors, and data frames and will examine common data types (e.g. character, factor). During the course we will also cover data manipulation using dplyr and data visualisation using ggplot with examples from the gapminder dataset. 
+Designed for statistical analysis and reporting, R is a powerful tool for data analysis. This course focuses on the application of key data skills, providing opportunities to build confidence, independence, and resilience. This 2 day course will introduce you to the building blocks of R including objects, vectors, and data frames and will examine common data types (e.g. character, factor). During the course we will also cover data manipulation using dplyr and data visualisation using ggplot with examples from the gapminder dataset. 
 
 **Course Objective**
 
