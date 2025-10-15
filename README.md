@@ -1,3 +1,7 @@
+**📁 Repository Archived**
+
+This repository has been archived as part of ongoing changes to align with ONS GitHub usage policies. No further updates will be made.
+
 # Introduction to R
 
 ### Version 1.1
